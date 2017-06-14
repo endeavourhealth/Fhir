@@ -17,6 +17,7 @@ public abstract class FhirUri
     public final static String IDENTIFIER_SYSTEM_HOMERTON_CNN_PATIENT_ID = "http://endeavourhealth.org/fhir/id/v2-local-patient-id/homerton-cnn";
     public final static String IDENTIFIER_SYSTEM_HOMERTON_MRN_PATIENT_ID = "http://endeavourhealth.org/fhir/id/v2-local-patient-id/homerton-mrn";
     public final static String IDENTIFIER_SYSTEM_HOMERTON_PERSONID_PATIENT_ID = "http://endeavourhealth.org/fhir/id/v2-local-patient-id/homerton-personid";
+    public final static String IDENTIFIER_SYSTEM_BARTS_MRN_PATIENT_ID = "http://endeavourhealth.org/fhir/id/v2-local-patient-id/barts-mrn";
     public final static String IDENTIFIER_SYSTEM_NEWHAM_CNN_PATIENT_ID = "http://endeavourhealth.org/fhir/id/v2-local-patient-id/newham-cnn";
     public final static String IDENTIFIER_SYSTEM_NEWHAM_MRN_PATIENT_ID = "http://endeavourhealth.org/fhir/id/v2-local-patient-id/newham-mrn";
     public final static String IDENTIFIER_SYSTEM_HOMERTON_FIN_EPISODE_ID = "http://endeavourhealth.org/fhir/id/v2-local-episode-id/homerton-fin";
