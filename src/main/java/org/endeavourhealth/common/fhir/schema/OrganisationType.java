@@ -77,13 +77,19 @@ public enum OrganisationType {
         this.description = description;
     }
 
-    public static OrganisationType fromDescription(String v) {
-        for (OrganisationType c: OrganisationType.values()) {
-            if (c.description.equalsIgnoreCase(v)) {
+    public static OrganisationType fromCode(String v) {
+        for (OrganisationType c: OrganisationType.values())
+            if (c.code.equalsIgnoreCase(v))
                 return c;
-            }
-        }
+
         throw new IllegalArgumentException(v);
     }
 
+    public static OrganisationType fromDescription(String v) {
+        for (OrganisationType c: OrganisationType.values())
+            if (c.description.equalsIgnoreCase(v))
+                return c;
+
+        throw new IllegalArgumentException(v);
+    }
 }
