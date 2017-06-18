@@ -33,6 +33,7 @@ public enum OrganisationType {
     NATIONAL_GROUPINGS("RO", "National Groupings", null),
     NHS_SUPPORT_AGENCY("NS", "NHS Support Agency", "RO161"),
     NHS_TRUST("TR", "NHS Trust", "RO197"),
+    NHS_TRUST_SITE("SI", "NHS Trust Site", "RO198"),
     NHS_TRUST_SERVICE("TS", "NHS Trust Service", null),
     NON_NHS_ORGANISATION("NN", "Non-NHS Organisation", "RO157"),
     NI_HEALTH_AND_SOCIAL_CARE_BOARD("NA", "Northern Ireland Health & Social Care Board", null),
