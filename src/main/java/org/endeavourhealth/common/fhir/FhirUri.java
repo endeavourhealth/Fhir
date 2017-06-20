@@ -22,6 +22,8 @@ public abstract class FhirUri
     public final static String IDENTIFIER_SYSTEM_NEWHAM_MRN_PATIENT_ID = "http://endeavourhealth.org/fhir/id/v2-local-patient-id/newham-mrn";
     public final static String IDENTIFIER_SYSTEM_HOMERTON_FIN_EPISODE_ID = "http://endeavourhealth.org/fhir/id/v2-local-episode-id/homerton-fin";
     public final static String IDENTIFIER_SYSTEM_HOMERTON_ATTENDANCE_NO_EPISODE_ID = "http://endeavourhealth.org/fhir/id/v2-local-episode-id/homerton-attendanceno";
+    public final static String IDENTIFIER_SYSTEM_BARTS_FIN_EPISODE_ID = "http://endeavourhealth.org/fhir/id/v2-local-episode-id/barts-fin";
+    public final static String IDENTIFIER_SYSTEM_BARTS_VISIT_NO_EPISODE_ID = "http://endeavourhealth.org/fhir/id/v2-local-episode-id/barts-visitno";
     public final static String IDENTIFIER_SYSTEM_HOMERTON_PRIMARY_PRACTITIONER_ID = "http://endeavourhealth.org/fhir/id/v2-local-practitioner-id/homerton-personnelprimaryid";
 
     public final static String CODE_SYSTEM_READ2 = "http://read.info/readv2"; //see https://github.com/HL7-UK/System-Identifiers
