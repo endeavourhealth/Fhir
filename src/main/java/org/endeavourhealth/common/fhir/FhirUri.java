@@ -9,6 +9,7 @@ public abstract class FhirUri
     public final static String IDENTIFIER_SYSTEM_CONSULTANT_CODE = "http://endeavourhealth.org/fhir/Identifier/consultant-code";
     public final static String IDENTIFIER_SYSTEM_DOCTOR_INDEX_NUMBER = "http://endeavourhealth.org/fhir/Identifier/doctor-index-number";
     public final static String IDENTIFIER_SYSTEM_GMP_PPD_CODE = "http://endeavourhealth.org/fhir/Identifier/gmp-ppd-code";
+    public final static String IDENTIFIER_SYSTEM_GDP_NUMBER = "http://endeavourhealth.org/fhir/Identifier/gdp-number";
     public final static String IDENTIFIER_SYSTEM_UBRN = "http://endeavourhealth.org/fhir/Identifier/ubrn";
     public final static String IDENTIFIER_SYSTEM_EMIS_PATIENT_GUID = "http://emishealth.com/identifier/patient-guid"; //placeholder
     public final static String IDENTIFIER_SYSTEM_EMIS_PATIENT_NUMBER = "http://emishealth.com/identifier/patient-number"; //placeholder
@@ -25,6 +26,8 @@ public abstract class FhirUri
     public final static String IDENTIFIER_SYSTEM_BARTS_FIN_EPISODE_ID = "http://endeavourhealth.org/fhir/id/v2-local-episode-id/barts-fin";
     public final static String IDENTIFIER_SYSTEM_BARTS_VISIT_NO_EPISODE_ID = "http://endeavourhealth.org/fhir/id/v2-local-episode-id/barts-visitno";
     public final static String IDENTIFIER_SYSTEM_HOMERTON_PRIMARY_PRACTITIONER_ID = "http://endeavourhealth.org/fhir/id/v2-local-practitioner-id/homerton-personnelprimaryid";
+    public final static String IDENTIFIER_SYSTEM_BARTS_ORG_DR_NUMBER = "http://endeavourhealth.org/fhir/id/v2-local-practitioner-id/barts-org-dr-number";
+    public final static String IDENTIFIER_SYSTEM_BARTS_PERSONNEL_ID = "http://endeavourhealth.org/fhir/id/v2-local-practitioner-id/barts-personnel-id";
 
     public final static String CODE_SYSTEM_READ2 = "http://read.info/readv2"; //see https://github.com/HL7-UK/System-Identifiers
     public final static String CODE_SYSTEM_SNOMED_CT = "http://snomed.info/sct"; //see https://github.com/HL7-UK/System-Identifiers
