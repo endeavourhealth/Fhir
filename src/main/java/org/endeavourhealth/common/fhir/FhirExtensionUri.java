@@ -101,4 +101,5 @@ public class FhirExtensionUri {
     public final static String QUANTITY_FREE_TEXT = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-medication-quantity-text-extension";
     public final static String IS_REVIEW = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-problem-review";
     public final static String IS_CONFIDENTIAL = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-confidential";
+    public final static String HL7_MESSAGE_TYPE = "http://hl7.org/fhir/StructureDefinition/hl7-message-type";
 }
