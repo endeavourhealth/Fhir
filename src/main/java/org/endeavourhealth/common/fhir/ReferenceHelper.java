@@ -57,8 +57,14 @@ public class ReferenceHelper {
         if (referenceComponents == null)
             return null;
 
-        if (!referenceComponents.getResourceType().equals(resourceType))
+        //if a null resource type is passed in, then it shouldn't check it at all
+        if (resourceType != null
+            && !referenceComponents.getResourceType().equals(resourceType)) {
             return null;
+        }
+
+        /*if (!referenceComponents.getResourceType().equals(resourceType))
+            return null;*/
 
         return referenceComponents.getId();
     }
