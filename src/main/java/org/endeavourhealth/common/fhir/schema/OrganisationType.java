@@ -1,5 +1,6 @@
 package org.endeavourhealth.common.fhir.schema;
 
+import org.apache.commons.lang3.StringUtils;
 import org.endeavourhealth.common.fhir.FhirValueSetUri;
 
 public enum OrganisationType {
@@ -83,6 +84,9 @@ public enum OrganisationType {
     }
 
     public static OrganisationType fromCode(String v) {
+        if (StringUtils.isBlank(v))
+            return null;
+
         for (OrganisationType c: OrganisationType.values())
             if (c.code.equalsIgnoreCase(v))
                 return c;
@@ -91,6 +95,9 @@ public enum OrganisationType {
     }
 
     public static OrganisationType fromRoleCode(String roleCode) {
+        if (StringUtils.isBlank(roleCode))
+            return null;
+
         for (OrganisationType organisationType : OrganisationType.values())
             if (organisationType.roleCode != null)
                 if (organisationType.roleCode.equalsIgnoreCase(roleCode))
@@ -100,6 +107,9 @@ public enum OrganisationType {
     }
 
     public static OrganisationType fromDescription(String v) {
+        if (StringUtils.isBlank(v))
+            return null;
+
         for (OrganisationType c: OrganisationType.values())
             if (c.description.equalsIgnoreCase(v))
                 return c;
