@@ -119,9 +119,27 @@ public class CodeableConceptHelper {
     }
 
     public static String findCodingCode(CodeableConcept codeableConcept, String systemUri) {
+        Coding coding = findCoding(codeableConcept, systemUri);
+        if (coding != null) {
+            return coding.getCode();
+        }
+
+        return null;
+    }
+
+    public static String findCodingDisplay(CodeableConcept codeableConcept, String systemUri) {
+        Coding coding = findCoding(codeableConcept, systemUri);
+        if (coding != null) {
+            return coding.getDisplay();
+        }
+
+        return null;
+    }
+
+    public static Coding findCoding(CodeableConcept codeableConcept, String systemUri) {
         for (Coding coding: codeableConcept.getCoding()) {
             if (coding.getSystem().equals(systemUri)) {
-                return coding.getCode();
+                return coding;
             }
         }
 
