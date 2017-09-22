@@ -63,6 +63,7 @@ public class FhirExtensionUri {
     public final static String ENCOUNTER_PATIENT_CLASS_OTHER = "http://hl7.org/fhir/StructureDefinition/encounter-patient-class-other-extension";
     public final static String ENCOUNTER_LOCATION_TYPE = "http://hl7.org/fhir/StructureDefinition/encounter-location-type-extension";
     public final static String ENCOUNTER_ADMISSION_TYPE = "http://hl7.org/fhir/StructureDefinition/encounter-admission-type";
+    public static final String ENCOUNTER_CLASS = "http://hl7.org/fhir/StructureDefinition/encounter-patient-class-other-extension";
 
     //extensions specific to MedicationStatement (profile is MedicationAuthorisation) resource
     public final static String MEDICATION_AUTHORISATION_PRIVATE = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-privateprescription-extension";

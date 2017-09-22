@@ -22,4 +22,7 @@ public class FhirValueSetUri {
     public final static String VALUE_SET_ETHNIC_CATEGORY = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-ethnic-category-extension";
     public final static String VALUE_SET_REFERRAL_PRIORITY = "http://endeavourhealth.org/fhir/ValueSet/primarycare-referral-request-priority";
     public final static String VALUE_SET_REFERRAL_TYPE = "http://endeavourhealth.org/fhir/ValueSet/primarycare-referral-request-type";
+    public static final String VALUE_SET_ENCOUNTER_TYPE_BARTS = "http://endeavourhealth.org/fhir/ValueSet/encounter-type-barts";
+    public static final String VALUE_SET_ENCOUNTER_TYPE_HOMERTON = "http://endeavourhealth.org/fhir/ValueSet/encounter-type-homerton";
+
 }
