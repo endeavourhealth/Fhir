@@ -10,7 +10,8 @@ public enum RegistrationType {
     TEMPORARY("T", "Temporary"),
     PRIVATE("P", "Private"),
     OTHER("O", "Other"),
-    DUMMY("D", "Dummy/Synthetic");
+    DUMMY("D", "Dummy/Synthetic"),
+    COMMUNITY("C", "Community");
 
     private String code = null;
     private String description = null;
