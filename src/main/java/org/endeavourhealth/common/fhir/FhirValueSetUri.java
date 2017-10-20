@@ -9,6 +9,7 @@ public class FhirValueSetUri {
     public final static String VALUE_SET_JOB_ROLE_CODES = "http://fhir.nhs.net/ValueSet/sds-job-role-name-1-0";
     public final static String VALUE_SET_ENCOUNTER_PARTICIPANT_TYPE = "http://hl7.org/fhir/ValueSet/encounter-participant-type";
     public final static String VALUE_SET_MARITAL_STATUS = "http://hl7.org/fhir/ValueSet/marital-status";
+    public final static String VALUE_SET_CONDITION_CATEGORY = "http://hl7.org/fhir/condition-category";
 
     //Endeavour value sets
     public final static String VALUE_SET_REGISTRATION_TYPE = "http://endeavourhealth.org/fhir/ValueSet/primarycare-patient-registration-type";
@@ -26,3 +27,4 @@ public class FhirValueSetUri {
     public static final String VALUE_SET_ENCOUNTER_TYPE_HOMERTON = "http://endeavourhealth.org/fhir/ValueSet/encounter-type-homerton";
 
 }
+
