@@ -66,5 +66,4 @@ public abstract class FhirUri
     public final static String PROFILE_URI_PATIENT = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-patient";
     public final static String PROFILE_URI_EPISODE_OF_CARE = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-episode-of-care";
     public final static String PROFILE_URI_TASK = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-task";
-    public final static String PROFILE_URI_CDS_CODING = "http://endeavourhealth.org/fhir/StructureDefinition/cds-coding"; // Used for Diagnosis and Procedure resources to indicate the context is CDS coding not clinical coding
 }

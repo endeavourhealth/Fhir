@@ -103,4 +103,6 @@ public class FhirExtensionUri {
     public final static String IS_REVIEW = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-problem-review";
     public final static String IS_CONFIDENTIAL = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-confidential";
     public final static String HL7_MESSAGE_TYPE = "http://endeavourhealth.org/fhir/v2-message-type-extension";
+    public final static String RESOURCE_CONTEXT = "http://endeavourhealth.org/fhir/StructureDefinition/context-extension";
+
 }
