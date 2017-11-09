@@ -2,6 +2,7 @@ package org.endeavourhealth.common.fhir;
 
 import com.google.common.base.Strings;
 import org.hl7.fhir.instance.model.Identifier;
+import org.hl7.fhir.instance.model.Organization;
 import org.hl7.fhir.instance.model.Patient;
 
 import java.util.List;
@@ -67,4 +68,10 @@ public class IdentifierHelper {
         return val;
     }
 
+    public static String findOdsCode(Organization organization) {
+        if (organization.hasIdentifier()) {
+            return findIdentifierValue(organization.getIdentifier(), FhirUri.IDENTIFIER_SYSTEM_ODS_CODE);
+        }
+        return null;
+    }
 }
