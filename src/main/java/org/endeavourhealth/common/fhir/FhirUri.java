@@ -14,6 +14,8 @@ public abstract class FhirUri
     public final static String IDENTIFIER_SYSTEM_EMIS_PATIENT_GUID = "http://emishealth.com/identifier/patient-guid"; //placeholder
     public final static String IDENTIFIER_SYSTEM_EMIS_PATIENT_NUMBER = "http://emishealth.com/identifier/patient-number"; //placeholder
     public final static String IDENTIFIER_SYSTEM_EMIS_DOCUMENT_GUID = "http://emishealth.com/identifier/document-guid"; //placeholder
+    public final static String IDENTIFIER_SYSTEM_VISION_PATIENT_GUID = "http://visionhealth.co.uk/identifier/patient-guid"; //placeholder
+    public final static String IDENTIFIER_SYSTEM_VISION_PATIENT_NUMBER = "http://visionhealth.co.uk/identifier/patient-number"; //placeholder
     public final static String IDENTIFIER_SYSTEM_VISION_DOCUMENT_GUID = "http://visionhealth.co.uk/identifier/document-guid"; //placeholder
     public final static String IDENTIFIER_SYSTEM_TPP_PATIENT_ID = "http://tpp-uk.com/identifier/patient-id"; //placeholder
     public final static String IDENTIFIER_SYSTEM_HOMERTON_CNN_PATIENT_ID = "http://endeavourhealth.org/fhir/id/v2-local-patient-id/homerton-cnn";
