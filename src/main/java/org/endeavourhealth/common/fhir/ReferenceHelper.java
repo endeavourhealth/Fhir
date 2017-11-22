@@ -12,21 +12,27 @@ public class ReferenceHelper {
 
     private static final String INTERNAL_REFERENCE_PREFIX = "#";
 
-    public static String createResourceReference(ResourceType resourceType, String id)
-    {
-        return resourceType.toString() + "/" + id;
+    public static String createResourceReference(ResourceType resourceType, String id) {
+        return createResourceReference(resourceType.toString(), id);
     }
 
-    public static Reference createReference(ResourceType resourceType, String id)
-    {
-        if (StringUtils.isBlank(id))
-            throw new IllegalArgumentException("Blank id when creating reference for " + resourceType.toString());
+    public static String createResourceReference(String resourceType, String id) {
+        return resourceType + "/" + id;
+    }
+
+    public static Reference createReference(ResourceType resourceType, String id) {
+        return createReference(resourceType.toString(), id);
+    }
+
+    public static Reference createReference(String resourceType, String id) {
+        if (StringUtils.isBlank(id)) {
+            throw new IllegalArgumentException("Blank id when creating reference for " + resourceType);
+        }
 
         return createReference(createResourceReference(resourceType, id));
     }
 
-    public static Reference createInternalReference(String id)
-    {
+    public static Reference createInternalReference(String id) {
         return createReference(INTERNAL_REFERENCE_PREFIX + id);
     }
 
@@ -50,8 +56,8 @@ public class ReferenceHelper {
     public static String getReferenceId(Reference reference) {
         return getReferenceId(reference, null);
     }
-    public static String getReferenceId(Reference reference, ResourceType resourceType)
-    {
+
+    public static String getReferenceId(Reference reference, ResourceType resourceType) {
         ReferenceComponents referenceComponents = getReferenceComponents(reference);
 
         if (referenceComponents == null)
