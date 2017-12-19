@@ -1,5 +1,6 @@
 package org.endeavourhealth.common.fhir;
 
+import com.google.common.base.Strings;
 import org.apache.commons.lang3.StringUtils;
 import org.endeavourhealth.common.fhir.schema.*;
 import org.hl7.fhir.instance.model.CodeableConcept;
@@ -69,7 +70,13 @@ public class CodeableConceptHelper {
         for (Coding coding: code.getCoding()) {
             if (coding.getSystem().equals(FhirUri.CODE_SYSTEM_SNOMED_CT)
                     || coding.getSystem().equals(FhirUri.CODE_SYSTEM_EMISSNOMED)) {
-                return Long.parseLong(coding.getCode());
+
+                //need to handle there not being a coding
+                String codeValue = coding.getCode();
+                if (!Strings.isNullOrEmpty(codeValue)) {
+                    return Long.parseLong(codeValue);
+                }
+                //return Long.parseLong(coding.getCode());
             }
         }
 
