@@ -2,6 +2,8 @@ package org.endeavourhealth.common.fhir;
 
 import org.hl7.fhir.instance.model.*;
 
+import java.util.Date;
+
 public class ExtensionConverter {
 
     public static Extension createBooleanExtension(String uri, boolean value) {
@@ -14,6 +16,10 @@ public class ExtensionConverter {
 
     public static Extension createIntegerExtension(String uri, Integer value) {
         return createExtension(uri, new IntegerType(value));
+    }
+
+    public static Extension createDateTimeExtension(String uri, Date value) {
+        return createExtension(uri, new DateTimeType(value));
     }
 
     public static Extension createExtension(String uri, Type value) {
@@ -46,5 +52,15 @@ public class ExtensionConverter {
             }
         }
         return null;
+    }
+
+    public static Extension findOrCreateExtension(DomainResource resource, String extensionUrl) {
+        Extension ret = findExtension(resource, extensionUrl);
+        if (ret == null) {
+            ret = new Extension();
+            ret.setUrl(extensionUrl);
+            resource.getExtension().add(ret);
+        }
+        return ret;
     }
 }

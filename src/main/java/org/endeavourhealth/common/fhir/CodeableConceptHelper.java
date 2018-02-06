@@ -96,8 +96,15 @@ public class CodeableConceptHelper {
 
     public static String findOriginalCode(CodeableConcept code) {
         for (Coding coding: code.getCoding()) {
-            if (coding.getSystem().equals(FhirUri.CODE_SYSTEM_READ2)
-                    || coding.getSystem().equals(FhirUri.CODE_SYSTEM_EMIS_CODE)) {
+            //essentially we count it as the "original" code if it's not Snomed
+            String system = coding.getSystem();
+            if (system.equalsIgnoreCase(FhirUri.CODE_SYSTEM_READ2)
+                    || system.equalsIgnoreCase(FhirUri.CODE_SYSTEM_EMIS_CODE)
+                    || system.equalsIgnoreCase(FhirUri.CODE_SYSTEM_ICD10)
+                    || system.equalsIgnoreCase(FhirUri.CODE_SYSTEM_OPCS4)
+                    || system.equalsIgnoreCase(FhirUri.CODE_SYSTEM_CTV3)
+                    || system.equalsIgnoreCase(FhirUri.CODE_SYSTEM_CERNER_CODE_ID)) {
+
                 return coding.getCode();
             }
         }
