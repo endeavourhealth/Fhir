@@ -110,9 +110,13 @@ public class NameConverter
         return sb.toString();
     }
 
-
-
     public static HumanName createHumanName(HumanName.NameUse use, String title, String firstName, String middleNames, String surname) {
+
+        return createHumanName(use, title, firstName, middleNames, surname, "");
+    }
+
+
+    public static HumanName createHumanName(HumanName.NameUse use, String title, String firstName, String middleNames, String surname, String suffix) {
         HumanName ret = new HumanName();
         ret.setUse(use);
 
@@ -137,6 +141,13 @@ public class NameConverter
         if (!Strings.isNullOrEmpty(middleNames)) {
             List<String> v = split(middleNames);
             v.forEach(ret::addGiven);
+        }
+
+        if (!Strings.isNullOrEmpty(suffix)) {
+            List<String> v = split(suffix);
+            v.forEach(ret::addSuffix);
+
+            displayName.append(suffix);
         }
 
         if (!Strings.isNullOrEmpty(title)) {
