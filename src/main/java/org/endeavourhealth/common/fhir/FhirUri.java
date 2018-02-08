@@ -14,6 +14,7 @@ public abstract class FhirUri
     public final static String IDENTIFIER_SYSTEM_EMIS_PATIENT_GUID = "http://emishealth.com/identifier/patient-guid"; //placeholder
     public final static String IDENTIFIER_SYSTEM_EMIS_PATIENT_NUMBER = "http://emishealth.com/identifier/patient-number"; //placeholder
     public final static String IDENTIFIER_SYSTEM_EMIS_DOCUMENT_GUID = "http://emishealth.com/identifier/document-guid"; //placeholder
+    public final static String IDENTIFIER_SYSTEM_EMIS_CDB_NUMBER = "http://emishealth.com/identifier/cdb-number"; //placeholder
     public final static String IDENTIFIER_SYSTEM_VISION_PATIENT_GUID = "http://visionhealth.co.uk/identifier/patient-guid"; //placeholder
     public final static String IDENTIFIER_SYSTEM_VISION_PATIENT_NUMBER = "http://visionhealth.co.uk/identifier/patient-number"; //placeholder
     public final static String IDENTIFIER_SYSTEM_VISION_DOCUMENT_GUID = "http://visionhealth.co.uk/identifier/document-guid"; //placeholder
@@ -32,6 +33,7 @@ public abstract class FhirUri
     public final static String IDENTIFIER_SYSTEM_BARTS_ORG_DR_NUMBER = "http://endeavourhealth.org/fhir/id/v2-local-practitioner-id/barts-org-dr-number";
     public final static String IDENTIFIER_SYSTEM_BARTS_PERSONNEL_ID = "http://endeavourhealth.org/fhir/id/v2-local-practitioner-id/barts-personnel-id";
     public final static String IDENTIFIER_SYSTEM_CONDITION_CATEGORY = "http://hl7.org/fhir/condition-category";
+
 
     public final static String CODE_SYSTEM_READ2 = "http://read.info/readv2"; //see https://github.com/HL7-UK/System-Identifiers
     public final static String CODE_SYSTEM_SNOMED_CT = "http://snomed.info/sct"; //see https://github.com/HL7-UK/System-Identifiers
