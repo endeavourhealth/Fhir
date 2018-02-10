@@ -34,6 +34,8 @@ public class FhirExtensionUri {
     public final static String PROBLEM_SIGNIFICANCE = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-problem-significance-extension";
     public final static String PROBLEM_ASSOCIATED_RESOURCE = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-problem-associated-extension";
     public final static String PROBLEM_RELATED = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-problem-related-extension";
+    public final static String _PROBLEM_RELATED__TARGET = "target";
+    public final static String _PROBLEM_RELATED__TYPE = "type";
     public final static String PROBLEM_EPISODICITY = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-problem-episodicity";
 
     //extensions specific to Condition resources
