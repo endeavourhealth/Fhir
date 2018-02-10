@@ -1,6 +1,8 @@
 package org.endeavourhealth.common.fhir.schema;
 
 import org.endeavourhealth.common.fhir.FhirValueSetUri;
+import org.hl7.fhir.instance.model.CodeableConcept;
+import org.hl7.fhir.instance.model.Coding;
 
 public enum ProblemSignificance {
 
@@ -26,5 +28,25 @@ public enum ProblemSignificance {
     ProblemSignificance(String code, String description) {
         this.code = code;
         this.description = description;
+    }
+
+    public static ProblemSignificance fromCode(String v) {
+        for (ProblemSignificance c: ProblemSignificance.values()) {
+            if (c.code.equals(v)) {
+                return c;
+            }
+        }
+        throw new IllegalArgumentException(v);
+    }
+
+    public static ProblemSignificance fromCodeableConcept(CodeableConcept codeableConcept) {
+        if (codeableConcept.hasCoding()) {
+            for (Coding coding: codeableConcept.getCoding()) {
+                if (coding.getSystem().equals(FhirValueSetUri.VALUE_SET_PROBLEM_SIGNIFICANCE)) {
+                    return fromCode(coding.getCode());
+                }
+            }
+        }
+        return null;
     }
 }

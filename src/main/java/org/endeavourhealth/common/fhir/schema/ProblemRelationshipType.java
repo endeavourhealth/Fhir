@@ -1,6 +1,8 @@
 package org.endeavourhealth.common.fhir.schema;
 
 import org.endeavourhealth.common.fhir.FhirValueSetUri;
+import org.hl7.fhir.instance.model.CodeableConcept;
+import org.hl7.fhir.instance.model.Coding;
 
 public enum ProblemRelationshipType {
 
@@ -26,5 +28,25 @@ public enum ProblemRelationshipType {
     ProblemRelationshipType(String code, String description) {
         this.code = code;
         this.description = description;
+    }
+
+    public static ProblemRelationshipType fromCode(String v) {
+        for (ProblemRelationshipType c: ProblemRelationshipType.values()) {
+            if (c.code.equals(v)) {
+                return c;
+            }
+        }
+        throw new IllegalArgumentException(v);
+    }
+
+    public static ProblemRelationshipType fromCodeableConcept(CodeableConcept codeableConcept) {
+        if (codeableConcept.hasCoding()) {
+            for (Coding coding: codeableConcept.getCoding()) {
+                if (coding.getSystem().equals(FhirValueSetUri.VALUE_SET_PROBLEM_RELATIONSHIP_TYPE)) {
+                    return fromCode(coding.getCode());
+                }
+            }
+        }
+        return null;
     }
 }
