@@ -114,4 +114,16 @@ public class ExtensionConverter {
         }
         return ret;
     }
+
+    public static Extension removeExtension(IBaseHasExtensions resource, String extensionUrl) {
+        for (int i=0; i<resource.getExtension().size(); i++) {
+            IBaseExtension extension = resource.getExtension().get(i);
+            if (extension.getUrl().equals(extensionUrl)) {
+                resource.getExtension().remove(i);
+                return (Extension)extension;
+            }
+        }
+
+        return null;
+    }
 }

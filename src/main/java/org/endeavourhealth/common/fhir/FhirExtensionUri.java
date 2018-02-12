@@ -37,6 +37,7 @@ public class FhirExtensionUri {
     public final static String _PROBLEM_RELATED__TARGET = "target";
     public final static String _PROBLEM_RELATED__TYPE = "type";
     public final static String PROBLEM_EPISODICITY = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-problem-episodicity";
+    public final static String PROBLEM_ADDITIONAL_NOTES = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-problem-additional-notes";
 
     //extensions specific to Condition resources
     public final static String CONDITION_PART_OF_PROBLEM = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-condition-partofproblemepisode-extension";

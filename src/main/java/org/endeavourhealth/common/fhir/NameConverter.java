@@ -3,6 +3,7 @@ package org.endeavourhealth.common.fhir;
 import com.google.common.base.Strings;
 import org.apache.commons.lang3.StringUtils;
 import org.hl7.fhir.instance.model.HumanName;
+import org.hl7.fhir.instance.model.StringType;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -120,22 +121,14 @@ public class NameConverter
         HumanName ret = new HumanName();
         ret.setUse(use);
 
-        //build up full name in standard format; SURNAME, firstname (title)
-        StringBuilder displayName = new StringBuilder();
-
         if (!Strings.isNullOrEmpty(surname)) {
             List<String> v = split(surname);
             v.forEach(ret::addFamily);
-
-            displayName.append(surname.toUpperCase());
         }
 
         if (!Strings.isNullOrEmpty(firstName)) {
             List<String> v = split(firstName);
             v.forEach(ret::addGiven);
-
-            displayName.append(", ");
-            displayName.append(firstName);
         }
 
         if (!Strings.isNullOrEmpty(middleNames)) {
@@ -146,22 +139,58 @@ public class NameConverter
         if (!Strings.isNullOrEmpty(suffix)) {
             List<String> v = split(suffix);
             v.forEach(ret::addSuffix);
-
-            displayName.append(suffix);
         }
 
         if (!Strings.isNullOrEmpty(title)) {
             List<String> v = split(title);
             v.forEach(ret::addPrefix);
+        }
 
+        String displayName = generateDisplayName(ret);
+        ret.setText(displayName);
+
+        return ret;
+    }
+
+    public static String generateDisplayName(HumanName humanName) {
+
+        //build up full name in standard format; SURNAME, firstname (title)
+        StringBuilder displayName = new StringBuilder();
+
+        if (humanName.hasFamily()) {
+            for (StringType st: humanName.getFamily()) {
+                String s = st.toString().toUpperCase();
+                displayName.append(s);
+            }
+        }
+
+        if (humanName.hasGiven()) {
+            if (displayName.length() > 0) {
+                displayName.append(", ");
+            }
+            for (StringType st: humanName.getGiven()) {
+                String s = st.toString();
+                displayName.append(s);
+            }
+        }
+
+        if (humanName.hasSuffix()) {
+            for (StringType st: humanName.getSuffix()) {
+                String s = st.toString();
+                displayName.append(s);
+            }
+        }
+
+        if (humanName.hasPrefix()) {
             displayName.append(" (");
-            displayName.append(title);
+            for (StringType st: humanName.getPrefix()) {
+                String s = st.toString();
+                displayName.append(s);
+            }
             displayName.append(")");
         }
 
-        ret.setText(displayName.toString());
-
-        return ret;
+        return displayName.toString();
     }
 
     private static List<String> split(String s) {
