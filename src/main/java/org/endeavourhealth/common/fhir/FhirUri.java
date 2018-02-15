@@ -51,7 +51,7 @@ public abstract class FhirUri
     public final static String IDENTIFIER_SYSTEM_CERNER_PASSPORT_NUMBER = "http://endeavourhealth.org/fhir/id/v2-local-episode-id/cerner-passport-number";
     public final static String IDENTIFIER_SYSTEM_CERNER_V400_OCF_PATIENT = "http://endeavourhealth.org/fhir/id/v2-local-episode-id/cerner-v400-classic-patient-id";
     public final static String IDENTIFIER_SYSTEM_CERNER_PERSON_NAME = "http://endeavourhealth.org/fhir/id/v2-local-episode-id/cerner-person-name";
-    public final static String IDENTIFIER_SYSTEM_CERNER_PLACER_HOLDER = "http://endeavourhealth.org/fhir/id/v2-local-episode-id/cerner-placer-holder";
+    public final static String IDENTIFIER_SYSTEM_CERNER_PLACER_ORDER = "http://endeavourhealth.org/fhir/id/v2-local-episode-id/cerner-placer-order";
     public final static String IDENTIFIER_SYSTEM_CERNER_STATE_HEALTH_NUMBER = "http://endeavourhealth.org/fhir/id/v2-local-episode-id/cerner-state-health-number";
     public final static String IDENTIFIER_SYSTEM_CERNER_UNOS = "http://endeavourhealth.org/fhir/id/v2-local-episode-id/cerner-unos";
     public final static String IDENTIFIER_SYSTEM_CERNER_HNA_PERSON_ID = "http://endeavourhealth.org/fhir/id/v2-local-episode-id/cerner-hna-person-id";
