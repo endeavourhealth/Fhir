@@ -35,6 +35,8 @@ public abstract class FhirUri
     public final static String IDENTIFIER_SYSTEM_BARTS_ORG_DR_NUMBER = "http://endeavourhealth.org/fhir/id/v2-local-practitioner-id/barts-org-dr-number";
     public final static String IDENTIFIER_SYSTEM_BARTS_PERSONNEL_ID = "http://endeavourhealth.org/fhir/id/v2-local-practitioner-id/barts-personnel-id";
     public final static String IDENTIFIER_SYSTEM_CONDITION_CATEGORY = "http://hl7.org/fhir/condition-category";
+    public final static String IDENTIFIER_SYSTEM_BARTS_SPECIALTY = "http://endeavourhealth.org/fhir/id/v2-local-specialty-id/barts-specialty-id";
+    public final static String IDENTIFIER_SYSTEM_BARTS_TREATMENT_FUNCTION = "http://endeavourhealth.org/fhir/id/v2-local-treatment-function-id/barts-treatment-function-id";
 
 
     public final static String CODE_SYSTEM_READ2 = "http://read.info/readv2"; //see https://github.com/HL7-UK/System-Identifiers
