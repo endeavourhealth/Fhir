@@ -1,8 +1,6 @@
 package org.endeavourhealth.common.fhir;
 
-import org.hl7.fhir.instance.model.Duration;
-import org.hl7.fhir.instance.model.Quantity;
-import org.hl7.fhir.instance.model.SimpleQuantity;
+import org.hl7.fhir.instance.model.*;
 
 import java.math.BigDecimal;
 
@@ -33,6 +31,25 @@ public class QuantityHelper {
 
         SimpleQuantity q = new SimpleQuantity();
         q.setValue(BigDecimal.valueOf(value)).setUnit(unit);
+        return q;
+    }
+
+    public static SimpleQuantity createSimpleQuantity(Double value, String unit, String system, String code) {
+        if (value == null) {
+            return null;
+        }
+        SimpleQuantity q = new SimpleQuantity();
+        q.setValue(BigDecimal.valueOf(value)).setUnit(unit).setSystem(system).setCode(code);
+        return q;
+    }
+
+    public static SimpleQuantity createSimpleQuantity(Double value, String unit, Quantity.QuantityComparator comparator,
+                                                      String system, String code ) {
+        if (value == null) {
+            return null;
+        }
+        SimpleQuantity q = new SimpleQuantity();
+        q.setValue(BigDecimal.valueOf(value)).setUnit(unit).setSystem(system).setCode(code).setComparator(comparator);
         return q;
     }
 
