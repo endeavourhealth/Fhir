@@ -60,8 +60,7 @@ public class NameConverter
     private static HumanName createName(HumanName.NameUse use, String title, String forenames, String surname)
     {
         HumanName name = new HumanName()
-                .setUse(use)
-                .setText(buildDisplayFormat(title, forenames, surname));
+                .setUse(use);
 
         List<String> titleList = split(title);
 
@@ -78,12 +77,14 @@ public class NameConverter
         if (surnameList != null)
             surnameList.forEach(name::addFamily);
 
+        String displayText = generateDisplayName(name);
+        name.setText(displayText);
 
         return name;
     }
 
 
-    private static String buildDisplayFormat(String title, String forenames, String surname)
+    /*private static String buildDisplayFormat(String title, String forenames, String surname)
     {
         StringBuilder sb = new StringBuilder();
 
@@ -109,7 +110,7 @@ public class NameConverter
         }
 
         return sb.toString();
-    }
+    }*/
 
     public static HumanName createHumanName(HumanName.NameUse use, String title, String firstName, String middleNames, String surname) {
 
@@ -152,6 +153,9 @@ public class NameConverter
         return ret;
     }
 
+    /**
+     * format based on www.mscui.net/DesignGuide/QuickGuides/PatientName/checklist.aspx
+     */
     public static String generateDisplayName(HumanName humanName) {
 
         //build up full name in standard format; SURNAME, firstname (title)
@@ -159,6 +163,11 @@ public class NameConverter
 
         if (humanName.hasFamily()) {
             for (StringType st: humanName.getFamily()) {
+
+                if (displayName.length() > 0) {
+                    displayName.append(" ");
+                }
+
                 String s = st.toString().toUpperCase();
                 displayName.append(s);
             }
@@ -166,9 +175,14 @@ public class NameConverter
 
         if (humanName.hasGiven()) {
             if (displayName.length() > 0) {
-                displayName.append(", ");
+                displayName.append(",");
             }
             for (StringType st: humanName.getGiven()) {
+
+                if (displayName.length() > 0) {
+                    displayName.append(" ");
+                }
+
                 String s = st.toString();
                 displayName.append(s);
             }
@@ -176,6 +190,11 @@ public class NameConverter
 
         if (humanName.hasSuffix()) {
             for (StringType st: humanName.getSuffix()) {
+
+                if (displayName.length() > 0) {
+                    displayName.append(" ");
+                }
+
                 String s = st.toString();
                 displayName.append(s);
             }
@@ -183,14 +202,23 @@ public class NameConverter
 
         if (humanName.hasPrefix()) {
             displayName.append(" (");
-            for (StringType st: humanName.getPrefix()) {
-                String s = st.toString();
+
+            for (int i=0; i<humanName.getPrefix().size(); i++) {
+
+                //add a space for second etc. prefixes
+                if (i > 0) {
+                    displayName.append(" ");
+                }
+
+                StringType st = humanName.getPrefix().get(i);
+                String s = st.getValue();
                 displayName.append(s);
             }
+
             displayName.append(")");
         }
 
-        return displayName.toString();
+        return displayName.toString().trim();
     }
 
     private static List<String> split(String s) {
