@@ -7,6 +7,13 @@ import org.hl7.fhir.instance.model.DiagnosticOrder;
 
 public class CodingHelper {
 
+    public static Coding createCoding(LocationPhysicalType locationType) {
+        return new Coding()
+                .setSystem(locationType.getSystem())
+                .setDisplay(locationType.getDescription())
+                .setCode(locationType.getCode());
+    }
+
     public static Coding createCoding(RegistrationType registrationType) {
         return new Coding()
                 .setSystem(registrationType.getSystem())

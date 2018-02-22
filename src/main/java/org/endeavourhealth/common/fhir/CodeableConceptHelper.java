@@ -61,6 +61,10 @@ public class CodeableConceptHelper {
         return new CodeableConcept().addCoding(CodingHelper.createCoding(referralType));
     }
 
+    public static CodeableConcept createCodeableConcept(LocationPhysicalType locationPhysicalTypeType) {
+        return new CodeableConcept().addCoding(CodingHelper.createCoding(locationPhysicalTypeType));
+    }
+
 
     public static CodeableConcept createCodeableConcept(String text) {
         return new CodeableConcept().setText(text);
