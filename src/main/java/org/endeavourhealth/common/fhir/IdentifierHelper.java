@@ -65,7 +65,7 @@ public class IdentifierHelper {
             }
         }
 
-        return val;
+        return null;
     }
 
     public static String findOdsCode(Organization organization) {
