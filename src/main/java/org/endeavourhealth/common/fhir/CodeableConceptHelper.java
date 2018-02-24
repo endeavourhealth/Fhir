@@ -72,8 +72,8 @@ public class CodeableConceptHelper {
 
     public static Long findSnomedConceptId(CodeableConcept code) {
         for (Coding coding: code.getCoding()) {
-            if (coding.getSystem().equals(FhirUri.CODE_SYSTEM_SNOMED_CT)
-                    || coding.getSystem().equals(FhirUri.CODE_SYSTEM_EMISSNOMED)) {
+            if (coding.getSystem().equals(FhirCodeUri.CODE_SYSTEM_SNOMED_CT)
+                    || coding.getSystem().equals(FhirCodeUri.CODE_SYSTEM_EMISSNOMED)) {
 
                 //need to handle there not being a coding
                 String codeValue = coding.getCode();
@@ -89,8 +89,8 @@ public class CodeableConceptHelper {
 
     public static String findSnomedConceptText(CodeableConcept code) {
         for (Coding coding: code.getCoding()) {
-            if (coding.getSystem().equals(FhirUri.CODE_SYSTEM_SNOMED_CT)
-                    || coding.getSystem().equals(FhirUri.CODE_SYSTEM_EMISSNOMED)) {
+            if (coding.getSystem().equals(FhirCodeUri.CODE_SYSTEM_SNOMED_CT)
+                    || coding.getSystem().equals(FhirCodeUri.CODE_SYSTEM_EMISSNOMED)) {
                 return coding.getDisplay();
             }
         }
@@ -102,12 +102,12 @@ public class CodeableConceptHelper {
         for (Coding coding: code.getCoding()) {
             //essentially we count it as the "original" code if it's not Snomed
             String system = coding.getSystem();
-            if (system.equalsIgnoreCase(FhirUri.CODE_SYSTEM_READ2)
-                    || system.equalsIgnoreCase(FhirUri.CODE_SYSTEM_EMIS_CODE)
-                    || system.equalsIgnoreCase(FhirUri.CODE_SYSTEM_ICD10)
-                    || system.equalsIgnoreCase(FhirUri.CODE_SYSTEM_OPCS4)
-                    || system.equalsIgnoreCase(FhirUri.CODE_SYSTEM_CTV3)
-                    || system.equalsIgnoreCase(FhirUri.CODE_SYSTEM_CERNER_CODE_ID)) {
+            if (system.equalsIgnoreCase(FhirCodeUri.CODE_SYSTEM_READ2)
+                    || system.equalsIgnoreCase(FhirCodeUri.CODE_SYSTEM_EMIS_CODE)
+                    || system.equalsIgnoreCase(FhirCodeUri.CODE_SYSTEM_ICD10)
+                    || system.equalsIgnoreCase(FhirCodeUri.CODE_SYSTEM_OPCS4)
+                    || system.equalsIgnoreCase(FhirCodeUri.CODE_SYSTEM_CTV3)
+                    || system.equalsIgnoreCase(FhirCodeUri.CODE_SYSTEM_CERNER_CODE_ID)) {
 
                 return coding.getCode();
             }

@@ -10,16 +10,16 @@ import java.util.List;
 public class IdentifierHelper {
 
     public static Identifier createNhsNumberIdentifier(String value) {
-        return createIdentifier(Identifier.IdentifierUse.OFFICIAL, FhirUri.IDENTIFIER_SYSTEM_NHSNUMBER, value);
+        return createIdentifier(Identifier.IdentifierUse.OFFICIAL, FhirIdentifierUri.IDENTIFIER_SYSTEM_NHSNUMBER, value);
     }
     public static Identifier createOdsOrganisationIdentifier(String value) {
-        return createIdentifier(Identifier.IdentifierUse.OFFICIAL, FhirUri.IDENTIFIER_SYSTEM_ODS_CODE, value);
+        return createIdentifier(Identifier.IdentifierUse.OFFICIAL, FhirIdentifierUri.IDENTIFIER_SYSTEM_ODS_CODE, value);
     }
     public static Identifier createUbrnIdentifier(String value) {
-        return createIdentifier(Identifier.IdentifierUse.OFFICIAL, FhirUri.IDENTIFIER_SYSTEM_UBRN, value);
+        return createIdentifier(Identifier.IdentifierUse.OFFICIAL, FhirIdentifierUri.IDENTIFIER_SYSTEM_UBRN, value);
     }
     public static Identifier createGmcIdentifier(String value) {
-        return createIdentifier(Identifier.IdentifierUse.OFFICIAL, FhirUri.IDENTIFIER_SYSTEM_GMC_NUMBER, value);
+        return createIdentifier(Identifier.IdentifierUse.OFFICIAL, FhirIdentifierUri.IDENTIFIER_SYSTEM_GMC_NUMBER, value);
     }
 
 
@@ -47,7 +47,7 @@ public class IdentifierHelper {
 
     public static String findNhsNumber(Patient fhirPatient) {
         if (fhirPatient.hasIdentifier()) {
-            return findIdentifierValue(fhirPatient.getIdentifier(), FhirUri.IDENTIFIER_SYSTEM_NHSNUMBER);
+            return findIdentifierValue(fhirPatient.getIdentifier(), FhirIdentifierUri.IDENTIFIER_SYSTEM_NHSNUMBER);
         }
         return null;
     }
@@ -70,7 +70,7 @@ public class IdentifierHelper {
 
     public static String findOdsCode(Organization organization) {
         if (organization.hasIdentifier()) {
-            return findIdentifierValue(organization.getIdentifier(), FhirUri.IDENTIFIER_SYSTEM_ODS_CODE);
+            return findIdentifierValue(organization.getIdentifier(), FhirIdentifierUri.IDENTIFIER_SYSTEM_ODS_CODE);
         }
         return null;
     }
