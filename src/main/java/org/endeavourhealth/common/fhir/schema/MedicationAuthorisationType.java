@@ -35,7 +35,7 @@ public enum MedicationAuthorisationType {
                 return c;
             }
         }
-        throw new IllegalArgumentException(v);
+        throw new IllegalArgumentException("Unknown code [" + v + "]");
     }
 
     public static MedicationAuthorisationType fromDescription(String v) {
@@ -44,6 +44,6 @@ public enum MedicationAuthorisationType {
                 return c;
             }
         }
-        throw new IllegalArgumentException(v);
+        throw new IllegalArgumentException("Unknown description [" + v + "]");
     }
 }

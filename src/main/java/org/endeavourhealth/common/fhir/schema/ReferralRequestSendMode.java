@@ -37,7 +37,7 @@ public enum ReferralRequestSendMode {
                 return c;
             }
         }
-        throw new IllegalArgumentException(v);
+        throw new IllegalArgumentException("Unknown code [" + v + "]");
     }
 
     public static ReferralRequestSendMode fromDescription(String v) {
@@ -46,6 +46,6 @@ public enum ReferralRequestSendMode {
                 return c;
             }
         }
-        throw new IllegalArgumentException(v);
+        throw new IllegalArgumentException("Unknown description [" + v + "]");
     }
 }

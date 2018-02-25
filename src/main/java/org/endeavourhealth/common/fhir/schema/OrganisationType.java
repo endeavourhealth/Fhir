@@ -87,11 +87,13 @@ public enum OrganisationType {
         if (StringUtils.isBlank(v))
             return null;
 
-        for (OrganisationType c: OrganisationType.values())
-            if (c.code.equalsIgnoreCase(v))
+        for (OrganisationType c: OrganisationType.values()) {
+            if (c.code.equalsIgnoreCase(v)) {
                 return c;
+            }
+        }
 
-        throw new IllegalArgumentException(v);
+        throw new IllegalArgumentException("Unknown code [" + v + "]");
     }
 
     public static OrganisationType fromRoleCode(String roleCode) {
@@ -103,7 +105,7 @@ public enum OrganisationType {
                 if (organisationType.roleCode.equalsIgnoreCase(roleCode))
                     return organisationType;
 
-        throw new IllegalArgumentException(roleCode);
+        throw new IllegalArgumentException("Unknown code [" + roleCode + "]");
     }
 
     public static OrganisationType fromDescription(String v) {

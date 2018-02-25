@@ -36,7 +36,7 @@ public enum ProblemSignificance {
                 return c;
             }
         }
-        throw new IllegalArgumentException(v);
+        throw new IllegalArgumentException("Unknown code [" + v + "]");
     }
 
     public static ProblemSignificance fromCodeableConcept(CodeableConcept codeableConcept) {

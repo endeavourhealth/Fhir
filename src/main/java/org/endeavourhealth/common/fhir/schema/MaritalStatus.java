@@ -38,6 +38,6 @@ public enum MaritalStatus {
                 return c;
             }
         }
-        throw new IllegalArgumentException(v);
+        throw new IllegalArgumentException("Unknown code [" + v + "]");
     }
 }

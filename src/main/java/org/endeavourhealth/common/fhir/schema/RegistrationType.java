@@ -39,6 +39,6 @@ public enum RegistrationType {
                 return c;
             }
         }
-        throw new IllegalArgumentException(v);
+        throw new IllegalArgumentException("Unknown code [" + v + "]");
     }
 }

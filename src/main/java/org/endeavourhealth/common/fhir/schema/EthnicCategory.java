@@ -46,6 +46,6 @@ public enum EthnicCategory {
                 return c;
             }
         }
-        throw new IllegalArgumentException(v);
+        throw new IllegalArgumentException("Unknown code [" + v + "]");
     }
 }

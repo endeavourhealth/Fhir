@@ -36,7 +36,7 @@ public enum ProblemRelationshipType {
                 return c;
             }
         }
-        throw new IllegalArgumentException(v);
+        throw new IllegalArgumentException("Unknown code [" + v + "]");
     }
 
     public static ProblemRelationshipType fromCodeableConcept(CodeableConcept codeableConcept) {
