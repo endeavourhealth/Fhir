@@ -79,6 +79,7 @@ public class FhirIdentifierUri {
     public final static String IDENTIFIER_SYSTEM_CERNER_CORTISOL_LEVEL = "http://endeavourhealth.org/fhir/id/v2-local-episode-id/cerner-cortisol-level";
     public final static String IDENTIFIER_SYSTEM_CERNER_PERSON_MEDIA_ALIAS = "http://endeavourhealth.org/fhir/id/v2-local-episode-id/cerner-person-media-alias";
     public final static String IDENTIFIER_SYSTEM_CERNER_NATIONAL_PATIENT_ID = "http://endeavourhealth.org/fhir/id/v2-local-episode-id/cerner-national-patient-id";
+    public final static String IDENTIFIER_SYSTEM_CERNER_PROBLEM_ID = "http://endeavourhealth.org/fhir/id/v2-local-episode-id/cerner-problem-id";
     public final static String IDENTIFIER_SYSTEM_CERNER_BIOMETRIC = "http://endeavourhealth.org/fhir/id/v2-local-episode-id/cerner-biometric-id";
     public final static String IDENTIFIER_SYSTEM_CERNER_CARD_NUMBER = "http://endeavourhealth.org/fhir/id/v2-local-episode-id/cerner-card-number";
     public final static String IDENTIFIER_SYSTEM_CERNER_HIE_COMMUNITY = "http://endeavourhealth.org/fhir/id/v2-local-episode-id/cerner-hie-community";
