@@ -34,7 +34,6 @@ public class FhirIdentifierUri {
     public final static String IDENTIFIER_SYSTEM_HOMERTON_PRIMARY_PRACTITIONER_ID = "http://endeavourhealth.org/fhir/id/v2-local-practitioner-id/homerton-personnelprimaryid";
     public final static String IDENTIFIER_SYSTEM_BARTS_ORG_DR_NUMBER = "http://endeavourhealth.org/fhir/id/v2-local-practitioner-id/barts-org-dr-number";
     public final static String IDENTIFIER_SYSTEM_BARTS_PERSONNEL_ID = "http://endeavourhealth.org/fhir/id/v2-local-practitioner-id/barts-personnel-id";
-    public final static String IDENTIFIER_SYSTEM_CONDITION_CATEGORY = "http://hl7.org/fhir/condition-category";
 
     // New Cerner Aliases
     public final static String IDENTIFIER_SYSTEM_CERNER_INTERNAL_PERSON = "http://endeavourhealth.org/fhir/id/v2-local-episode-id/cerner-internal-person-id";
