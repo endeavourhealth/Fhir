@@ -78,9 +78,19 @@ public class FhirIdentifierUri {
     public final static String IDENTIFIER_SYSTEM_CERNER_CORTISOL_LEVEL = "http://endeavourhealth.org/fhir/id/v2-local-episode-id/cerner-cortisol-level";
     public final static String IDENTIFIER_SYSTEM_CERNER_PERSON_MEDIA_ALIAS = "http://endeavourhealth.org/fhir/id/v2-local-episode-id/cerner-person-media-alias";
     public final static String IDENTIFIER_SYSTEM_CERNER_NATIONAL_PATIENT_ID = "http://endeavourhealth.org/fhir/id/v2-local-episode-id/cerner-national-patient-id";
-    public final static String IDENTIFIER_SYSTEM_CERNER_PROBLEM_ID = "http://endeavourhealth.org/fhir/id/v2-local-episode-id/cerner-problem-id";
     public final static String IDENTIFIER_SYSTEM_CERNER_BIOMETRIC = "http://endeavourhealth.org/fhir/id/v2-local-episode-id/cerner-biometric-id";
     public final static String IDENTIFIER_SYSTEM_CERNER_CARD_NUMBER = "http://endeavourhealth.org/fhir/id/v2-local-episode-id/cerner-card-number";
     public final static String IDENTIFIER_SYSTEM_CERNER_HIE_COMMUNITY = "http://endeavourhealth.org/fhir/id/v2-local-episode-id/cerner-hie-community";
     public final static String IDENTIFIER_SYSTEM_CERNER_RNJ = "http://endeavourhealth.org/fhir/id/v2-local-episode-id/cerner-rnj";
+    public static final String IDENTIFIER_SYSTEM_CERNER_NOMENCLATURE_ID = "http://cerner.com/fhir/nomenclature-id";
+    public static final String IDENTIFIER_SYSTEM_CERNER_ENCOUNTER_SLICE_ID = "http://cerner.com/fhir/encounter-slice-id";
+    public static final String IDENTIFIER_SYSTEM_CERNER_ENCOUNTER_ID = "http://cerner.com/fhir/encounterid";
+    public static final String IDENTIFIER_SYSTEM_CERNER_EPISODE_ID = "http://cerner.com/fhir/episodeid";
+    public static final String IDENTIFIER_SYSTEM_CERNER_PROBLEM_ID = "http://cerner.com/fhir/problem-id";
+    public static final String IDENTIFIER_SYSTEM_CERNER_CDS_UNIQUE_ID = "http://cerner.com/fhir/cds-unique-id";
+    public static final String IDENTIFIER_SYSTEM_CERNER_DIAGNOSIS_ID = "http://cerner.com/fhir/diagnosis-id";
+    public static final String IDENTIFIER_SYSTEM_CERNER_PROCEDURE_ID = "http://cerner.com/fhir/procedure-id";
+    public static final String IDENTIFIER_SYSTEM_CERNER_OBSERVATION_ID = "http://cerner.com/fhir/observation-id";
+    //NOTE: Only add IDENTIFIER systems to this class (i.e. systems used in Identifier structures)
+
 }
