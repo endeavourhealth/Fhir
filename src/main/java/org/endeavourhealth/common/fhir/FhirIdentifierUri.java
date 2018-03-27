@@ -19,6 +19,9 @@ public class FhirIdentifierUri {
     public final static String IDENTIFIER_SYSTEM_VISION_PATIENT_NUMBER = "http://visionhealth.co.uk/identifier/patient-number"; //placeholder
     public final static String IDENTIFIER_SYSTEM_VISION_DOCUMENT_GUID = "http://visionhealth.co.uk/identifier/document-guid"; //placeholder
     public final static String IDENTIFIER_SYSTEM_TPP_PATIENT_ID = "http://tpp-uk.com/identifier/patient-id"; //placeholder
+    public final static String IDENTIFIER_SYSTEM_TPP_STAFF_USERNAME = "http://tpp-uk.com/identifier/staff-username"; //placeholder
+    public final static String IDENTIFIER_SYSTEM_TPP_STAFF_SMARTCARD_ID = "http://tpp-uk.com/identifier/staff-smartcard-id"; //placeholder
+    public final static String IDENTIFIER_SYSTEM_TPP_STAFF_GP_LOCAL_CODE = "http://tpp-uk.com/identifier/staff-gp-local-code"; //placeholder
     public final static String IDENTIFIER_SYSTEM_HOMERTON_CNN_PATIENT_ID = "http://endeavourhealth.org/fhir/id/v2-local-patient-id/homerton-cnn";
     public final static String IDENTIFIER_SYSTEM_HOMERTON_MRN_PATIENT_ID = "http://endeavourhealth.org/fhir/id/v2-local-patient-id/homerton-mrn";
     public final static String IDENTIFIER_SYSTEM_HOMERTON_PERSONID_PATIENT_ID = "http://endeavourhealth.org/fhir/id/v2-local-patient-id/homerton-personid";
