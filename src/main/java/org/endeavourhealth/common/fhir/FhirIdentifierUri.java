@@ -6,6 +6,7 @@ public class FhirIdentifierUri {
     public final static String IDENTIFIER_SYSTEM_CHINUMBER = "http://www.endeavourhealth.org/fhir/Identifier/chinumber";
     public final static String IDENTIFIER_SYSTEM_ODS_CODE = "http://fhir.nhs.net/Id/ods-organization-code";
     public final static String IDENTIFIER_SYSTEM_GMC_NUMBER = "http://endeavourhealth.org/fhir/Identifier/gmc-number";
+    public final static String IDENTIFIER_SYSTEM_NMC_NUMBER = "http://endeavourhealth.org/fhir/Identifier/nmc-number";
     public final static String IDENTIFIER_SYSTEM_CONSULTANT_CODE = "http://endeavourhealth.org/fhir/Identifier/consultant-code";
     public final static String IDENTIFIER_SYSTEM_DOCTOR_INDEX_NUMBER = "http://endeavourhealth.org/fhir/Identifier/doctor-index-number";
     public final static String IDENTIFIER_SYSTEM_GMP_PPD_CODE = "http://endeavourhealth.org/fhir/Identifier/gmp-ppd-code";
