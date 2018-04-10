@@ -3,7 +3,6 @@ package org.endeavourhealth.common.fhir;
 public class FhirExtensionUri {
 
     //extensions specific to Patient resource
-    public final static String PATIENT_REGISTRATION_TYPE = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-patient-registration-type-extension";
     public final static String PATIENT_RESIDENTIAL_INSTITUTE_CODE = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-patient-residential-institute-code-extension";
     public final static String PATIENT_NHS_NUMBER_VERIFICATION_STATUS = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-nhs-number-verification-status-extension";
     public final static String PATIENT_SPINE_SENSITIVE = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-patient-spine-sensitive-extension";
@@ -12,6 +11,11 @@ public class FhirExtensionUri {
     public final static String PATIENT_CONTACT_DOB = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-contact-dob-category-extension";
     public final static String PATIENT_CONTACT_MAIN_LANGUAGE = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-contact-main-language-category-extension";
     public final static String PATIENT_BIRTH_DATE_TIME = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-contact-birth-date-time-category-extension";
+
+    //extensions specific to EpisodeOfCare resources
+    public final static String EPISODE_OF_CARE_REGISTRATION_TYPE = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-patient-registration-type-extension";
+    public final static String EPISODE_OF_CARE_REGISTRATION_STATUS = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-episode-registration-status-extension";
+
 
     //extensions specific to Appointment resource
     public final static String APPOINTMENT_PATIENT_WAIT = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-appointment-wait-extension";
