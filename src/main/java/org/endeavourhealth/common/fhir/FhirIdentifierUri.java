@@ -24,6 +24,7 @@ public class FhirIdentifierUri {
     public final static String IDENTIFIER_SYSTEM_TPP_STAFF_SMARTCARD_ID = "http://tpp-uk.com/identifier/staff-smartcard-id"; //placeholder
     public final static String IDENTIFIER_SYSTEM_TPP_STAFF_GP_LOCAL_CODE = "http://tpp-uk.com/identifier/staff-gp-local-code"; //placeholder
     public final static String IDENTIFIER_SYSTEM_TPP_LOCATION_ID = "http://tpp-uk.com/identifier/location-id";
+    public final static String IDENTIFIER_SYSTEM_TPP_ORGANIZATION_ID = "http://tpp-uk.com/identifier/organization-id";
     public final static String IDENTIFIER_SYSTEM_HOMERTON_CNN_PATIENT_ID = "http://endeavourhealth.org/fhir/id/v2-local-patient-id/homerton-cnn";
     public final static String IDENTIFIER_SYSTEM_HOMERTON_MRN_PATIENT_ID = "http://endeavourhealth.org/fhir/id/v2-local-patient-id/homerton-mrn";
     public final static String IDENTIFIER_SYSTEM_HOMERTON_PERSONID_PATIENT_ID = "http://endeavourhealth.org/fhir/id/v2-local-patient-id/homerton-personid";
