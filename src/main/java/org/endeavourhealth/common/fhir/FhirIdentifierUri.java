@@ -36,6 +36,7 @@ public class FhirIdentifierUri {
     public final static String IDENTIFIER_SYSTEM_BARTS_FIN_EPISODE_ID = "http://endeavourhealth.org/fhir/id/v2-local-episode-id/barts-fin";
     public final static String IDENTIFIER_SYSTEM_BARTS_VISIT_NO_EPISODE_ID = "http://endeavourhealth.org/fhir/id/v2-local-episode-id/barts-visitno";
     public final static String IDENTIFIER_SYSTEM_BARTS_ENCOUNTER_ID = "http://endeavourhealth.org/fhir/id/v2-local-episode-id/barts-encounter-id";
+    public final static String IDENTIFIER_SYSTEM_HOMERTON_ENCOUNTER_ID = "http://endeavourhealth.org/fhir/id/v2-local-episode-id/homerton-encounter-id";
     public final static String IDENTIFIER_SYSTEM_BARTS_LOCATION_ID = "http://endeavourhealth.org/fhir/id/v2-local-episode-id/barts-location-id";
     public final static String IDENTIFIER_SYSTEM_HOMERTON_PRIMARY_PRACTITIONER_ID = "http://endeavourhealth.org/fhir/id/v2-local-practitioner-id/homerton-personnelprimaryid";
     public final static String IDENTIFIER_SYSTEM_BARTS_ORG_DR_NUMBER = "http://endeavourhealth.org/fhir/id/v2-local-practitioner-id/barts-org-dr-number";
