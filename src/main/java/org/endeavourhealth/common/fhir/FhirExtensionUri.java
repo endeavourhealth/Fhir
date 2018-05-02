@@ -11,6 +11,7 @@ public class FhirExtensionUri {
     public final static String PATIENT_CONTACT_DOB = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-contact-dob-category-extension";
     public final static String PATIENT_CONTACT_MAIN_LANGUAGE = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-contact-main-language-category-extension";
     public final static String PATIENT_BIRTH_DATE_TIME = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-contact-birth-date-time-category-extension";
+    public final static String PATIENT_INTERPRETER_REQUIRED="http://hl7.org/fhir/StructureDefinition/patient-interpreterRequired";
 
     //extensions specific to EpisodeOfCare resources
     public final static String EPISODE_OF_CARE_REGISTRATION_TYPE = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-patient-registration-type-extension";
