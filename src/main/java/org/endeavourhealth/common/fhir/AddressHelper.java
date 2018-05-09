@@ -2,12 +2,13 @@ package org.endeavourhealth.common.fhir;
 
 import org.apache.commons.lang3.StringUtils;
 import org.hl7.fhir.instance.model.Address;
+import org.hl7.fhir.instance.model.Patient;
 import org.hl7.fhir.instance.model.StringType;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class AddressConverter
+public class AddressHelper
 {
     public static Address createAddress(Address.AddressUse addressUse, String houseNameFlatNumber, String street, String village, String town, String county, String postcode) {
         Address address = new Address();
@@ -86,5 +87,40 @@ public class AddressConverter
         }
 
         return String.join(", ", displayTextLines);
+    }
+
+    /**
+     * returns the "best" home address from the patient resource
+     */
+    public static Address findHomeAddress(Patient fhirPatient) {
+
+        if (!fhirPatient.hasAddress()) {
+            return null;
+        }
+
+        List<Address> homeAddresses = new ArrayList<>();
+
+        for (Address fhirAddress: fhirPatient.getAddress()) {
+            if (fhirAddress.getUse() == null
+                    || fhirAddress.getUse() == Address.AddressUse.HOME) {
+                homeAddresses.add(fhirAddress);
+            }
+        }
+
+        //return first non-ended one
+        for (Address address: homeAddresses) {
+            if (!address.hasPeriod()
+                    || PeriodHelper.isActive(address.getPeriod())) {
+                return address;
+            }
+        }
+
+        //if no non-ended one, then return the last one, as it was added most recently
+        if (!homeAddresses.isEmpty()) {
+            int size = homeAddresses.size();
+            return homeAddresses.get(size-1);
+        }
+
+        return null;
     }
 }
