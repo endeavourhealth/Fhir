@@ -72,8 +72,10 @@ public class OdsWebService {
                 String line1 = addressLines.get(0).getAsString();
                 ret.setAddressLine1(line1);
 
-                String line2 = addressLines.get(1).getAsString();
-                ret.setAddressLine2(line2);
+                if (addressLines.size() > 1) {
+                    String line2 = addressLines.get(1).getAsString();
+                    ret.setAddressLine2(line2);
+                }
             }
 
             String town = addressRoot.get("town").getAsString();
