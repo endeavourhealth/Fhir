@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.Proxy;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,11 +27,21 @@ public class OdsWebService {
     private static final String ORGANISATAION_REST_URL = "http://api.openods.co.uk/api/organisations/";
 
     public static OdsOrganisation lookupOrganisationViaRest(String odsCode) throws Exception {
+        return lookupOrganisationViaRest(odsCode, null);
+    }
+
+    public static OdsOrganisation lookupOrganisationViaRest(String odsCode, Proxy proxy) throws Exception {
+
         Validate.notEmpty(odsCode);
+
+        //if no proxy, use the "no proxy" instance
+        if (proxy == null) {
+            proxy = Proxy.NO_PROXY;
+        }
 
         String urlStr = ORGANISATAION_REST_URL + odsCode;
         URL url = new URL(urlStr);
-        HttpURLConnection connection = (HttpURLConnection)url.openConnection();
+        HttpURLConnection connection = (HttpURLConnection)url.openConnection(proxy);
         //connection.setRequestProperty("Accept-Charset", charset);
 
         int responseCode = connection.getResponseCode();
