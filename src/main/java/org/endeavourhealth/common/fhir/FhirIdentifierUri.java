@@ -12,6 +12,7 @@ public class FhirIdentifierUri {
     public final static String IDENTIFIER_SYSTEM_GMP_PPD_CODE = "http://endeavourhealth.org/fhir/Identifier/gmp-ppd-code";
     public final static String IDENTIFIER_SYSTEM_GDP_NUMBER = "http://endeavourhealth.org/fhir/Identifier/gdp-number";
     public final static String IDENTIFIER_SYSTEM_UBRN = "http://endeavourhealth.org/fhir/Identifier/ubrn";
+    public final static String IDENTIFIER_SYSTEM_ADASTRA_CASENO = "http://oneadvanced.com/identifier/adastra-case-no"; //placeholder
     public final static String IDENTIFIER_SYSTEM_EMIS_PATIENT_GUID = "http://emishealth.com/identifier/patient-guid"; //placeholder
     public final static String IDENTIFIER_SYSTEM_EMIS_PATIENT_NUMBER = "http://emishealth.com/identifier/patient-number"; //placeholder
     public final static String IDENTIFIER_SYSTEM_EMIS_DOCUMENT_GUID = "http://emishealth.com/identifier/document-guid"; //placeholder
