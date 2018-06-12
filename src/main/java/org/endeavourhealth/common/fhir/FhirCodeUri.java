@@ -14,7 +14,7 @@ public class FhirCodeUri {
     public static final String CODE_SYSTEM_OPCS4 = "http://www.endeavourhealth.org/fhir/opcs4"; //placeholder - if there is an official OPCS4 code system then please add it here and remove this comment
     public static final String CODE_SYSTEM_CERNER_CODE_ID = "http://www.endeavourhealth.org/fhir/cerner-code-id";
     //NOTE: Only add CODE systems to this class (i.e. systems used in CodeableConcepts and Coding structures)
-
+    //NOTE: Consider adding your new coding system to CodeableConceptHelper.findOriginalCode(..)
 
 
 
