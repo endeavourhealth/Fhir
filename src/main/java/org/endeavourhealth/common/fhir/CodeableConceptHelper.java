@@ -99,6 +99,33 @@ public class CodeableConceptHelper {
     }
 
     public static String findOriginalCode(CodeableConcept code) {
+        Coding coding = findOriginalCoding(code);
+        if (coding != null) {
+            return coding.getCode();
+        } else {
+            return null;
+        }
+    }
+
+    public static Coding findOriginalCoding(CodeableConcept code) {
+        for (Coding coding: code.getCoding()) {
+            //essentially we count it as the "original" code if it's not Snomed
+            String system = coding.getSystem();
+            if (system.equalsIgnoreCase(FhirCodeUri.CODE_SYSTEM_READ2)
+                    || system.equalsIgnoreCase(FhirCodeUri.CODE_SYSTEM_EMIS_CODE)
+                    || system.equalsIgnoreCase(FhirCodeUri.CODE_SYSTEM_ICD10)
+                    || system.equalsIgnoreCase(FhirCodeUri.CODE_SYSTEM_OPCS4)
+                    || system.equalsIgnoreCase(FhirCodeUri.CODE_SYSTEM_CTV3)
+                    || system.equalsIgnoreCase(FhirCodeUri.CODE_SYSTEM_CERNER_CODE_ID)) {
+
+                return coding;
+            }
+        }
+
+        return null;
+    }
+
+    /*public static String findOriginalCode(CodeableConcept code) {
         for (Coding coding: code.getCoding()) {
             //essentially we count it as the "original" code if it's not Snomed
             String system = coding.getSystem();
@@ -114,7 +141,7 @@ public class CodeableConceptHelper {
         }
 
         return null;
-    }
+    }*/
 
     public static Coding getFirstCoding(CodeableConcept code) {
         if (code != null)
