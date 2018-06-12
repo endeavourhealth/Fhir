@@ -17,7 +17,8 @@ public class FhirExtensionUri {
     //extensions specific to EpisodeOfCare resources
     public final static String EPISODE_OF_CARE_REGISTRATION_TYPE = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-patient-registration-type-extension";
     public final static String EPISODE_OF_CARE_REGISTRATION_STATUS = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-episode-registration-status-extension";
-
+    public final static String EPISODE_OF_CARE_OUTCOME = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-episode-outcome";
+    public final static String EPISODE_OF_CARE_PRIORITY = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-episode-priority";
 
     //extensions specific to Appointment resource
     public final static String APPOINTMENT_PATIENT_WAIT = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-appointment-wait-extension";
