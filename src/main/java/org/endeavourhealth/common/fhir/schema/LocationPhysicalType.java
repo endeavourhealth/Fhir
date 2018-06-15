@@ -18,7 +18,8 @@ public enum LocationPhysicalType {
     ROAD("rd", "Road"),
     ROOM("ro", "Room"),
     VEHICLE("ve", "Vehicle"),
-    WING("wi", "Wing");
+    WING("wi", "Wing"),
+    SURGICAL("sg", "Surgical");
 
 
     private String code = null;
