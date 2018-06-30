@@ -11,7 +11,8 @@ public enum RegistrationType {
     PRIVATE("P", "Private"),
     OTHER("O", "Other"),
     DUMMY("D", "Dummy/Synthetic"),
-    COMMUNITY("C", "Community");
+    COMMUNITY("C", "Community"),
+    WALK_IN("W", "Walk-In");
 
     private String code = null;
     private String description = null;
