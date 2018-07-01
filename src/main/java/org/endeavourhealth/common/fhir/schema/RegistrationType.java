@@ -12,7 +12,9 @@ public enum RegistrationType {
     OTHER("O", "Other"),
     DUMMY("D", "Dummy/Synthetic"),
     COMMUNITY("C", "Community"),
-    WALK_IN("W", "Walk-In");
+    WALK_IN("W", "Walk-In"),
+    MINOR_SURGERY("MS", "Minor Surgery"),
+    CHILD_HEALTH_SURVEILLANCE("CHS", "Child Health Services");
 
     private String code = null;
     private String description = null;
