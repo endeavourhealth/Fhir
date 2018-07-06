@@ -14,7 +14,8 @@ public enum RegistrationType {
     COMMUNITY("C", "Community"),
     WALK_IN("W", "Walk-In"),
     MINOR_SURGERY("MS", "Minor Surgery"),
-    CHILD_HEALTH_SURVEILLANCE("CHS", "Child Health Services");
+    CHILD_HEALTH_SURVEILLANCE("CHS", "Child Health Services"),
+    CONTRACEPTIVE_SERVICES("N", "Contraceptive Services");
 
     private String code = null;
     private String description = null;
