@@ -15,7 +15,10 @@ public enum RegistrationType {
     WALK_IN("W", "Walk-In"),
     MINOR_SURGERY("MS", "Minor Surgery"),
     CHILD_HEALTH_SURVEILLANCE("CHS", "Child Health Services"),
-    CONTRACEPTIVE_SERVICES("N", "Contraceptive Services");
+    CONTRACEPTIVE_SERVICES("N", "Contraceptive Services"),
+    YELLOW_FEVER("Y", "Yellow Fever"),
+    MATERNITY_SERVICES("M", "Maternity Services");
+
 
     private String code = null;
     private String description = null;
