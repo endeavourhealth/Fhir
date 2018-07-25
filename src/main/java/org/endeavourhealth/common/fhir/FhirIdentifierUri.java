@@ -36,9 +36,9 @@ public class FhirIdentifierUri {
     public final static String IDENTIFIER_SYSTEM_HOMERTON_ATTENDANCE_NO_EPISODE_ID = "http://endeavourhealth.org/fhir/id/v2-local-episode-id/homerton-attendanceno";
     public final static String IDENTIFIER_SYSTEM_BARTS_FIN_EPISODE_ID = "http://endeavourhealth.org/fhir/id/v2-local-episode-id/barts-fin";
     public final static String IDENTIFIER_SYSTEM_BARTS_VISIT_NO_EPISODE_ID = "http://endeavourhealth.org/fhir/id/v2-local-episode-id/barts-visitno";
-    public final static String IDENTIFIER_SYSTEM_BARTS_ENCOUNTER_ID = "http://endeavourhealth.org/fhir/id/v2-local-episode-id/barts-encounter-id";
-    public final static String IDENTIFIER_SYSTEM_HOMERTON_ENCOUNTER_ID = "http://endeavourhealth.org/fhir/id/v2-local-episode-id/homerton-encounter-id";
-    public final static String IDENTIFIER_SYSTEM_BARTS_LOCATION_ID = "http://endeavourhealth.org/fhir/id/v2-local-episode-id/barts-location-id";
+    public final static String IDENTIFIER_SYSTEM_BARTS_ENCOUNTER_ID = "http://endeavourhealth.org/fhir/id/v2-local-encounter-id/barts-encounter-id";
+    public final static String IDENTIFIER_SYSTEM_HOMERTON_ENCOUNTER_ID = "http://endeavourhealth.org/fhir/id/v2-local-encounter-id/homerton-encounter-id";
+    public final static String IDENTIFIER_SYSTEM_BARTS_LOCATION_ID = "http://endeavourhealth.org/fhir/id/v2-local-location-id/barts-location-id";
     public final static String IDENTIFIER_SYSTEM_HOMERTON_PRIMARY_PRACTITIONER_ID = "http://endeavourhealth.org/fhir/id/v2-local-practitioner-id/homerton-personnelprimaryid";
     public final static String IDENTIFIER_SYSTEM_BARTS_ORG_DR_NUMBER = "http://endeavourhealth.org/fhir/id/v2-local-practitioner-id/barts-org-dr-number";
     public final static String IDENTIFIER_SYSTEM_BARTS_PERSONNEL_ID = "http://endeavourhealth.org/fhir/id/v2-local-practitioner-id/barts-personnel-id";
@@ -92,8 +92,8 @@ public class FhirIdentifierUri {
     public final static String IDENTIFIER_SYSTEM_CERNER_RNJ = "http://endeavourhealth.org/fhir/id/v2-local-episode-id/cerner-rnj";
     public static final String IDENTIFIER_SYSTEM_CERNER_NOMENCLATURE_ID = "http://cerner.com/fhir/nomenclature-id";
     public static final String IDENTIFIER_SYSTEM_CERNER_ENCOUNTER_SLICE_ID = "http://cerner.com/fhir/encounter-slice-id";
-    public static final String IDENTIFIER_SYSTEM_CERNER_ENCOUNTER_ID = "http://cerner.com/fhir/encounterid";
-    public static final String IDENTIFIER_SYSTEM_CERNER_EPISODE_ID = "http://cerner.com/fhir/episodeid";
+    public static final String IDENTIFIER_SYSTEM_CERNER_ENCOUNTER_ID = "http://cerner.com/fhir/encounter-id";
+    public static final String IDENTIFIER_SYSTEM_CERNER_EPISODE_ID = "http://cerner.com/fhir/episode-id";
     public static final String IDENTIFIER_SYSTEM_CERNER_PROBLEM_ID = "http://cerner.com/fhir/problem-id";
     public static final String IDENTIFIER_SYSTEM_CERNER_CDS_UNIQUE_ID = "http://cerner.com/fhir/cds-unique-id";
     public static final String IDENTIFIER_SYSTEM_CERNER_DIAGNOSIS_ID = "http://cerner.com/fhir/diagnosis-id";
