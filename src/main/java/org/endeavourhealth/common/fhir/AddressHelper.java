@@ -107,8 +107,9 @@ public class AddressHelper
             }
         }
 
-        //return first non-ended one
-        for (Address address: homeAddresses) {
+        //return last non-ended one
+        for (int i=homeAddresses.size()-1; i>=0; i--) {
+            Address address = homeAddresses.get(i);
             if (!address.hasPeriod()
                     || PeriodHelper.isActive(address.getPeriod())) {
                 return address;

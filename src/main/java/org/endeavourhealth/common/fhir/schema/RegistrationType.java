@@ -17,8 +17,11 @@ public enum RegistrationType {
     CHILD_HEALTH_SURVEILLANCE("CHS", "Child Health Services"),
     CONTRACEPTIVE_SERVICES("N", "Contraceptive Services"),
     YELLOW_FEVER("Y", "Yellow Fever"),
-    MATERNITY_SERVICES("M", "Maternity Services");
-
+    MATERNITY_SERVICES("M", "Maternity Services"),
+    PRE_REGISTRATION("PR", "Pre-Registration"),
+    SEXUAL_HEALTH("SH", "Sexual Health"),
+    VASECTOMY("V", "Vasectomy"),
+    OUT_OF_HOURS("OH", " Out of Hours");
 
     private String code = null;
     private String description = null;
