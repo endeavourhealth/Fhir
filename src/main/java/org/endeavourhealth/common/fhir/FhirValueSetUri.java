@@ -13,6 +13,7 @@ public class FhirValueSetUri {
 
     //Endeavour value sets
     public final static String VALUE_SET_REGISTRATION_TYPE = "http://endeavourhealth.org/fhir/ValueSet/primarycare-patient-registration-type";
+    public final static String VALUE_SET_REGISTRATION_STATUS = "http://endeavourhealth.org/fhir/ValueSet/primarycare-patient-registration-status";
     public final static String VALUE_SET_PHYSICAL_LOCATION_TYPE = "http://endeavourhealth.org/fhir/ValueSet/primarycare-physical-location-type";
     public final static String VALUE_SET_ORGANISATION_TYPE = "http://endeavourhealth.org/fhir/ValueSet/primarycare-organization-type";
     public final static String VALUE_SET_PROBLEM_SIGNIFICANCE = "http://endeavourhealth.org/fhir/ValueSet/primarycare-problem-significance";

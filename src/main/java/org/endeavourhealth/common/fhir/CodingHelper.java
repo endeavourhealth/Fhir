@@ -112,6 +112,13 @@ public class CodingHelper {
                 .setCode(referralType.getCode());
     }
 
+    public static Coding createCoding(RegistrationStatus registrationStatus) {
+        return new Coding()
+                .setSystem(registrationStatus.getSystem())
+                .setDisplay(registrationStatus.getDescription())
+                .setCode(registrationStatus.getCode());
+    }
+
     public static Coding createCoding(String system, String term, String code) {
         return new Coding()
                 .setSystem(system)

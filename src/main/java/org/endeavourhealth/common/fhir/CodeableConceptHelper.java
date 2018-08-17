@@ -65,6 +65,10 @@ public class CodeableConceptHelper {
         return new CodeableConcept().addCoding(CodingHelper.createCoding(locationPhysicalTypeType));
     }
 
+    public static CodeableConcept createCodeableConcept(RegistrationStatus registrationStatus) {
+        return new CodeableConcept().addCoding(CodingHelper.createCoding(registrationStatus));
+    }
+
 
     public static CodeableConcept createCodeableConcept(String text) {
         return new CodeableConcept().setText(text);
