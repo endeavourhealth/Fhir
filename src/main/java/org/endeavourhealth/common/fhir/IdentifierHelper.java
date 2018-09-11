@@ -4,7 +4,10 @@ import com.google.common.base.Strings;
 import org.hl7.fhir.instance.model.Identifier;
 import org.hl7.fhir.instance.model.Organization;
 import org.hl7.fhir.instance.model.Patient;
+import org.hl7.fhir.instance.model.Period;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class IdentifierHelper {
@@ -21,7 +24,6 @@ public class IdentifierHelper {
     public static Identifier createGmcIdentifier(String value) {
         return createIdentifier(Identifier.IdentifierUse.OFFICIAL, FhirIdentifierUri.IDENTIFIER_SYSTEM_GMC_NUMBER, value);
     }
-
 
     public static Identifier createIdentifier(Identifier.IdentifierUse use, String system, String value) {
 
@@ -45,17 +47,85 @@ public class IdentifierHelper {
         return null;
     }
 
+    public static List<Identifier> findIdentifiersForSystem(List<Identifier> identifiers, String system) {
+        List<Identifier> ret = new ArrayList<>();
+        for (Identifier id: identifiers) {
+            if (id.getSystem().equals(system)) {
+                ret.add(id);
+            }
+        }
+        return ret;
+    }
+
+    /**
+     * returns the NHS number for the patient, handling multiple identifiers being present and validating
+     * that the one returned is most likely a true NHS number
+     */
     public static String findNhsNumber(Patient fhirPatient) {
-        if (fhirPatient.hasIdentifier()) {
+
+        List<Identifier> identifiers = findIdentifiersForSystem(fhirPatient.getIdentifier(), FhirIdentifierUri.IDENTIFIER_SYSTEM_NHSNUMBER);
+
+        //remove any that don't look like real NHS numbers
+        for (int i=identifiers.size()-1; i>=0; i--) {
+            Identifier identifier = identifiers.get(i);
+            String value = identifier.getValue();
+
+            //validate that it's 10 digits
+            boolean keep = true;
+            value = value.replace(" ", ""); //shouldn't be necessary, but needed because of ADT transform
+
+            if (value.length() != 10) {
+                keep = false;
+            } else {
+
+                for (char c: value.toCharArray()) {
+                    if (!Character.isDigit(c)) {
+                        keep = false;
+                        break;
+                    }
+                }
+            }
+
+            if (!keep) {
+                identifiers.remove(i);
+            }
+        }
+
+        if (identifiers.isEmpty()) {
+            return null;
+        }
+
+        //sort by end date, falling back on start date if end date is the same
+        identifiers.sort((o1, o2) -> {
+
+            Period period1 = null;
+            if (o1.hasPeriod()) {
+                period1 = o1.getPeriod();
+            }
+            Period period2 = null;
+            if (o2.hasPeriod()) {
+                period2 = o2.getPeriod();
+            }
+
+            return PeriodHelper.comparePeriods(period1, period2);
+        });
+
+        //the above sorting means the last one in the list is the one we want
+        Identifier lastIdentifier = identifiers.get(identifiers.size()-1);
+        String value = lastIdentifier.getValue();
+        value = value.replace(" ", ""); //shouldn't be necessary, but needed because of ADT transform
+        return value;
+
+        /*if (fhirPatient.hasIdentifier()) {
             return findIdentifierValue(fhirPatient.getIdentifier(), FhirIdentifierUri.IDENTIFIER_SYSTEM_NHSNUMBER);
         }
-        return null;
+        return null;*/
     }
 
     /**
      * finds an NHS number but only returns if it looks like a true NHS number
      */
-    public static String findNhsNumberTrueNhsNumber(Patient fhirPatient) {
+    /*public static String findNhsNumberTrueNhsNumber(Patient fhirPatient) {
         String val = findNhsNumber(fhirPatient);
 
         if (!Strings.isNullOrEmpty(val)) {
@@ -66,7 +136,7 @@ public class IdentifierHelper {
         }
 
         return null;
-    }
+    }*/
 
     public static String findOdsCode(Organization organization) {
         if (organization.hasIdentifier()) {
