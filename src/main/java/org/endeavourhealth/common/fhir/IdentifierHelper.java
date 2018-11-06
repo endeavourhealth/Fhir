@@ -72,16 +72,21 @@ public class IdentifierHelper {
 
             //validate that it's 10 digits
             boolean keep = true;
-            value = value.replace(" ", ""); //shouldn't be necessary, but needed because of ADT transform
-
-            if (value.length() != 10) {
+            if (Strings.isNullOrEmpty(value)) {
                 keep = false;
-            } else {
 
-                for (char c: value.toCharArray()) {
-                    if (!Character.isDigit(c)) {
-                        keep = false;
-                        break;
+            } else {
+                value = value.replace(" ", ""); //shouldn't be necessary, but needed because of ADT transform
+
+                if (value.length() != 10) {
+                    keep = false;
+                } else {
+
+                    for (char c: value.toCharArray()) {
+                        if (!Character.isDigit(c)) {
+                            keep = false;
+                            break;
+                        }
                     }
                 }
             }
