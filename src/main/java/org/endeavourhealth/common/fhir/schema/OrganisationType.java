@@ -27,7 +27,7 @@ public enum OrganisationType {
     IMMIGRATION_REMOVAL_CENTRE("JD", "Immigration Removal Centre", "RO69"),
     ISHP("PH", "Independent Sector Healthcare Provider (ISHP)", "RO172"),
     LOCAL_AUTHORITY("EL", "Local Authority", "RO141"),
-    LOCAL_HEALTH_BOARD_WALES("LB", "Local Health Board (Wales)", "RO144"),
+    // LOCAL_HEALTH_BOARD_WALES("LB", "Local Health Board (Wales)", "RO144"), duplicate
     LSP("LO", "Local Service Provider (LSP)", "RO146"),
     MILITARY_HOSPITAL("MH", "Military Hospital", "RO150"),
     NATIONAL_APPLICATION_SERVICE_PROVIDER("NP", "National Application Service Provider", "RO159"),
@@ -57,7 +57,23 @@ public enum OrganisationType {
     WELSH_ASSEMBLY("WA", "Welsh Assembly", "RO200"),
     WELSH_HEALTH_COMMISSION("WH", "Welsh Health Commission", null),
     WELSH_LOCAL_HEALTH_BOARD("LH", "Welsh Local Health Board", "RO144"),
-    YOUNG_OFFENDERS_INSTITUTE("JA", "Young Offenders Institute", "RO228");
+    YOUNG_OFFENDERS_INSTITUTE("JA", "Young Offenders Institute", "RO228"),
+    COMMUNITY("CO", "Community", null),
+    COMMUNITY_MENTAL_HEALTH_TEAM("CM", "Community Mental Health Team", null),
+    HOSPICE("HP", "Hospice", null),
+    HOSPITAL("HO", "Hospital", null),
+    HOSPITAL_DEPARTMENT("HD", "Hospital Department", null),
+    CLINIC("CI", "Clinic", null),
+    PRIVATE_CLINIC("PV", "Private Clinic", null),
+    STRATEGIC_HEALTH_AUTHORITY("SH", "Strategic Health Authority", null),
+    HEALTH_AUTHORITY("HU", "Health Authority", null),
+    PRIMARY_CARE_ORGANISATION("PC", "Primary Care Organisation", null),
+    GP_BRANCH_SURGERY("BR", "Branch Surgery", null),
+    OUT_OF_HOURS("OO", "Out of Hours", null),
+    NURSING_HOME("NH", "Nursing Home", null)
+    ;
+
+
 
     private String code = null;
     private String description = null;
