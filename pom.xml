@@ -4,7 +4,7 @@
 
     <groupId>org.endeavourhealth.common</groupId>
     <artifactId>fhir</artifactId>
-    <version>1.79-SNAPSHOT</version>
+    <version>1.80-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <properties>
@@ -13,7 +13,7 @@
         <maven-surefire-plugin.version>2.19.1</maven-surefire-plugin.version>
         <maven-release-plugin.version>2.5.3</maven-release-plugin.version>
 
-        <eds-cache.version>1.1-SNAPSHOT</eds-cache.version>
+        <eds-cache.version>1.2-SNAPSHOT</eds-cache.version>
 
         <fhir-dstu2.version>1.0.1.7108</fhir-dstu2.version>
         <guava.version>19.0</guava.version>
