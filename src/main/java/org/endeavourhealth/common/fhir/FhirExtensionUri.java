@@ -100,6 +100,9 @@ public class FhirExtensionUri {
     public static final String EXTENSION_HL7V2_MESSAGE_CONTROL_ID = "http://endeavourhealth.org/fhir/StructureDefinition/message-header-message-control-id-extension";
     public static final String EXTENSION_HL7V2_SEQUENCE_NUMBER = "http://endeavourhealth.org/fhir/StructureDefinition/message-header-sequence-number-extension";
 
+    //extensions specific to Procedure resources
+    public final static String PROCEDURE_IS_PRIMARY = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-procedure-is-primary-extension";
+
     //extensions specific to ProcedureRequest resource
     public final static String PROCEDURE_REQUEST_LOCATION_DESCRIPTION = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-procedure-request-location-extension";
     public final static String PROCEDURE_REQUEST_SCHEDULE_TEXT = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-procedure-request-schedule-text-extension";

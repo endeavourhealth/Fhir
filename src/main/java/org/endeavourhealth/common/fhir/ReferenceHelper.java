@@ -6,7 +6,9 @@ import org.hl7.fhir.instance.model.Resource;
 import org.hl7.fhir.instance.model.ResourceType;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ReferenceHelper {
 
@@ -151,6 +153,22 @@ public class ReferenceHelper {
         }
     }
 
+    /**
+     * removes any duplicate references from a list, handling the fact that Reference doesn't
+     * implement the hashCode or equals functions
+     */
+    public static void removeDuplicates(List<Reference> references) {
 
+        Set<String> tmpFound = new HashSet<>();
+        for (int i=references.size()-1; i>=0; i--) {
+            Reference ref = references.get(i);
+            String refValue = ref.getReference();
+            if (tmpFound.contains(refValue)) {
+                references.remove(i);
+            } else {
+                tmpFound.add(refValue);
+            }
+        }
+    }
 
 }
