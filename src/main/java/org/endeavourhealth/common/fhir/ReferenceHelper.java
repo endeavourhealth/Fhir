@@ -96,7 +96,7 @@ public class ReferenceHelper {
             return null;
 
         if (parts.length != 2)
-            throw new IllegalArgumentException("Invalid reference string: "+reference.getReference());
+            throw new IllegalArgumentException("Invalid reference string: " + reference.getReference());
 
         ResourceType resourceType = ResourceType.valueOf(parts[0]);
         return new ReferenceComponents(resourceType, parts[1]);

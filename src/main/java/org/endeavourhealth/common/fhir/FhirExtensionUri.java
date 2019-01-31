@@ -67,6 +67,7 @@ public class FhirExtensionUri {
     //extensions specific to Schedule resource
     public final static String SCHEDULE_LOCATION = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-location-extension";
     public final static String SCHEDULE_ADDITIONAL_ACTOR = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-additional-actor-extension";
+    public final static String SCHEDULE_LOCATION_TYPE = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-location-type-extension";
 
     //extensions specific to Encounter resource
     public final static String ENCOUNTER_SOURCE = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-encounter-source";
