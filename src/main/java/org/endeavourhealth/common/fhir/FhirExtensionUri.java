@@ -103,6 +103,7 @@ public class FhirExtensionUri {
 
     //extensions specific to Procedure resources
     public final static String PROCEDURE_IS_PRIMARY = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-procedure-is-primary-extension";
+    public final static String PROCEDURE_SEQUENCE_NUMBER = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-procedure-sequence-number-extension";
 
     //extensions specific to ProcedureRequest resource
     public final static String PROCEDURE_REQUEST_LOCATION_DESCRIPTION = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-procedure-request-location-extension";
