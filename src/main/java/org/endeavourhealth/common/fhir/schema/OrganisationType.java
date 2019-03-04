@@ -26,6 +26,7 @@ public enum OrganisationType {
     HIGH_LEVEL_HEALTH_GEOGRAPHY("HA", "High Level Health Geography", null),
     IMMIGRATION_REMOVAL_CENTRE("JD", "Immigration Removal Centre", "RO69"),
     ISHP("PH", "Independent Sector Healthcare Provider (ISHP)", "RO172"),
+    ISHPS("PS", "Independent Sector Healthcare Provider Site (ISHPS)", "RO176"),
     LOCAL_AUTHORITY("EL", "Local Authority", "RO141"),
     // LOCAL_HEALTH_BOARD_WALES("LB", "Local Health Board (Wales)", "RO144"), duplicate
     LSP("LO", "Local Service Provider (LSP)", "RO146"),
