@@ -11,6 +11,9 @@ public class FhirValueSetUri {
     public final static String VALUE_SET_MARITAL_STATUS = "http://hl7.org/fhir/ValueSet/marital-status";
     public final static String VALUE_SET_CONDITION_CATEGORY = "http://hl7.org/fhir/condition-category";
 
+    //nhs value sets
+    public static final String VALUE_SET_RELIGIONS = "datadictionary.nhs.uk/data_dictionary/attributes/r/red/religious_or_other_belief_system_affiliation_code_de.asp";
+
     //Endeavour value sets
     public final static String VALUE_SET_REGISTRATION_TYPE = "http://endeavourhealth.org/fhir/ValueSet/primarycare-patient-registration-type";
     public final static String VALUE_SET_REGISTRATION_STATUS = "http://endeavourhealth.org/fhir/ValueSet/primarycare-patient-registration-status";
@@ -27,6 +30,7 @@ public class FhirValueSetUri {
     public final static String VALUE_SET_REFERRAL_TYPE = "http://endeavourhealth.org/fhir/ValueSet/primarycare-referral-request-type";
     public static final String VALUE_SET_ENCOUNTER_TYPE_BARTS = "http://endeavourhealth.org/fhir/ValueSet/encounter-type-barts";
     public static final String VALUE_SET_ENCOUNTER_TYPE_HOMERTON = "http://endeavourhealth.org/fhir/ValueSet/encounter-type-homerton";
+
 
 }
 

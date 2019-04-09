@@ -69,6 +69,9 @@ public class CodeableConceptHelper {
         return new CodeableConcept().addCoding(CodingHelper.createCoding(registrationStatus));
     }
 
+    public static CodeableConcept createCodeableConcept(Religion religion) {
+        return new CodeableConcept().addCoding(CodingHelper.createCoding(religion));
+    }
 
     public static CodeableConcept createCodeableConcept(String text) {
         return new CodeableConcept().setText(text);

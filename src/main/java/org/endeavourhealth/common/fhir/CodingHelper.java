@@ -119,6 +119,13 @@ public class CodingHelper {
                 .setCode(registrationStatus.getCode());
     }
 
+    public static Coding createCoding(Religion religion) {
+        return new Coding()
+                .setSystem(religion.getSystem())
+                .setDisplay(religion.getDescription())
+                .setCode(religion.getCode());
+    }
+
     public static Coding createCoding(String system, String term, String code) {
         return new Coding()
                 .setSystem(system)

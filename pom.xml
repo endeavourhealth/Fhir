@@ -4,7 +4,7 @@
 
   <groupId>org.endeavourhealth.common</groupId>
   <artifactId>fhir</artifactId>
-  <version>1.88-SNAPSHOT</version>
+  <version>1.89-SNAPSHOT</version>
   <packaging>jar</packaging>
 
   <properties>
@@ -53,7 +53,7 @@
 
   <repositories>
     <repository>
-      <snapshots/>
+      <snapshots />
       <id>snapshots</id>
       <name>libs-snapshot</name>
       <url>http://maven.endeavourhealth.net:8081/artifactory/libs-snapshot</url>
