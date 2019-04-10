@@ -29,6 +29,8 @@ public class FhirExtensionUri {
     public final static String APPOINTMENT_DNA_REASON_CODE = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-appointment-dna-reason-extension";
     public final static String APPOINTMENT_SENT_IN = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-appointment-sent-in-extension";
     public final static String APPOINTMENT_LEFT = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-appointment-left-extension";
+    public final static String APPOINTMENT_CANCELLATION_DATE = "http://endeavourhealth.org/fhir/StructureDefinition/appointment-cancellation-date-extension";
+    public final static String APPOINTMENT_BOOKING_DATE = "http://endeavourhealth.org/fhir/StructureDefinition/appointment-booking-date-extension";
     //DON'T FORGET TO ADD YOUR NEW EXTENSION TO THE FHIR PROFILES (ask Drew if not sure)
 
     //extensions specific to Location resource
