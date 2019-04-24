@@ -95,6 +95,7 @@ public class FhirExtensionUri {
     public static final String ENCOUNTER_CLASS = "http://hl7.org/fhir/StructureDefinition/encounter-patient-class-other-extension";
     public final static String ENCOUNTER_SPECIALTY = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-encounter-specialty-extension";
     public final static String ENCOUNTER_TREATMENT_FUNCTION = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-encounter-treatment-function-extension";
+    public final static String ENCOUNTER_LOCATION_REFERENCE = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-encounter-location-reference-extension";
     //DON'T FORGET TO ADD YOUR NEW EXTENSION TO THE FHIR PROFILES (ask Drew if not sure)
 
     //extensions specific to MedicationStatement (profile is MedicationAuthorisation) resource
