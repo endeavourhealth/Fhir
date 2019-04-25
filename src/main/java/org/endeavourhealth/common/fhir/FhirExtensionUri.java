@@ -13,6 +13,7 @@ public class FhirExtensionUri {
     public final static String PATIENT_BIRTH_DATE_TIME = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-contact-birth-date-time-category-extension";
     //public final static String PATIENT_INTERPRETER_REQUIRED = "http://hl7.org/fhir/StructureDefinition/patient-interpreter-required-extension"; duplicate of Speaks English
     public final static String PATIENT_SPEAKS_ENGLISH = "http://hl7.org/fhir/StructureDefinition/patient-speaks-english-extension";
+    public final static String PATIENT_IS_TEST_PATIENT = "http://endeavourhealth.org/fhir/StructureDefinition/patient-is-test-patient-extension";
     //DON'T FORGET TO ADD YOUR NEW EXTENSION TO THE FHIR PROFILES (ask Drew if not sure)
 
     //extensions specific to EpisodeOfCare resources
@@ -83,6 +84,7 @@ public class FhirExtensionUri {
     public final static String SCHEDULE_LOCATION = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-location-extension";
     public final static String SCHEDULE_ADDITIONAL_ACTOR = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-additional-actor-extension";
     public final static String SCHEDULE_LOCATION_TYPE = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-location-type-extension";
+    public final static String SCHEDULE_NAME = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-scheudule-name-extension";
     //DON'T FORGET TO ADD YOUR NEW EXTENSION TO THE FHIR PROFILES (ask Drew if not sure)
 
     //extensions specific to Encounter resource
@@ -148,6 +150,6 @@ public class FhirExtensionUri {
     public final static String HL7_MESSAGE_TYPE = "http://endeavourhealth.org/fhir/v2-message-type-extension";
     public final static String RESOURCE_CONTEXT = "http://endeavourhealth.org/fhir/StructureDefinition/context-extension";
     public final static String PARENT_RESOURCE = "http://endeavourhealth.org/fhir/StructureDefinition/parent-resource";
-    public final static String IS_PRIMARY = "http://endeavourhealth.org/fhir/StructureDefinition/is-primary";
+    public final static String IS_PRIMARY = "http://endeavourhealth.org/fhir/StructureDefinition/is-primary-extension";
     //DON'T FORGET TO ADD YOUR NEW EXTENSION TO THE FHIR PROFILES (ask Drew if not sure)
 }
