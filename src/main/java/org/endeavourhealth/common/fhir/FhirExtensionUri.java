@@ -125,7 +125,7 @@ public class FhirExtensionUri {
     //DON'T FORGET TO ADD YOUR NEW EXTENSION TO THE FHIR PROFILES (ask Drew if not sure)
 
     //extensions specific to Procedure resources
-    public final static String PROCEDURE_IS_PRIMARY = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-procedure-is-primary-extension";
+    //public final static String PROCEDURE_IS_PRIMARY = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-procedure-is-primary-extension";
     public final static String PROCEDURE_SEQUENCE_NUMBER = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-procedure-sequence-number-extension";
     //DON'T FORGET TO ADD YOUR NEW EXTENSION TO THE FHIR PROFILES (ask Drew if not sure)
 
