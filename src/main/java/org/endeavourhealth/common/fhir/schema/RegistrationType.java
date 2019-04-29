@@ -10,7 +10,7 @@ public enum RegistrationType {
     TEMPORARY("T", "Temporary"),
     PRIVATE("P", "Private"),
     OTHER("O", "Other"),
-    DUMMY("D", "Dummy/Synthetic"),
+    //DUMMY("D", "Dummy/Synthetic"), - superseded with test-patient extension on patient
     COMMUNITY("C", "Community"),
     WALK_IN("W", "Walk-In"),
     MINOR_SURGERY("MS", "Minor Surgery"),
