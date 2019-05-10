@@ -340,6 +340,30 @@ public class NameHelper {
         return null;
     }
 
+    public static String findPrefix(Patient fhirPatient) {
+        List<String> l = new ArrayList<>();
+
+        HumanName fhirName = findName(fhirPatient);
+        if (fhirName != null) {
+            for (StringType s: fhirName.getPrefix()) {
+                l.add(s.getValue());
+            }
+        }
+        return String.join(" ", l);
+    }
+
+    public static String findSuffix(Patient fhirPatient) {
+        List<String> l = new ArrayList<>();
+
+        HumanName fhirName = findName(fhirPatient);
+        if (fhirName != null) {
+            for (StringType s: fhirName.getSuffix()) {
+                l.add(s.getValue());
+            }
+        }
+        return String.join(" ", l);
+    }
+
     public static String findForenames(Patient fhirPatient) {
 
         List<String> forenames = new ArrayList<>();
