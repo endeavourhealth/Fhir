@@ -129,6 +129,14 @@ public class CodeableConceptHelper {
             }
         }
 
+        //if nothing above matched, then look for a snomed code, since the third party may actually have sent us native snomed
+        for (Coding coding: code.getCoding()) {
+            String system = coding.getSystem();
+            if (system.equalsIgnoreCase(FhirCodeUri.CODE_SYSTEM_SNOMED_CT)) {
+                return coding;
+            }
+        }
+
         return null;
     }
 
