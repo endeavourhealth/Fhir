@@ -3,16 +3,16 @@ package org.endeavourhealth.common.fhir;
 import com.google.common.base.Strings;
 import org.apache.commons.lang3.StringUtils;
 import org.hl7.fhir.instance.model.HumanName;
+import org.hl7.fhir.instance.model.Patient;
 import org.hl7.fhir.instance.model.StringType;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class NameConverter
-{
-    public static List<HumanName> convert(String title, String forenames, String surname, String callingName, String birthSurname, String previousSurname)
-    {
+public class NameHelper {
+
+    public static List<HumanName> convert(String title, String forenames, String surname, String callingName, String birthSurname, String previousSurname) {
         return convertCleaned(
                 StringUtils.trimToNull(forenames),
                 StringUtils.trimToNull(callingName),
@@ -22,8 +22,7 @@ public class NameConverter
                 StringUtils.trimToNull(title));
     }
 
-    public static HumanName convert(String forenames, String surname, String title)
-    {
+    public static HumanName convert(String forenames, String surname, String title) {
         List<HumanName> results = convertCleaned(
                 StringUtils.trimToNull(forenames),
                 null,
@@ -38,8 +37,7 @@ public class NameConverter
             return results.get(0);
     }
 
-    private static List<HumanName> convertCleaned(String forenames, String callingName, String surname, String birthSurname, String previousSurname, String title)
-    {
+    private static List<HumanName> convertCleaned(String forenames, String callingName, String surname, String birthSurname, String previousSurname, String title) {
         List<HumanName> list = new ArrayList<>();
 
         //scope to ensure that the usualName variable is not accidentally reused during any copy and paste
@@ -57,8 +55,7 @@ public class NameConverter
         return list;
     }
 
-    private static HumanName createName(HumanName.NameUse use, String title, String forenames, String surname)
-    {
+    private static HumanName createName(HumanName.NameUse use, String title, String forenames, String surname) {
         HumanName name = new HumanName()
                 .setUse(use);
 
@@ -162,7 +159,7 @@ public class NameConverter
         StringBuilder displayName = new StringBuilder();
 
         if (humanName.hasFamily()) {
-            for (StringType st: humanName.getFamily()) {
+            for (StringType st : humanName.getFamily()) {
 
                 if (displayName.length() > 0) {
                     displayName.append(" ");
@@ -177,7 +174,7 @@ public class NameConverter
             if (displayName.length() > 0) {
                 displayName.append(",");
             }
-            for (StringType st: humanName.getGiven()) {
+            for (StringType st : humanName.getGiven()) {
 
                 if (displayName.length() > 0) {
                     displayName.append(" ");
@@ -189,7 +186,7 @@ public class NameConverter
         }
 
         if (humanName.hasSuffix()) {
-            for (StringType st: humanName.getSuffix()) {
+            for (StringType st : humanName.getSuffix()) {
 
                 if (displayName.length() > 0) {
                     displayName.append(" ");
@@ -203,7 +200,7 @@ public class NameConverter
         if (humanName.hasPrefix()) {
             displayName.append(" (");
 
-            for (int i=0; i<humanName.getPrefix().size(); i++) {
+            for (int i = 0; i < humanName.getPrefix().size(); i++) {
 
                 //add a space for second etc. prefixes
                 if (i > 0) {
@@ -276,27 +273,31 @@ public class NameConverter
 
         return fhirName;
     }
+
     private static void setTitle(HumanName fhirName, String s) {
         s = s.trim();
         String[] tokens = s.split(" ");
-        for (String token: tokens) {
+        for (String token : tokens) {
             fhirName.addPrefix(token);
         }
     }
+
     private static void setForename(HumanName fhirName, String s) {
         s = s.trim();
         String[] tokens = s.split(" ");
-        for (String token: tokens) {
+        for (String token : tokens) {
             fhirName.addGiven(token);
         }
     }
+
     private static void setSurname(HumanName fhirName, String s) {
         s = s.trim();
         String[] tokens = s.split(" ");
-        for (String token: tokens) {
+        for (String token : tokens) {
             fhirName.addFamily(token);
         }
     }
+
     private static boolean isTitle(String s) {
         return s.equalsIgnoreCase("mr.")
                 || s.equalsIgnoreCase("master.")
@@ -305,5 +306,64 @@ public class NameConverter
                 || s.equalsIgnoreCase("dr.")
                 || s.equalsIgnoreCase("rev.");
     }
+
+
+
+    /**
+     * returns the "best" HumanName to use from a Patient resource
+     */
+    public static HumanName findName(Patient fhirPatient) {
+
+        List<HumanName> officialNames = new ArrayList<>();
+        if (fhirPatient.hasName()) {
+            for (HumanName fhirName : fhirPatient.getName()) {
+                if (fhirName.getUse() == HumanName.NameUse.OFFICIAL) {
+                    officialNames.add(fhirName);
+                }
+            }
+        }
+
+        //return first non-ended one
+        for (HumanName name: officialNames) {
+            if (!name.hasPeriod()
+                    || PeriodHelper.isActive(name.getPeriod())) {
+                return name;
+            }
+        }
+
+        //if no non-ended one, then return the last one, as it was added most recently
+        if (!officialNames.isEmpty()) {
+            int size = officialNames.size();
+            return officialNames.get(size-1);
+        }
+
+        return null;
+    }
+
+    public static String findForenames(Patient fhirPatient) {
+
+        List<String> forenames = new ArrayList<>();
+
+        HumanName fhirName = findName(fhirPatient);
+        if (fhirName != null) {
+            for (StringType given: fhirName.getGiven()) {
+                forenames.add(given.getValue());
+            }
+        }
+        return String.join(" ", forenames);
+    }
+
+    public static String findSurname(Patient fhirPatient) {
+        List<String> surnames = new ArrayList<>();
+
+        HumanName fhirName = findName(fhirPatient);
+        if (fhirName != null) {
+            for (StringType family: fhirName.getFamily()) {
+                surnames.add(family.getValue());
+            }
+        }
+        return String.join(" ", surnames);
+    }
+
 }
 

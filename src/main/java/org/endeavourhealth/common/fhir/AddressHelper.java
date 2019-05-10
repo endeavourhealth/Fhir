@@ -1,5 +1,6 @@
 package org.endeavourhealth.common.fhir;
 
+import com.google.common.base.Strings;
 import org.apache.commons.lang3.StringUtils;
 import org.hl7.fhir.instance.model.Address;
 import org.hl7.fhir.instance.model.Patient;
@@ -122,6 +123,59 @@ public class AddressHelper
             return homeAddresses.get(size-1);
         }
 
+        return null;
+    }
+
+    public static String findCity(Patient fhirPatient) {
+        Address address = findHomeAddress(fhirPatient);
+        if (address != null
+                && address.hasCity()) {
+            return address.getCity();
+        }
+
+        return null;
+    }
+
+    public static String findDistrict(Patient fhirPatient) {
+        Address address = findHomeAddress(fhirPatient);
+        if (address != null
+                && address.hasDistrict()) {
+            return address.getDistrict();
+        }
+
+        return null;
+    }
+
+    public static String findAddressLine(Patient fhirPatient, int index) {
+        Address address = findHomeAddress(fhirPatient);
+        if (address != null
+                && address.hasLine()) {
+            List<StringType> lines = address.getLine();
+            if (index < lines.size()) {
+                StringType stringType = lines.get(index);
+                return stringType.getValue();
+            }
+        }
+
+        return null;
+    }
+
+    public static String findPostcode(Patient fhirPatient) {
+
+        Address fhirAddress = findHomeAddress(fhirPatient);
+        if (fhirAddress != null) {
+
+            //Homerton seem to sometimes enter extra information in the postcode
+            //field, making it longer than the 8 chars the field allows. So
+            //simply truncate down
+            String s = fhirAddress.getPostalCode();
+            if (!Strings.isNullOrEmpty(s)
+                    && s.length() > 8) {
+                s = s.substring(0, 8);
+            }
+            return s;
+            //return fhirAddress.getPostalCode();
+        }
         return null;
     }
 }
