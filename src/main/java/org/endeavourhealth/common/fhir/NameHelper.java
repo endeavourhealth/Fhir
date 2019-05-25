@@ -298,14 +298,14 @@ public class NameHelper {
         }
     }
 
-    private static boolean isTitle(String s) {
+    /*private static boolean isTitle(String s) {
         return s.equalsIgnoreCase("mr.")
                 || s.equalsIgnoreCase("master.")
                 || s.equalsIgnoreCase("miss.")
                 || s.equalsIgnoreCase("mrs.")
                 || s.equalsIgnoreCase("dr.")
                 || s.equalsIgnoreCase("rev.");
-    }
+    }*/
 
 
 
