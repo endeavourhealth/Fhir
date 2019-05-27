@@ -198,7 +198,8 @@ public class CodeableConceptHelper {
 
     public static Coding findCoding(CodeableConcept codeableConcept, String systemUri) {
         for (Coding coding: codeableConcept.getCoding()) {
-            if (coding.getSystem().equals(systemUri)) {
+            if (coding.getSystem() != null
+                && coding.getSystem().equals(systemUri)) {
                 return coding;
             }
         }
