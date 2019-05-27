@@ -1,10 +1,7 @@
 package org.endeavourhealth.common.fhir;
 
 import com.google.common.base.Strings;
-import org.hl7.fhir.instance.model.Identifier;
-import org.hl7.fhir.instance.model.Organization;
-import org.hl7.fhir.instance.model.Patient;
-import org.hl7.fhir.instance.model.Period;
+import org.hl7.fhir.instance.model.*;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -149,4 +146,56 @@ public class IdentifierHelper {
         }
         return null;
     }
+
+
+    /**
+     * finds matches based on content, but specifically ignores ID and Period
+     */
+    public static List<Identifier> findMatches(Identifier toCheck, List<Identifier> potentials) {
+
+        List<Identifier> ret = new ArrayList<>();
+
+        for (Identifier identifier: potentials) {
+
+            boolean matches = true;
+
+            if (identifier.hasValue()) {
+                if (!hasValue(toCheck, identifier.getValue())) {
+                    matches = false;
+                }
+            }
+
+            //the USE property doesn't get consistently set (or really used for anything) so don't compare it
+            /*if (identifier.hasUse()) {
+                if (!hasUse(toCheck, identifier.getUse())) {
+                    matches = false;
+                }
+            }*/
+
+            if (identifier.hasSystem()) {
+                if (!hasSystem(toCheck, identifier.getSystem())) {
+                    matches = false;
+                }
+            }
+
+            //if we make it here, it's a duplicate and should be removed
+            if (matches) {
+                ret.add(identifier);
+            }
+        }
+
+        return ret;
+    }
+
+    private static boolean hasValue(Identifier toCheck, String value) {
+        return toCheck.hasValue()
+                && toCheck.getValue().equalsIgnoreCase(value);
+    }
+
+    private static boolean hasSystem(Identifier toCheck, String system) {
+        return toCheck.hasSystem()
+                && toCheck.getSystem().equalsIgnoreCase(system);
+    }
+
+
 }

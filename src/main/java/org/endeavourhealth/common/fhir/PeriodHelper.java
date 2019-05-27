@@ -15,9 +15,13 @@ public class PeriodHelper {
     }
 
     public static boolean isActive(Period period) {
+        return isActive(period, new Date());
+    }
+
+    public static boolean isActive(Period period, Date asOfDate) {
         return period == null //assume the lack of a period means it's active (i.e. not known to be ended)
                 || period.getEnd() == null
-                || period.getEnd().after(new Date());
+                || period.getEnd().after(asOfDate);
     }
 
     public static Period createPeriod(XMLGregorianCalendar xmlStart, XMLGregorianCalendar xmlEnd) {

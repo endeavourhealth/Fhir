@@ -106,6 +106,10 @@ public class ExtensionConverter {
         return (DateType)findExtensionValue(resource, extensionUrl);
     }
 
+    public static CodeableConcept findExtensionValueCodeableConcept(IBaseHasExtensions resource, String extensionUrl) {
+        return (CodeableConcept)findExtensionValue(resource, extensionUrl);
+    }
+
     public static Extension findOrCreateExtension(IBaseHasExtensions resource, String extensionUrl) {
         Extension ret = findExtension(resource, extensionUrl);
         if (ret == null) {

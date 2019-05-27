@@ -2,9 +2,7 @@ package org.endeavourhealth.common.fhir;
 
 import com.google.common.base.Strings;
 import org.apache.commons.lang3.StringUtils;
-import org.hl7.fhir.instance.model.HumanName;
-import org.hl7.fhir.instance.model.Patient;
-import org.hl7.fhir.instance.model.StringType;
+import org.hl7.fhir.instance.model.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -387,6 +385,143 @@ public class NameHelper {
             }
         }
         return String.join(" ", surnames);
+    }
+
+
+
+    public static boolean hasPrefix(HumanName humanName, String prefix) {
+        if (!humanName.hasPrefix()) {
+            return false;
+        }
+
+        for (StringType s: humanName.getPrefix()) {
+            String str = s.getValue();
+            if (prefix.equalsIgnoreCase(str)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public static boolean hasGivenName(HumanName humanName, String givenName) {
+        if (!humanName.hasGiven()) {
+            return false;
+        }
+
+        for (StringType s: humanName.getGiven()) {
+            String str = s.getValue();
+            if (givenName.equalsIgnoreCase(str)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public static boolean hasFamilyName(HumanName humanName, String familyName) {
+        if (!humanName.hasFamily()) {
+            return false;
+        }
+
+        for (StringType s: humanName.getFamily()) {
+            String str = s.getValue();
+            if (familyName.equalsIgnoreCase(str)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public static boolean hasSuffix(HumanName humanName, String suffix) {
+        if (!humanName.hasSuffix()) {
+            return false;
+        }
+
+        for (StringType s: humanName.getSuffix()) {
+            String str = s.getValue();
+            if (suffix.equalsIgnoreCase(str)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+
+    /**
+     * finds all names that match the one supplied
+     * Note: this function specifically doesn't compare periods or dates, and just looks for matches
+     * on the name fields.
+     */
+    public static List<HumanName> findMatches(HumanName toCheck, List<HumanName> potentials) {
+
+        List<HumanName> ret = new ArrayList<>();
+
+        for (HumanName name: potentials) {
+
+            boolean matches = true;
+
+            if (name.hasPrefix()) {
+                for (StringType prefix : name.getPrefix()) {
+                    if (!hasPrefix(toCheck, prefix.toString())) {
+                        matches = false;
+                        break;
+                    }
+                }
+            }
+
+            if (name.hasGiven()) {
+                for (StringType given : name.getGiven()) {
+                    if (!hasGivenName(toCheck, given.toString())) {
+                        matches = false;
+                        break;
+                    }
+                }
+            }
+
+            if (name.hasFamily()) {
+                for (StringType family : name.getFamily()) {
+                    if (!hasFamilyName(toCheck, family.toString())) {
+                        matches = false;
+                        break;
+                    }
+                }
+            }
+
+            if (name.hasSuffix()) {
+                for (StringType suffix : name.getSuffix()) {
+                    if (!hasSuffix(toCheck, suffix.toString())) {
+                        matches = false;
+                        break;
+                    }
+                }
+            }
+
+            if (name.hasUse()) {
+                HumanName.NameUse use = name.getUse();
+                if (!hasUse(toCheck, use)) {
+                    matches = false;
+                }
+            }
+
+            if (matches) {
+                ret.add(name);
+            }
+        }
+
+        return ret;
+    }
+
+    private static boolean hasUse(HumanName toCheck, HumanName.NameUse use) {
+
+        //when a name is ended it's use is changed to OLD, so compare use normally,
+        //but also let the use pass if either one of them is OLD
+        return toCheck.hasUse()
+                && (toCheck.getUse() == use
+                || toCheck.getUse() == HumanName.NameUse.OLD
+                || use == HumanName.NameUse.OLD);
     }
 
 }

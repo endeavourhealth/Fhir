@@ -102,6 +102,12 @@ public class ReferenceHelper {
         return new ReferenceComponents(resourceType, parts[1]);
     }
 
+    public static Reference createReference(ReferenceComponents comps) {
+        ResourceType type = comps.getResourceType();
+        String id = comps.getId();
+        return createReference(type, id);
+    }
+
     public static boolean isResourceType(Reference reference, ResourceType resourceType) {
         ReferenceComponents referenceComponents = getReferenceComponents(reference);
 

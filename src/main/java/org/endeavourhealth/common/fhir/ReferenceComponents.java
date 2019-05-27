@@ -18,4 +18,9 @@ public class ReferenceComponents {
     public String getId() {
         return id;
     }
+
+    @Override
+    public String toString() {
+        return resourceType.toString() + "/" + id;
+    }
 }
