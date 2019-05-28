@@ -10,6 +10,7 @@ public class FhirValueSetUri {
     public final static String VALUE_SET_ENCOUNTER_PARTICIPANT_TYPE = "http://hl7.org/fhir/ValueSet/encounter-participant-type";
     public final static String VALUE_SET_MARITAL_STATUS = "http://hl7.org/fhir/ValueSet/marital-status";
     public final static String VALUE_SET_CONDITION_CATEGORY = "http://hl7.org/fhir/condition-category";
+    public final static String VALUE_SET_PHYSICAL_LOCATION_TYPE = "http://hl7.org/fhir/location-physical-type";
 
     //nhs value sets
     public static final String VALUE_SET_RELIGIONS = "datadictionary.nhs.uk/data_dictionary/attributes/r/red/religious_or_other_belief_system_affiliation_code_de.asp";
@@ -17,7 +18,6 @@ public class FhirValueSetUri {
     //Endeavour value sets
     public final static String VALUE_SET_REGISTRATION_TYPE = "http://endeavourhealth.org/fhir/ValueSet/primarycare-patient-registration-type";
     public final static String VALUE_SET_REGISTRATION_STATUS = "http://endeavourhealth.org/fhir/ValueSet/primarycare-patient-registration-status";
-    public final static String VALUE_SET_PHYSICAL_LOCATION_TYPE = "http://endeavourhealth.org/fhir/ValueSet/primarycare-physical-location-type";
     public final static String VALUE_SET_ORGANISATION_TYPE = "http://endeavourhealth.org/fhir/ValueSet/primarycare-organization-type";
     public final static String VALUE_SET_PROBLEM_SIGNIFICANCE = "http://endeavourhealth.org/fhir/ValueSet/primarycare-problem-significance";
     public final static String VALUE_SET_PROBLEM_RELATIONSHIP_TYPE = "http://endeavourhealth.org/fhir/ValueSet/primarycare-problem-relationshiptype";
