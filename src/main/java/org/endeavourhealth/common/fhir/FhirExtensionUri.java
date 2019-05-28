@@ -10,7 +10,7 @@ public class FhirExtensionUri {
     public final static String PATIENT_RELIGION = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-religion-category-extension";
     public final static String PATIENT_CONTACT_DOB = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-contact-dob-category-extension";
     public final static String PATIENT_CONTACT_MAIN_LANGUAGE = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-contact-main-language-category-extension";
-    public final static String PATIENT_BIRTH_DATE_TIME = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-contact-birth-date-time-category-extension";
+    public final static String PATIENT_BIRTH_DATE_TIME = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-contact-birth-date-time-category-extension"; //ignore the word "contact" in here, it's just the patient's datetime of birth
     //public final static String PATIENT_INTERPRETER_REQUIRED = "http://hl7.org/fhir/StructureDefinition/patient-interpreter-required-extension"; duplicate of Speaks English
     public final static String PATIENT_SPEAKS_ENGLISH = "http://hl7.org/fhir/StructureDefinition/patient-speaks-english-extension";
     public final static String PATIENT_IS_TEST_PATIENT = "http://endeavourhealth.org/fhir/StructureDefinition/patient-is-test-patient-extension";
