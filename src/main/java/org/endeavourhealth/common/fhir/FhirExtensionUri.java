@@ -59,6 +59,7 @@ public class FhirExtensionUri {
 
     //extensions specific to Condition resources
     public final static String CONDITION_PART_OF_PROBLEM = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-condition-partofproblemepisode-extension";
+    public final static String CONDITION_SEQUENCE_NUMBER = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-condition-sequence-number-extension";
     //DON'T FORGET TO ADD YOUR NEW EXTENSION TO THE FHIR PROFILES (ask Drew if not sure)
 
     //extensions specific to FamilyMemberHistory resources
