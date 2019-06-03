@@ -4,6 +4,7 @@ import org.endeavourhealth.common.fhir.FhirValueSetUri;
 
 public enum NhsNumberVerificationStatus {
 
+    //note these options are official (see https://www.datadictionary.nhs.uk/version2/data_dictionary/data_field_notes/n/nhs_number_status_indicator_de.asp)
     PRESENT_AND_VERIFIED("01", "Number present and verified"),
     PRESENT_BUT_NOT_TRACED("02", "Number present but not traced"),
     TRACE_REQUIRED("03", "Trace required"),
