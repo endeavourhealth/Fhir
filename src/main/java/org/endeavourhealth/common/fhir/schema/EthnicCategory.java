@@ -4,6 +4,8 @@ import org.endeavourhealth.common.fhir.FhirValueSetUri;
 
 public enum EthnicCategory {
 
+    //note the below list is from https://www.datadictionary.nhs.uk/data_dictionary/attributes/e/end/ethnic_category_code_de.asp
+    //and seems to miss out Arab and Gypsy/Irish Travellor, which more modern lists have
     WHITE_BRITISH("A", "British"),
     WHITE_IRISH("B", "Irish"),
     OTHER_WHITE("C", "Any other White background"),
@@ -14,11 +16,11 @@ public enum EthnicCategory {
     ASIAN_INDIAN("H", "Indian"),
     ASIAN_PAKISTANI("J", "Pakistani"),
     ASIAN_BANGLADESHI("K", "Bangladeshi"),
-    OTHER_ASIAN("L", "Any other Asian background"),
-    BLACK_CARIBBEAN("M", "Caribbean"),
-    BLACK_AFRICAN("N", "African"),
-    OTHER_BLACK("P", "Any other Black background"),
     CHINESE("R", "Chinese"),
+    OTHER_ASIAN("L", "Any other Asian background"),
+    BLACK_AFRICAN("N", "African"),
+    BLACK_CARIBBEAN("M", "Caribbean"),
+    OTHER_BLACK("P", "Any other Black background"),
     OTHER("S", "Any other ethnic group"),
     NOT_STATED("Z", "Not stated");
 
