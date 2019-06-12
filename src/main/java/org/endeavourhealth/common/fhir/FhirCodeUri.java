@@ -15,6 +15,7 @@ public class FhirCodeUri {
     public static final String CODE_SYSTEM_OPCS4 = "http://www.endeavourhealth.org/fhir/opcs4"; //placeholder - if there is an official OPCS4 code system then please add it here and remove this comment
     public static final String CODE_SYSTEM_CERNER_CODE_ID = "http://www.endeavourhealth.org/fhir/cerner-code-id";
     public static final String CODE_SYSTEM_UK_ED_CODE = "http://www.endeavourhealth.org/fhir/uk-ed-code";
+    public static final String CODE_SYSTEM_PATIENT_CARE = "http://www.endeavourhealth.org/fhir/patient-care-code";
     public static final String CODE_SYSTEM_CERNER_MULTUM_DRUG_ID = "http://www.endeavourhealth.org/fhir/cerner-multum-drug-id";
     public static final String CODE_SYSTEM_CERNER_MULTUM_ALLERGY_CATEGORY_ID = "http://www.endeavourhealth.org/fhir/cerner-multum-allergy-category-id";
     //NOTE: Only add CODE systems to this class (i.e. systems used in CodeableConcepts and Coding structures)
