@@ -3,7 +3,6 @@ package org.endeavourhealth.common.fhir;
 public class FhirValueSetUri {
 
     //FHIR value sets
-    public final static String VALUE_SET_CONTACT_RELATIONSHIP = "http://hl7.org/fhir/ValueSet/patient-contact-relationship";
     public final static String VALUE_SET_IMMUNIZATION_STATUS = "http://hl7.org/fhir/ValueSet/medication-admin-status";
     public final static String VALUE_SET_FAMILY_MEMBER = "http://hl7.org/fhir/ValueSet/v3-FamilyMember";
     public final static String VALUE_SET_JOB_ROLE_CODES = "http://fhir.nhs.net/ValueSet/sds-job-role-name-1-0";
