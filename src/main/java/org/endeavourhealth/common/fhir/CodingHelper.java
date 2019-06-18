@@ -28,13 +28,6 @@ public class CodingHelper {
                 .setCode(organizationType.getCode());
     }
 
-    public static Coding createCoding(ContactRelationship carerRelationship) {
-        return new Coding()
-                .setSystem(carerRelationship.getSystem())
-                .setDisplay(carerRelationship.getDescription())
-                .setCode(carerRelationship.getCode());
-    }
-
     public static Coding createCoding(DiagnosticOrder.DiagnosticOrderPriority priority) {
         return new Coding()
                 .setSystem(priority.getSystem())

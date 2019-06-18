@@ -17,10 +17,6 @@ public class CodeableConceptHelper {
         return new CodeableConcept().addCoding(CodingHelper.createCoding(organisationType));
     }
 
-    public static CodeableConcept createCodeableConcept(ContactRelationship contactRelationship) {
-        return new CodeableConcept().addCoding(CodingHelper.createCoding(contactRelationship));
-    }
-
     public static CodeableConcept createCodeableConcept(DiagnosticOrder.DiagnosticOrderPriority priority) {
         return new CodeableConcept().addCoding(CodingHelper.createCoding(priority));
     }
