@@ -28,4 +28,5 @@ public class FhirProfileUri {
     public final static String PROFILE_URI_EPISODE_OF_CARE = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-episode-of-care";
     public final static String PROFILE_URI_TASK = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-task";
     public final static String PROFILE_URI_FLAG = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-flag";
+    public final static String PROFILE_URI_QUESTIONNAIRE_RESPONSE = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-questionnaire-response";
 }
