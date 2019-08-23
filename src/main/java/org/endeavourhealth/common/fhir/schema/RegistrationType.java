@@ -22,7 +22,8 @@ public enum RegistrationType {
     SEXUAL_HEALTH("SH", "Sexual Health"),
     VASECTOMY("V", "Vasectomy"),
     OUT_OF_HOURS("OH", "Out of Hours"),
-    REHABILITATION("B", "Rehabilitation");
+    REHABILITATION("B", "Rehabilitation"),
+    EXTERNALLY_REGISTERED("X", "Externally registered");
 
     private String code = null;
     private String description = null;
