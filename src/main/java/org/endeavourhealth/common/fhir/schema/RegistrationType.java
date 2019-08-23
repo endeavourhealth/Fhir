@@ -23,7 +23,7 @@ public enum RegistrationType {
     VASECTOMY("V", "Vasectomy"),
     OUT_OF_HOURS("OH", "Out of Hours"),
     REHABILITATION("B", "Rehabilitation"),
-    EXTERNALLY_REGISTERED("X", "Externally registered");
+    EXTERNALLY_REGISTERED("X", "Externally Registered");
 
     private String code = null;
     private String description = null;
