@@ -38,7 +38,7 @@ public class OdsWebService {
         if (proxy == null) {
             proxy = Proxy.NO_PROXY;
         }
-
+        odsCode = odsCode.replace(" ", "%20");
         String urlStr = ORGANISATAION_REST_URL + odsCode;
         URL url = new URL(urlStr);
         HttpURLConnection connection = (HttpURLConnection)url.openConnection(proxy);
