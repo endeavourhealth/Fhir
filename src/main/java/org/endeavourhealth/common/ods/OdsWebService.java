@@ -92,8 +92,10 @@ public class OdsWebService {
             String town = addressRoot.get("town").getAsString();
             ret.setTown(town);
 
-            String county = addressRoot.get("county").getAsString();
-            ret.setCounty(county);
+            if (addressRoot.get("county") != null) {
+                String county = addressRoot.get("county").getAsString();
+                ret.setCounty(county);
+            }
 
             String postcode = addressRoot.get("postCode").getAsString();
             ret.setPostcode(postcode);
