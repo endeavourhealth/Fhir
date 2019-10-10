@@ -7,6 +7,9 @@ import org.hl7.fhir.instance.model.CodeableConcept;
 import org.hl7.fhir.instance.model.Coding;
 import org.hl7.fhir.instance.model.DiagnosticOrder;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class CodeableConceptHelper {
 
     public static CodeableConcept createCodeableConcept(String system, String term, String code) {
@@ -111,48 +114,30 @@ public class CodeableConceptHelper {
     }
 
     public static Coding findOriginalCoding(CodeableConcept code) {
+
         for (Coding coding: code.getCoding()) {
+
             //essentially we count it as the "original" code if it's not Snomed
             String system = coding.getSystem();
-            if (system.equalsIgnoreCase(FhirCodeUri.CODE_SYSTEM_READ2)
-                    || system.equalsIgnoreCase(FhirCodeUri.CODE_SYSTEM_EMIS_CODE)
-                    || system.equalsIgnoreCase(FhirCodeUri.CODE_SYSTEM_ICD10)
-                    || system.equalsIgnoreCase(FhirCodeUri.CODE_SYSTEM_OPCS4)
-                    || system.equalsIgnoreCase(FhirCodeUri.CODE_SYSTEM_CTV3)
-                    || system.equalsIgnoreCase(FhirCodeUri.CODE_SYSTEM_CERNER_CODE_ID)) {
+            if (!system.equalsIgnoreCase(FhirCodeUri.CODE_SYSTEM_SNOMED_CT)
+                    && !system.equalsIgnoreCase(FhirCodeUri.CODE_SYSTEM_EMISSNOMED) //this value is no longer used, but
+                    && !system.equalsIgnoreCase(FhirCodeUri.CODE_SYSTEM_SNOMED_DESCRIPTION_ID)) { //Emis send us Read2, Snomed Concept and Snomed Description, so ignore the Desceiptions
 
                 return coding;
             }
         }
 
-        //if nothing above matched, then look for a snomed code, since the third party may actually have sent us native snomed
+        //if nothing above matched, then look for a snomed code, since the third party may actually have sent us native Snomed
         for (Coding coding: code.getCoding()) {
             String system = coding.getSystem();
-            if (system.equalsIgnoreCase(FhirCodeUri.CODE_SYSTEM_SNOMED_CT)) {
+            if (system.equalsIgnoreCase(FhirCodeUri.CODE_SYSTEM_SNOMED_CT)
+                    || system.equalsIgnoreCase(FhirCodeUri.CODE_SYSTEM_EMISSNOMED)) {
                 return coding;
             }
         }
 
         return null;
     }
-
-    /*public static String findOriginalCode(CodeableConcept code) {
-        for (Coding coding: code.getCoding()) {
-            //essentially we count it as the "original" code if it's not Snomed
-            String system = coding.getSystem();
-            if (system.equalsIgnoreCase(FhirCodeUri.CODE_SYSTEM_READ2)
-                    || system.equalsIgnoreCase(FhirCodeUri.CODE_SYSTEM_EMIS_CODE)
-                    || system.equalsIgnoreCase(FhirCodeUri.CODE_SYSTEM_ICD10)
-                    || system.equalsIgnoreCase(FhirCodeUri.CODE_SYSTEM_OPCS4)
-                    || system.equalsIgnoreCase(FhirCodeUri.CODE_SYSTEM_CTV3)
-                    || system.equalsIgnoreCase(FhirCodeUri.CODE_SYSTEM_CERNER_CODE_ID)) {
-
-                return coding.getCode();
-            }
-        }
-
-        return null;
-    }*/
 
     public static Coding getFirstCoding(CodeableConcept code) {
         if (code != null)
