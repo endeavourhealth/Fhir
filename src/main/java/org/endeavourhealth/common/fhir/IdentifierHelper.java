@@ -124,21 +124,7 @@ public class IdentifierHelper {
         return null;*/
     }
 
-    /**
-     * finds an NHS number but only returns if it looks like a true NHS number
-     */
-    /*public static String findNhsNumberTrueNhsNumber(Patient fhirPatient) {
-        String val = findNhsNumber(fhirPatient);
 
-        if (!Strings.isNullOrEmpty(val)) {
-            val = val.replace(" ", "");
-            if (val.length() == 10) {
-                return val;
-            }
-        }
-
-        return null;
-    }*/
 
     public static String findOdsCode(Organization organization) {
         if (organization.hasIdentifier()) {
