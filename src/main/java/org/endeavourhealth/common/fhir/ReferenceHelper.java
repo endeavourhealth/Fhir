@@ -14,12 +14,14 @@ public class ReferenceHelper {
 
     private static final String INTERNAL_REFERENCE_PREFIX = "#";
 
+    private static final String DELIM = "/";
+
     public static String createResourceReference(ResourceType resourceType, String id) {
         return createResourceReference(resourceType.toString(), id);
     }
 
     public static String createResourceReference(String resourceType, String id) {
-        return resourceType + "/" + id;
+        return resourceType + DELIM + id;
     }
 
     public static Reference createReference(ResourceType resourceType, String id) {
@@ -86,11 +88,28 @@ public class ReferenceHelper {
             return null;
         }
 
-        if (reference.getReference().startsWith(INTERNAL_REFERENCE_PREFIX)) {
+        String referenceStr = reference.getReference();
+        if (referenceStr.startsWith(INTERNAL_REFERENCE_PREFIX)) {
             return null;
         }
 
-        String[] parts = reference.getReference().split("\\/");
+        int slash = referenceStr.indexOf(DELIM);
+        if (slash == -1) {
+            return null;
+        }
+
+        //validate the slash isn't right at the start or end, which will cause the following substring attempts to fail
+        if (slash == 0
+                || slash == referenceStr.length()-1) {
+            throw new IllegalArgumentException("Invalid reference string: " + reference.getReference());
+        }
+
+        String prefix = referenceStr.substring(0, slash);
+        String suffix = referenceStr.substring(slash+1);
+        ResourceType resourceType = ResourceType.valueOf(prefix);
+        return new ReferenceComponents(resourceType, suffix);
+
+        /*String[] parts = reference.getReference().split("\\/");
 
         if ((parts == null) || (parts.length == 0))
             return null;
@@ -99,7 +118,7 @@ public class ReferenceHelper {
             throw new IllegalArgumentException("Invalid reference string: " + reference.getReference());
 
         ResourceType resourceType = ResourceType.valueOf(parts[0]);
-        return new ReferenceComponents(resourceType, parts[1]);
+        return new ReferenceComponents(resourceType, parts[1]);*/
     }
 
     public static Reference createReference(ReferenceComponents comps) {
