@@ -78,7 +78,8 @@ public class OdsWebService {
             JsonObject addressRoot = (JsonObject)addresses.get(0);
 
             JsonArray addressLines = (JsonArray)addressRoot.get("addressLines");
-            if (addressLines.size() > 0) {
+            if (addressLines != null
+                    && addressLines.size() > 0) {
 
                 String line1 = addressLines.get(0).getAsString();
                 ret.setAddressLine1(line1);
@@ -89,16 +90,20 @@ public class OdsWebService {
                 }
             }
 
-            String town = addressRoot.get("town").getAsString();
-            ret.setTown(town);
+            if (addressRoot.has("town")) {
+                String town = addressRoot.get("town").getAsString();
+                ret.setTown(town);
+            }
 
-            if (addressRoot.get("county") != null) {
+            if (addressRoot.has("county")) {
                 String county = addressRoot.get("county").getAsString();
                 ret.setCounty(county);
             }
 
-            String postcode = addressRoot.get("postCode").getAsString();
-            ret.setPostcode(postcode);
+            if (addressRoot.has("postCode")) {
+                String postcode = addressRoot.get("postCode").getAsString();
+                ret.setPostcode(postcode);
+            }
         }
 
         JsonArray roles = (JsonArray)jsonRoot.get("roles");
