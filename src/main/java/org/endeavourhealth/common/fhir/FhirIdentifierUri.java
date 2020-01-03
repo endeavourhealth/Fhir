@@ -13,6 +13,7 @@ public class FhirIdentifierUri {
     public final static String IDENTIFIER_SYSTEM_GDP_NUMBER = "http://endeavourhealth.org/fhir/Identifier/gdp-number"; //general dental practitioner
     public final static String IDENTIFIER_SYSTEM_RPSGB_NUMBER = "http://endeavourhealth.org/fhir/Identifier/rpsgb-number"; //royal pharmaceutical society of Great Britain
     public final static String IDENTIFIER_SYSTEM_GPhC_NUMBER = "http://endeavourhealth.org/fhir/Identifier/gphc-number"; //general pharmaceutical council
+    public final static String IDENTIFIER_SYSTEM_PRESCRIBING_ID = "http://endeavourhealth.org/fhir/Identifier/prescribing-id"; //AKA PPAID
     public final static String IDENTIFIER_SYSTEM_UBRN = "http://endeavourhealth.org/fhir/Identifier/ubrn";
     public final static String IDENTIFIER_SYSTEM_HPC = "http://endeavourhealth.org/fhir/Identifier/hpc";  // HCPC Health & Care Practitioner
     public final static String IDENTIFIER_SYSTEM_ADASTRA_CASENO = "http://oneadvanced.com/identifier/adastra-case-no"; //placeholder
