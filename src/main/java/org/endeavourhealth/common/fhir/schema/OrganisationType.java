@@ -71,7 +71,8 @@ public enum OrganisationType {
     PRIMARY_CARE_ORGANISATION("PC", "Primary Care Organisation", null),
     GP_BRANCH_SURGERY("BR", "Branch Surgery", null),
     OUT_OF_HOURS("OO", "Out of Hours", null),
-    NURSING_HOME("NH", "Nursing Home", null)
+    NURSING_HOME("NH", "Nursing Home", null),
+    ACCIDENT_AND_EMERGENCY("AE", "Accident & Emergency", null),
     ;
 
 
