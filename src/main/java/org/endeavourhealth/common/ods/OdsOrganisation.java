@@ -108,5 +108,30 @@ public class OdsOrganisation {
     public void setParents(Map<String, String> parents) {
         this.parents = parents;
     }
+
+    /**
+     * some orgs have multiple parents, and the simplest way to choose just one seems to be
+     * to ignore the old SHA and Genomic hierarchy and select the first one otherwise
+     */
+    public static String getBestParentCode(OdsOrganisation odsRecord) {
+
+        Map<String, String> parents = odsRecord.getParents();
+        if (parents.size() == 1) {
+            return parents.keySet().iterator().next();
+
+        }
+
+        for (String code: parents.keySet()) {
+            String parentName = parents.get(code);
+            parentName =  parentName.toUpperCase();
+            if (!parentName.contains("STRATEGIC HEALTH AUTHORITY")
+                    && !parentName.contains("GENOMIC")) {
+
+                return code;
+            }
+        }
+
+        return null;
+    }
 }
 
