@@ -184,4 +184,52 @@ public class IdentifierHelper {
     }
 
 
+    /**
+     * validates if a String is a valid NHS number
+     * expects NHS numbers without any delimiters or spacers (NNNNNNNNNN)
+     *
+     * returns null if empty, true if valid, false if not valid
+     */
+    public static Boolean isValidNhsNumber(String toTest) {
+        if (Strings.isNullOrEmpty(toTest)) {
+            return null;
+        }
+
+        if (toTest.length() != 10) {
+            return Boolean.FALSE;
+        }
+
+        int sum = 0;
+
+        char[] chars = toTest.toCharArray();
+        for (int i=0; i<9; i++) {
+            char c = chars[i];
+
+            if (!Character.isDigit(c)) {
+                return Boolean.FALSE;
+            }
+
+            int val = Character.getNumericValue(c);
+            int weight = 10 - i;
+            int m = val * weight;
+            sum += m;
+        }
+
+        int remainder = sum % 11;
+        int check = 11 - remainder;
+        if (check == 11) {
+            check = 0;
+        }
+        if (check == 10) {
+            return Boolean.FALSE;
+        }
+
+        char lastChar = chars[9];
+        int actualCheck = Character.getNumericValue(lastChar);
+        if (check != actualCheck) {
+            return Boolean.FALSE;
+        }
+
+        return Boolean.TRUE;
+    }
 }
