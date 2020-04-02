@@ -13,10 +13,10 @@ public class FhirCodeUri {
     public static final String CODE_SYSTEM_HL7V2_MESSAGE_TYPE = "http://endeavourhealth.org/fhir/v2-message-type";
     public static final String CODE_SYSTEM_ICD10 = "http://hl7.org/fhir/sid/icd-10"; // see https://www.hl7.org/fhir/icd.html
     public static final String CODE_SYSTEM_OPCS4 = "http://www.endeavourhealth.org/fhir/opcs4"; //placeholder - if there is an official OPCS4 code system then please add it here and remove this comment
-    public static final String CODE_SYSTEM_CERNER_CODE_ID = "http://www.endeavourhealth.org/fhir/cerner-code-id";
     public static final String CODE_SYSTEM_PATIENT_CARE = "http://www.endeavourhealth.org/fhir/patient-care-code";
-    public static final String CODE_SYSTEM_CERNER_MULTUM_DRUG_ID = "http://www.endeavourhealth.org/fhir/cerner-multum-drug-id";
-    public static final String CODE_SYSTEM_CERNER_MULTUM_ALLERGY_CATEGORY_ID = "http://www.endeavourhealth.org/fhir/cerner-multum-allergy-category-id";
+    public static final String CODE_SYSTEM_BARTS_CERNER_CODE_ID = "http://www.endeavourhealth.org/fhir/cerner-code-id"; //note these three are for BARTS only - do not re use for any other Cerner sites
+    public static final String CODE_SYSTEM_BARTS_CERNER_MULTUM_DRUG_ID = "http://www.endeavourhealth.org/fhir/cerner-multum-drug-id";
+    public static final String CODE_SYSTEM_BARTS_CERNER_MULTUM_ALLERGY_CATEGORY_ID = "http://www.endeavourhealth.org/fhir/cerner-multum-allergy-category-id";
     //NOTE: Only add CODE systems to this class (i.e. systems used in CodeableConcepts and Coding structures)
     //NOTE: Consider adding your new coding system to CodeableConceptHelper.findOriginalCode(..)
 
