@@ -99,6 +99,17 @@ public class FhirExtensionUri {
     public final static String ENCOUNTER_SPECIALTY = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-encounter-specialty-extension";
     public final static String ENCOUNTER_TREATMENT_FUNCTION = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-encounter-treatment-function-extension";
     public final static String ENCOUNTER_LOCATION_REFERENCE = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-encounter-location-reference-extension";
+
+    public final static String ENCOUNTER_ATTENDANCE_TYPE = "http://hl7.org/fhir/StructureDefinition/encounter-attendance-type-extension";
+    public final static String ENCOUNTER_ATTENDANCE_SOURCE = "http://hl7.org/fhir/StructureDefinition/encounter-attendance-source-extension";
+    public final static String ENCOUNTER_ARRIVAL_MODE = "http://hl7.org/fhir/StructureDefinition/encounter-arrival-mode-extension";
+    public final static String ENCOUNTER_ADMISSION_METHOD = "http://hl7.org/fhir/StructureDefinition/encounter-admission-method-extension";
+    public final static String ENCOUNTER_ADMISSION_SOURCE = "http://hl7.org/fhir/StructureDefinition/encounter-admission-source-extension";
+    public final static String ENCOUNTER_DISCHARGE_METHOD = "http://hl7.org/fhir/StructureDefinition/encounter-discharge-method-extension";
+    public final static String ENCOUNTER_DISCHARGE_DESTINATION = "http://hl7.org/fhir/StructureDefinition/encounter-discharge-destination-extension";
+    public final static String ENCOUNTER_ADMIN_CATEGORY = "http://hl7.org/fhir/StructureDefinition/encounter-admin-category-extension";
+    public final static String ENCOUNTER_APPOINTMENT_ATTENDED = "http://hl7.org/fhir/StructureDefinition/encounter-appointment-attended-extension";
+    public final static String ENCOUNTER_APPOINTMENT_OUTCOME = "http://hl7.org/fhir/StructureDefinition/encounter-appointment-outcome-extension";
     //DON'T FORGET TO ADD YOUR NEW EXTENSION TO THE FHIR PROFILES (ask Drew if not sure)
 
     //extensions specific to MedicationStatement (profile is MedicationAuthorisation) resource
