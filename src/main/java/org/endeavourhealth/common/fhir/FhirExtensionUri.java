@@ -105,7 +105,9 @@ public class FhirExtensionUri {
     public final static String ENCOUNTER_ARRIVAL_MODE = "http://hl7.org/fhir/StructureDefinition/encounter-arrival-mode-extension";
     public final static String ENCOUNTER_ADMISSION_METHOD = "http://hl7.org/fhir/StructureDefinition/encounter-admission-method-extension";
     public final static String ENCOUNTER_ADMISSION_SOURCE = "http://hl7.org/fhir/StructureDefinition/encounter-admission-source-extension";
+    public final static String ENCOUNTER_ADMISSION_WARD = "http://hl7.org/fhir/StructureDefinition/encounter-admission-ward-extension";
     public final static String ENCOUNTER_DISCHARGE_METHOD = "http://hl7.org/fhir/StructureDefinition/encounter-discharge-method-extension";
+    public final static String ENCOUNTER_DISCHARGE_WARD = "http://hl7.org/fhir/StructureDefinition/encounter-discharge-ward-extension";
     public final static String ENCOUNTER_DISCHARGE_DESTINATION = "http://hl7.org/fhir/StructureDefinition/encounter-discharge-destination-extension";
     public final static String ENCOUNTER_ADMIN_CATEGORY = "http://hl7.org/fhir/StructureDefinition/encounter-admin-category-extension";
     public final static String ENCOUNTER_APPOINTMENT_ATTENDED = "http://hl7.org/fhir/StructureDefinition/encounter-appointment-attended-extension";
