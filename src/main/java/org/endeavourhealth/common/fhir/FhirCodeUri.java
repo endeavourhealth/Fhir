@@ -17,6 +17,7 @@ public class FhirCodeUri {
     public static final String CODE_SYSTEM_BARTS_CERNER_CODE_ID = "http://www.endeavourhealth.org/fhir/cerner-code-id"; //note these three are for BARTS only - do not re use for any other Cerner sites
     public static final String CODE_SYSTEM_BARTS_CERNER_MULTUM_DRUG_ID = "http://www.endeavourhealth.org/fhir/cerner-multum-drug-id";
     public static final String CODE_SYSTEM_BARTS_CERNER_MULTUM_ALLERGY_CATEGORY_ID = "http://www.endeavourhealth.org/fhir/cerner-multum-allergy-category-id";
+    public static final String CODE_SYSTEM_NHS_DD = "http://www.endeavourhealth.org/fhir/nhs-data-dictionary-code";  //only use in FHIR extensions containing context, i.e. the data dictionary attribute subset
     //NOTE: Only add CODE systems to this class (i.e. systems used in CodeableConcepts and Coding structures)
     //NOTE: Consider adding your new coding system to CodeableConceptHelper.findOriginalCode(..)
 
