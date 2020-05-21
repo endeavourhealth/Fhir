@@ -104,6 +104,9 @@ public class FhirIdentifierUri {
     public static final String IDENTIFIER_SYSTEM_CERNER_DIAGNOSIS_ID = "http://cerner.com/fhir/diagnosis-id";
     public static final String IDENTIFIER_SYSTEM_CERNER_PROCEDURE_ID = "http://cerner.com/fhir/procedure-id";
     public static final String IDENTIFIER_SYSTEM_CERNER_OBSERVATION_ID = "http://cerner.com/fhir/observation-id";
+
+    //Bhrut specific
+    public static final String IDENTIFIER_SYSTEM_BHRUT_PAS_ID = "https://www.bhrhospitals.nhs.uk/fhir/pas-id";
     //NOTE: Only add IDENTIFIER systems to this class (i.e. systems used in Identifier structures)
 
 }
