@@ -100,9 +100,10 @@ public class FhirExtensionUri {
     public final static String ENCOUNTER_TREATMENT_FUNCTION = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-encounter-treatment-function-extension";
     public final static String ENCOUNTER_LOCATION_REFERENCE = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-encounter-location-reference-extension";
 
-    public final static String ENCOUNTER_ATTENDANCE_TYPE = "http://hl7.org/fhir/StructureDefinition/encounter-attendance-type-extension";
-    public final static String ENCOUNTER_ATTENDANCE_SOURCE = "http://hl7.org/fhir/StructureDefinition/encounter-attendance-source-extension";
-    public final static String ENCOUNTER_ARRIVAL_MODE = "http://hl7.org/fhir/StructureDefinition/encounter-arrival-mode-extension";
+    public final static String ENCOUNTER_AE_ATTENDANCE_CATEGORY = "http://hl7.org/fhir/StructureDefinition/encounter-ae-attendance-category-extension";
+    public final static String ENCOUNTER_AE_ATTENDANCE_SOURCE = "http://hl7.org/fhir/StructureDefinition/encounter-ae-attendance-source-extension";
+    public final static String ENCOUNTER_AE_ARRIVAL_MODE = "http://hl7.org/fhir/StructureDefinition/encounter-ae-arrival-mode-extension";
+
     public final static String ENCOUNTER_ADMISSION_METHOD = "http://hl7.org/fhir/StructureDefinition/encounter-admission-method-extension";
     public final static String ENCOUNTER_ADMISSION_SOURCE = "http://hl7.org/fhir/StructureDefinition/encounter-admission-source-extension";
     public final static String ENCOUNTER_ADMISSION_WARD = "http://hl7.org/fhir/StructureDefinition/encounter-admission-ward-extension";
