@@ -70,6 +70,7 @@ public class FhirExtensionUri {
     public final static String REFERRAL_REQUEST_SEND_MODE = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-referral-request-send-mode-extension";
     public final static String REFERRAL_REQUEST_RECIPIENT_SERVICE_TYPE = "http://endeavourhealth.org/fhir/StructureDefinition/referral-request-recipient-service-type-extension";
     public final static String REFERRAL_REQUEST_RECIPIENT_FREE_TEXT = "http://endeavourhealth.org/fhir/StructureDefinition/referral-request-recipient-free-text-extension";
+    public final static String REFERRAL_REQUEST_STATUS_HISTORY = "http://endeavourhealth.org/fhir/StructureDefinition/referral-request-status-history-extension";
     //DON'T FORGET TO ADD YOUR NEW EXTENSION TO THE FHIR PROFILES (ask Drew if not sure)
 
     //extensions specific to DiagnosticReport resources
