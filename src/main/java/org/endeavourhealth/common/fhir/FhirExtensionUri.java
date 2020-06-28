@@ -70,6 +70,7 @@ public class FhirExtensionUri {
     public final static String REFERRAL_REQUEST_SEND_MODE = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-referral-request-send-mode-extension";
     public final static String REFERRAL_REQUEST_RECIPIENT_SERVICE_TYPE = "http://endeavourhealth.org/fhir/StructureDefinition/referral-request-recipient-service-type-extension";
     public final static String REFERRAL_REQUEST_RECIPIENT_FREE_TEXT = "http://endeavourhealth.org/fhir/StructureDefinition/referral-request-recipient-free-text-extension";
+    public final static String REFERRAL_REQUEST_STATUS_HISTORY = "http://endeavourhealth.org/fhir/StructureDefinition/referral-request-status-history-extension";
     //DON'T FORGET TO ADD YOUR NEW EXTENSION TO THE FHIR PROFILES (ask Drew if not sure)
 
     //extensions specific to DiagnosticReport resources
@@ -104,6 +105,9 @@ public class FhirExtensionUri {
     public final static String ENCOUNTER_AE_ATTENDANCE_CATEGORY = "http://hl7.org/fhir/StructureDefinition/encounter-ae-attendance-category-extension";
     public final static String ENCOUNTER_AE_ATTENDANCE_SOURCE = "http://hl7.org/fhir/StructureDefinition/encounter-ae-attendance-source-extension";
     public final static String ENCOUNTER_AE_ARRIVAL_MODE = "http://hl7.org/fhir/StructureDefinition/encounter-ae-arrival-mode-extension";
+    public final static String ENCOUNTER_AE_DEPARTMENT_TYPE = "http://hl7.org/fhir/StructureDefinition/encounter-ae-department-type-extension";
+    public final static String ENCOUNTER_AE_DISCHARGE_STATUS = "http://hl7.org/fhir/StructureDefinition/encounter-ae-discharge-status-extension";
+    public final static String ENCOUNTER_AE_DISCHARGE_DESTINATION = "http://hl7.org/fhir/StructureDefinition/encounter-ae-discharge-destination-extension";
 
     public final static String ENCOUNTER_ADMISSION_METHOD = "http://hl7.org/fhir/StructureDefinition/encounter-admission-method-extension";
     public final static String ENCOUNTER_ADMISSION_SOURCE = "http://hl7.org/fhir/StructureDefinition/encounter-admission-source-extension";
@@ -114,6 +118,7 @@ public class FhirExtensionUri {
     public final static String ENCOUNTER_ADMIN_CATEGORY = "http://hl7.org/fhir/StructureDefinition/encounter-admin-category-extension";
     public final static String ENCOUNTER_APPOINTMENT_ATTENDED = "http://hl7.org/fhir/StructureDefinition/encounter-appointment-attended-extension";
     public final static String ENCOUNTER_APPOINTMENT_OUTCOME = "http://hl7.org/fhir/StructureDefinition/encounter-appointment-outcome-extension";
+    public final static String ENCOUNTER_APPOINTMENT_REFERRAL_SOURCE = "http://hl7.org/fhir/StructureDefinition/encounter-appointment-referral-source-extension";
     //DON'T FORGET TO ADD YOUR NEW EXTENSION TO THE FHIR PROFILES (ask Drew if not sure)
 
     //extensions specific to MedicationStatement (profile is MedicationAuthorisation) resource
@@ -168,5 +173,6 @@ public class FhirExtensionUri {
     public final static String RESOURCE_CONTEXT = "http://endeavourhealth.org/fhir/StructureDefinition/context-extension";
     public final static String PARENT_RESOURCE = "http://endeavourhealth.org/fhir/StructureDefinition/parent-resource";
     public final static String IS_PRIMARY = "http://endeavourhealth.org/fhir/StructureDefinition/is-primary-extension";
+    public final static String ADDITIONAL = "http://discoverydataservice.org/fhir/StructureDefinition/additional-extension";
     //DON'T FORGET TO ADD YOUR NEW EXTENSION TO THE FHIR PROFILES (ask Drew if not sure)
 }

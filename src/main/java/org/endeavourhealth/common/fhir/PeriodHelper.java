@@ -102,4 +102,24 @@ public class PeriodHelper {
             return 0;
         }
     }
+
+    /**
+     * tests if a given date falls within a period
+     */
+    public static boolean isWithin(Period period, Date dTest) {
+        if (period.hasStart()) {
+            Date dStart = period.getStart();
+            if (dTest.before(dStart)) {
+                return false;
+            }
+        }
+        if (period.hasEnd()) {
+            Date dEnd = period.getEnd();
+            if (dTest.after(dEnd)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 }

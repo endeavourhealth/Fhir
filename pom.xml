@@ -4,7 +4,7 @@
 
   <groupId>org.endeavourhealth.common</groupId>
   <artifactId>fhir</artifactId>
-  <version>1.133-SNAPSHOT</version>
+  <version>1.139-SNAPSHOT</version>
   <packaging>jar</packaging>
 
   <properties>

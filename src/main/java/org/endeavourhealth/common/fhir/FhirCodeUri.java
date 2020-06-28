@@ -6,6 +6,7 @@ public class FhirCodeUri {
     public static final String CODE_SYSTEM_SNOMED_CT = "http://snomed.info/sct"; //see https://github.com/HL7-UK/System-Identifiers
     public static final String CODE_SYSTEM_CTV3 = "http://read.info/ctv3"; //see https://github.com/HL7-UK/System-Identifiers
     public static final String CODE_SYSTEM_TPP_CTV3 = "http://www.endeavourhealth.org/fhir/tpp-ctv3";
+    public static final String CODE_SYSTEM_TPP_DRUG_ACTION_GROUP = "http://www.endeavourhealth.org/fhir/tpp-drug-action-group";
     public static final String CODE_SYSTEM_EMISSNOMED = "http://www.endeavourhealth.org/fhir/emis-snomed";
     public static final String CODE_SYSTEM_EMISPREPARATION = "http://www.endeavourhealth.org/fhir/emis-prepration";
     public static final String CODE_SYSTEM_EMIS_CODE = "http://www.endeavourhealth.org/fhir/emis-code";
