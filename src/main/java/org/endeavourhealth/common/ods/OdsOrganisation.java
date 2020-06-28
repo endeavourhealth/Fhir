@@ -109,6 +109,23 @@ public class OdsOrganisation {
         this.parents = parents;
     }
 
+    @Override
+    public String toString() {
+        return "OdsOrganisation{" +
+                "odsCode='" + odsCode + '\'' +
+                ", organisationName='" + organisationName + '\'' +
+                ", organisationClass=" + organisationClass +
+                ", organisationType=" + organisationType +
+                ", addressLine1='" + addressLine1 + '\'' +
+                ", addressLine2='" + addressLine2 + '\'' +
+                ", town='" + town + '\'' +
+                ", county='" + county + '\'' +
+                ", postcode='" + postcode + '\'' +
+                ", isActive=" + isActive +
+                ", parents=" + parents +
+                '}';
+    }
+
     /**
      * some orgs have multiple parents, and the simplest way to choose just one seems to be
      * to ignore the old SHA and Genomic hierarchy and select the first one otherwise
