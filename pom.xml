@@ -4,7 +4,7 @@
 
   <groupId>org.endeavourhealth.common</groupId>
   <artifactId>fhir</artifactId>
-  <version>1.139-SNAPSHOT</version>
+  <version>1.140-SNAPSHOT</version>
   <packaging>jar</packaging>
 
   <properties>
@@ -32,7 +32,10 @@
       <groupId>org.endeavourhealth.common</groupId>
       <artifactId>cache</artifactId>
     </dependency>
-
+    <dependency>
+      <groupId>org.endeavourhealth.common</groupId>
+      <artifactId>core</artifactId>
+    </dependency>
     <dependency>
       <groupId>me.fhir</groupId>
       <artifactId>fhir-dstu2</artifactId>
@@ -49,6 +52,12 @@
       <groupId>com.google.code.gson</groupId>
       <artifactId>gson</artifactId>
     </dependency>
+<!--      <dependency>-->
+<!--          <groupId>org.junit.jupiter</groupId>-->
+<!--          <artifactId>junit-jupiter</artifactId>-->
+<!--          <version>RELEASE</version>-->
+<!--          <scope>compile</scope>-->
+<!--      </dependency>-->
   </dependencies>
 
   <repositories>
