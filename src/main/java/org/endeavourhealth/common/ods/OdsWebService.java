@@ -29,7 +29,7 @@ public class OdsWebService {
 
 
 
-    public static OdsOrganisation lookupOrganisationViaRestNew(String odsCode) throws Exception {
+    public static OdsOrganisation lookupOrganisationViaRest(String odsCode) throws Exception {
         return lookupOrganisationViaRest(odsCode, null);
     }
 
