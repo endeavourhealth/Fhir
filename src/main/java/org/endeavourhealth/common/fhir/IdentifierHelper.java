@@ -1,6 +1,7 @@
 package org.endeavourhealth.common.fhir;
 
 import com.google.common.base.Strings;
+import org.endeavourhealth.common.fhir.schema.NhsNumberVerificationStatus;
 import org.hl7.fhir.instance.model.*;
 
 import java.util.ArrayList;
@@ -231,5 +232,21 @@ public class IdentifierHelper {
         }
 
         return Boolean.TRUE;
+    }
+
+    public static NhsNumberVerificationStatus findNhsNumberVerificationStatus(Patient fhirPatient) {
+        CodeableConcept codeableConcept = (CodeableConcept)ExtensionConverter.findExtensionValue(fhirPatient, FhirExtensionUri.PATIENT_NHS_NUMBER_VERIFICATION_STATUS);
+        if (codeableConcept == null
+                || !codeableConcept.hasCoding()) {
+            return null;
+        }
+
+        Coding coding = codeableConcept.getCoding().get(0);
+        if (!coding.hasCode()) {
+            return null;
+        }
+
+        String code = coding.getCode();
+        return NhsNumberVerificationStatus.fromCode(code);
     }
 }

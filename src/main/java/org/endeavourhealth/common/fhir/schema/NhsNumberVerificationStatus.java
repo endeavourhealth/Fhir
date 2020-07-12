@@ -32,4 +32,13 @@ public enum NhsNumberVerificationStatus {
         this.code = code;
         this.description = description;
     }
+
+    public static NhsNumberVerificationStatus fromCode(String v) {
+        for (NhsNumberVerificationStatus c: NhsNumberVerificationStatus.values()) {
+            if (c.getCode().equalsIgnoreCase(v)) {
+                return c;
+            }
+        }
+        throw new IllegalArgumentException("Unknown code [" + v + "]");
+    }
 }
