@@ -10,6 +10,7 @@ public class FhirCodeUri {
     public static final String CODE_SYSTEM_EMISSNOMED = "http://www.endeavourhealth.org/fhir/emis-snomed";
     public static final String CODE_SYSTEM_EMISPREPARATION = "http://www.endeavourhealth.org/fhir/emis-prepration";
     public static final String CODE_SYSTEM_EMIS_CODE = "http://www.endeavourhealth.org/fhir/emis-code";
+    public static final String CODE_SYSTEM_VISION_CODE = "http://www.endeavourhealth.org/fhir/vision-code";
     public static final String CODE_SYSTEM_SNOMED_DESCRIPTION_ID = "http://www.endeavourhealth.org/fhir/snomed-description";
     public static final String CODE_SYSTEM_HL7V2_MESSAGE_TYPE = "http://endeavourhealth.org/fhir/v2-message-type";
     public static final String CODE_SYSTEM_ICD10 = "http://hl7.org/fhir/sid/icd-10"; // see https://www.hl7.org/fhir/icd.html
