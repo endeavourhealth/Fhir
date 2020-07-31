@@ -8,7 +8,7 @@ class OdsWebServiceTest {
 // @Test commented out to allow builds to work
 //    @Test
     void lookupOrganisationViaRestOld() throws Exception {
-        OdsOrganisation org  = OdsWebService.lookupOrganisationViaRest("E85636", null);
+        /*OdsOrganisation org  = OdsWebService.lookupOrganisationViaRest("E85636", null);
         System.out.println("Name: " + org.getOrganisationName());
         System.out.println("Type: " + org.getOrganisationType());
         System.out.println("Class: " + org.getOrganisationClass());
@@ -18,10 +18,11 @@ class OdsWebServiceTest {
         System.out.println("" + org.getCounty());
         System.out.println("" + org.getPostcode());
         System.out.println("Active: " + org.isActive());
-
+*/
     }
 //    @Test
     void lookupOrganisationViaRest() throws Exception {
+/*
         OdsOrganisation org  = OdsWebService.lookupOrganisationViaRest_2("E85636", null);
         System.out.println("Name: " + org.getOrganisationName());
         System.out.println("Type: " + org.getOrganisationType());
@@ -32,12 +33,13 @@ class OdsWebServiceTest {
         System.out.println("" + org.getCounty());
         System.out.println("" + org.getPostcode());
         System.out.println("Active: " + org.isActive());
+*/
 
     }
 //
 //    @Test
     void lookupOrganisationViaRestOds() throws Exception {
-        OdsOrganisation org  = OdsWebService.lookUpOrganisationViaRestOds("E85636", null);
+   /*     OdsOrganisation org  = OdsWebService.lookUpOrganisationViaRestOds("E85636", null);
         System.out.println("Name: " + org.getOrganisationName());
         System.out.println("Type: " + org.getOrganisationType());
         System.out.println("Class: " + org.getOrganisationClass());
@@ -47,6 +49,6 @@ class OdsWebServiceTest {
         System.out.println("" + org.getCounty());
         System.out.println("" + org.getPostcode());
         System.out.println("Active: " + org.isActive());
-
+*/
     }
 }

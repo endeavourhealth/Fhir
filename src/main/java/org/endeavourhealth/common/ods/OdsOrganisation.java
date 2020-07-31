@@ -3,23 +3,20 @@ package org.endeavourhealth.common.ods;
 import org.endeavourhealth.common.fhir.schema.OrganisationClass;
 import org.endeavourhealth.common.fhir.schema.OrganisationType;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class OdsOrganisation {
     private String odsCode;
     private String organisationName;
     private OrganisationClass organisationClass;
-    private OrganisationType organisationType;
+    private Set<OrganisationType> organisationTypes = new HashSet<>();
     private String addressLine1;
     private String addressLine2;
     private String town;
     private String county;
     private String postcode;
     private boolean isActive;
-    private Map<String, String> parents = new HashMap<>(); //map of parent ODS Code and name
+    private Map<String, OdsOrganisation> parents = new HashMap<>(); //map of parent ODS Code and name
 
     public String getOdsCode() {
         return odsCode;
@@ -45,12 +42,12 @@ public class OdsOrganisation {
         this.organisationClass = organisationClass;
     }
 
-    public OrganisationType getOrganisationType() {
-        return organisationType;
+    public Set<OrganisationType> getOrganisationTypes() {
+        return organisationTypes;
     }
 
-    public void setOrganisationType(OrganisationType organisationType) {
-        this.organisationType = organisationType;
+    public void setOrganisationTypes(Set<OrganisationType> organisationTypes) {
+        this.organisationTypes = organisationTypes;
     }
 
     public String getAddressLine1() {
@@ -101,28 +98,28 @@ public class OdsOrganisation {
         isActive = active;
     }
 
-    public Map<String, String> getParents() {
+    public Map<String, OdsOrganisation> getParents() {
         return parents;
     }
 
-    public void setParents(Map<String, String> parents) {
+    public void setParents(Map<String, OdsOrganisation> parents) {
         this.parents = parents;
     }
 
     @Override
     public String toString() {
-        return "OdsOrganisation{" +
-                "odsCode='" + odsCode + '\'' +
-                ", organisationName='" + organisationName + '\'' +
-                ", organisationClass=" + organisationClass +
-                ", organisationType=" + organisationType +
-                ", addressLine1='" + addressLine1 + '\'' +
-                ", addressLine2='" + addressLine2 + '\'' +
-                ", town='" + town + '\'' +
-                ", county='" + county + '\'' +
-                ", postcode='" + postcode + '\'' +
-                ", isActive=" + isActive +
-                ", parents=" + parents +
+        return "OdsOrganisation{\r\n" +
+                "odsCode=" + odsCode + "\r\n" +
+                "organisationName=" + organisationName + "\r\n" +
+                "organisationClass=" + organisationClass + "\r\n" +
+                "organisationTypes=" + organisationTypes + "\r\n" +
+                "addressLine1=" + addressLine1 + "\r\n" +
+                "addressLine2=" + addressLine2 + "\r\n" +
+                "town=" + town + "\r\n" +
+                "county=" + county + "\r\n" +
+                "postcode=" + postcode + "\r\n" +
+                "isActive=" + isActive + "\r\n" +
+                "parents=" + parents.keySet() + "\r\n" +
                 '}';
     }
 
@@ -130,7 +127,7 @@ public class OdsOrganisation {
      * some orgs have multiple parents, and the simplest way to choose just one seems to be
      * to ignore the old SHA and Genomic hierarchy and select the first one otherwise
      */
-    public static String getBestParentCode(OdsOrganisation odsRecord) {
+    /*public static String getBestParentCode(OdsOrganisation odsRecord) {
 
         Map<String, String> parents = odsRecord.getParents();
         if (parents.size() == 1) {
@@ -149,6 +146,6 @@ public class OdsOrganisation {
         }
 
         return null;
-    }
+    }*/
 }
 

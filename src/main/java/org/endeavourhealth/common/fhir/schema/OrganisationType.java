@@ -5,6 +5,11 @@ import org.endeavourhealth.common.fhir.FhirValueSetUri;
 
 public enum OrganisationType {
 
+    //roles can be looked up on the ODS API using
+    // https://directory.spineservices.nhs.uk/ORD/2-0-0/roles/<rolecode>
+    // e.g.
+    // https://directory.spineservices.nhs.uk/ORD/2-0-0/roles/RO261
+
     APPLICATION_SERVICE_PROVIDER("AR", "Application Service Provider", "RO92"),
     BOOKING_MANAGEMENT_SYSTEM("BM", "Booking Management System (BMS) Call Centre Establishment", null),
     CANCER_NETWORK("CN", "Cancer Network", "RO103"),
@@ -61,7 +66,7 @@ public enum OrganisationType {
     YOUNG_OFFENDERS_INSTITUTE("JA", "Young Offenders Institute", "RO228"),
     COMMUNITY("CO", "Community", null),
     COMMUNITY_MENTAL_HEALTH_TEAM("CM", "Community Mental Health Team", null),
-    HOSPICE("HP", "Hospice", null),
+    HOSPICE("HP", "Hospice", "RO7"),
     HOSPITAL("HO", "Hospital", null),
     HOSPITAL_DEPARTMENT("HD", "Hospital Department", null),
     CLINIC("CI", "Clinic", null),
@@ -73,8 +78,13 @@ public enum OrganisationType {
     OUT_OF_HOURS("OO", "Out of Hours", null),
     NURSING_HOME("NH", "Nursing Home", null),
     ACCIDENT_AND_EMERGENCY("AE", "Accident & Emergency", null),
+    PRIMARY_CARE_NETWORK("PCN", "Primary Care Network", "RO272"),
+    NHS_ENGLAND("RO209", "NHS England", "RO209"),
+    SUSTAINABILITY_TRANSFORMATION_PARTNERSHIP("RO262", "Sustainability Transformation Partnership", "RO262"),
+    STRATEGIC_PARTNERSHIP("RO261", "Strategic Partnership", "RO261"),
+    PRESCRIBING_COST_CENTRE("RO177", "Prescribing Cost Centre", "RO177"),
+    FOUNDATION_TRUST("RO57", "Foundation Trust", "RO57")
     ;
-
 
 
     private String code = null;
@@ -89,7 +99,9 @@ public enum OrganisationType {
         return description;
     }
 
-    public String getRoleCode() { return roleCode; }
+    public String getRoleCode() {
+        return roleCode;
+    }
 
     public String getSystem() {
         return FhirValueSetUri.VALUE_SET_ORGANISATION_TYPE;
@@ -105,13 +117,13 @@ public enum OrganisationType {
         if (StringUtils.isBlank(v))
             return null;
 
-        for (OrganisationType c: OrganisationType.values()) {
+        for (OrganisationType c : OrganisationType.values()) {
             if (c.code.equalsIgnoreCase(v)) {
                 return c;
             }
         }
 
-        throw new IllegalArgumentException("Unknown code [" + v + "]");
+        throw new IllegalArgumentException("Unknown organisation type code [" + v + "]");
     }
 
     public static OrganisationType fromRoleCode(String roleCode) {
@@ -123,14 +135,14 @@ public enum OrganisationType {
                 if (organisationType.roleCode.equalsIgnoreCase(roleCode))
                     return organisationType;
 
-        throw new IllegalArgumentException("Unknown code [" + roleCode + "]");
+        throw new IllegalArgumentException("Unknown organisation role code [" + roleCode + "]");
     }
 
     public static OrganisationType fromDescription(String v) {
         if (StringUtils.isBlank(v))
             return null;
 
-        for (OrganisationType c: OrganisationType.values())
+        for (OrganisationType c : OrganisationType.values())
             if (c.description.equalsIgnoreCase(v))
                 return c;
 
