@@ -83,9 +83,9 @@ public enum OrganisationType {
     SUSTAINABILITY_TRANSFORMATION_PARTNERSHIP("RO262", "Sustainability Transformation Partnership", "RO262"),
     STRATEGIC_PARTNERSHIP("RO261", "Strategic Partnership", "RO261"),
     PRESCRIBING_COST_CENTRE("RO177", "Prescribing Cost Centre", "RO177"),
-    FOUNDATION_TRUST("RO57", "Foundation Trust", "RO57")
+    FOUNDATION_TRUST("RO57", "Foundation Trust", "RO57"),
+    COMMISSIONING_HUB("RO218", "Commissioning Hub", "RO218")
     ;
-
 
     private String code = null;
     private String description = null;
