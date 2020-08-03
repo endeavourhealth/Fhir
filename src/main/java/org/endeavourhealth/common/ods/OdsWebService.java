@@ -8,6 +8,8 @@ import org.endeavourhealth.common.fhir.schema.OrganisationClass;
 import org.endeavourhealth.common.fhir.schema.OrganisationType;
 import org.endeavourhealth.common.utility.ExpiringCache;
 import org.hl7.fhir.instance.model.Organization;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -19,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OdsWebService {
+    private static final Logger LOG = LoggerFactory.getLogger(OdsWebService.class);
 
     //private static final String OPEN_ODS_URL = "http://api.openods.co.uk/api/organisations/";
 
@@ -194,7 +197,7 @@ public class OdsWebService {
 
         OdsOrganisation ret = ordCache.get(odsCode);
         if (ret == null) {
-            ret = lookUpOrganisationViaRestNewImpl(odsCode, proxy);
+            ret = tryLookUpOrganisationViaRestNew(odsCode, proxy);
             if (ret != null) {
                 ordCache.put(odsCode, ret);
             }
@@ -203,6 +206,32 @@ public class OdsWebService {
         return ret;
     }
 
+    /**
+     * the API fails with a 503 (Service Unavailable) error every now and again. This function gives it
+     * five goes with a 10s delay between each attempt before failing.
+     */
+    private static OdsOrganisation tryLookUpOrganisationViaRestNew(String odsCode, Proxy proxy) throws Exception {
+        int lives = 5;
+
+        while (true) {
+            lives--;
+
+            try {
+                return lookUpOrganisationViaRestNewImpl(odsCode, proxy);
+
+            } catch (Exception ex) {
+                String msg = ex.getMessage();
+                boolean is503 = msg != null && msg.contains("503");
+
+                if (!is503 || lives <= 0) {
+                    throw ex;
+                }
+
+                LOG.warn("Exception " + ex.getMessage() + " calling into ODS web service will try " + lives + " more times");
+                Thread.sleep(10 * 1000);
+            }
+        }
+    }
 
     private static OdsOrganisation lookUpOrganisationViaRestNewImpl(String odsCode, Proxy proxy) throws Exception {
 
