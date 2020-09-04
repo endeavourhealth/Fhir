@@ -24,6 +24,9 @@ public class FhirExtensionUri {
     public final static String EPISODE_OF_CARE_PCCARRIVAL = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-episode-pccarrival";
     //DON'T FORGET TO ADD YOUR NEW EXTENSION TO THE FHIR PROFILES (ask Drew if not sure)
 
+    //extensions specific to Observation resources
+    public final static String OBSERVATION_PATIENT_DELAY_DAYS = "http://endeavourhealth.org/fhir/StructureDefinition/acute-patient-delay-days-extension";
+
     //extensions specific to Appointment resource
     public final static String APPOINTMENT_PATIENT_WAIT = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-appointment-wait-extension";
     public final static String APPOINTMENT_PATIENT_DELAY = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-appointment-delay-extension";
