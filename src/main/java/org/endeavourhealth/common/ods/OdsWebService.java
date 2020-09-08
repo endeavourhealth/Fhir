@@ -211,7 +211,7 @@ public class OdsWebService {
      * five goes with a 10s delay between each attempt before failing.
      */
     private static OdsOrganisation tryLookUpOrganisationViaRestNew(String odsCode, Proxy proxy) throws Exception {
-        int lives = 5;
+        int lives = 30; //the API was down for several minutes, so give it up to 5 min (with 10s retry delay) before failing
 
         while (true) {
             lives--;
