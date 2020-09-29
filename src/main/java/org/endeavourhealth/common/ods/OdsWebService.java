@@ -207,7 +207,7 @@ public class OdsWebService {
     }
 
     /**
-     * the API fails with a 503 (Service Unavailable) error every now and again. This function gives it
+     * the API fails with a 503 (Service Unavailable) or 504 (Gateway timeout) error every now and again. This function gives it
      * five goes with a 10s delay between each attempt before failing.
      */
     private static OdsOrganisation tryLookUpOrganisationViaRestNew(String odsCode, Proxy proxy) throws Exception {
@@ -221,7 +221,8 @@ public class OdsWebService {
 
             } catch (Exception ex) {
                 String msg = ex.getMessage();
-                boolean is503 = msg != null && msg.contains("503");
+                boolean is503 = msg != null
+                        && (msg.contains("503") || msg.contains("504"));
 
                 if (!is503 || lives <= 0) {
                     throw ex;
