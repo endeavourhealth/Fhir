@@ -1,5 +1,8 @@
 package org.endeavourhealth.common.fhir;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class FhirIdentifierUri {
 
     public final static String IDENTIFIER_SYSTEM_NHSNUMBER = "http://fhir.nhs.net/Id/nhs-number";
@@ -47,6 +50,7 @@ public class FhirIdentifierUri {
     public final static String IDENTIFIER_SYSTEM_HOMERTON_PRIMARY_PRACTITIONER_ID = "http://endeavourhealth.org/fhir/id/v2-local-practitioner-id/homerton-personnelprimaryid";
     public final static String IDENTIFIER_SYSTEM_BARTS_ORG_DR_NUMBER = "http://endeavourhealth.org/fhir/id/v2-local-practitioner-id/barts-org-dr-number";
     public final static String IDENTIFIER_SYSTEM_BARTS_PERSONNEL_ID = "http://endeavourhealth.org/fhir/id/v2-local-practitioner-id/barts-personnel-id";
+    //NOTE - if an identifier should be searchable then make sure to add to the fn at the bottom of this class
 
     // New Cerner Aliases
     public final static String IDENTIFIER_SYSTEM_CERNER_INTERNAL_PERSON = "http://endeavourhealth.org/fhir/id/v2-local-episode-id/cerner-internal-person-id";
@@ -105,9 +109,42 @@ public class FhirIdentifierUri {
     public static final String IDENTIFIER_SYSTEM_CERNER_PROCEDURE_ID = "http://cerner.com/fhir/procedure-id";
     public static final String IDENTIFIER_SYSTEM_CERNER_OBSERVATION_ID = "http://cerner.com/fhir/observation-id";
     public static final String IDENTIFIER_SYSTEM_CERNER_PATHWAY_ID = "http://cerner.com/fhir/pathway-id";
+    //NOTE - if an identifier should be searchable then make sure to add to the fn at the bottom of this class
 
     //Bhrut specific
     public static final String IDENTIFIER_SYSTEM_BHRUT_PAS_ID = "https://www.bhrhospitals.nhs.uk/fhir/pas-id";
-    //NOTE: Only add IDENTIFIER systems to this class (i.e. systems used in Identifier structures)
+    //NOTE - if an identifier should be searchable then make sure to add to the fn at the bottom of this class
 
+
+
+    /**
+     * returns the list of identifiers that are included in searching for patients in the Data Assurance app etc.
+     * FHIR Patient resources often end up with many identifiers that aren't interesting or relevant for searching
+     */
+    public static Set<String> getSearchablePatientIdentifiers() {
+        Set<String> ret = new HashSet<>();
+
+        //common
+        ret.add(IDENTIFIER_SYSTEM_NHSNUMBER);
+
+        //Cerner
+        ret.add(IDENTIFIER_SYSTEM_BARTS_MRN_PATIENT_ID);
+        ret.add(IDENTIFIER_SYSTEM_HOMERTON_MRN_PATIENT_ID);
+        ret.add(IDENTIFIER_SYSTEM_NEWHAM_MRN_PATIENT_ID);
+
+        //Emis
+        ret.add(IDENTIFIER_SYSTEM_EMIS_PATIENT_NUMBER);
+
+        //Vision
+        ret.add(IDENTIFIER_SYSTEM_VISION_PATIENT_NUMBER);
+
+        //Bhrut
+        ret.add(IDENTIFIER_SYSTEM_BHRUT_PAS_ID);
+
+        //TPP
+
+        //Adastra
+
+        return ret;
+    }
 }
