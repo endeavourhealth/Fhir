@@ -5,6 +5,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.hl7.fhir.instance.model.*;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class AddressHelper
@@ -90,6 +91,10 @@ public class AddressHelper
 
     /**
      * returns the "best" home address from the patient resource
+     *
+     * https://endeavourhealth.atlassian.net/browse/SD-247
+     * had to change this function to deal with patients having multiple active
+     * addresses at the same time. In that case, it'll use the most recently started one.
      */
     public static Address findHomeAddress(Patient fhirPatient) {
 
@@ -97,6 +102,7 @@ public class AddressHelper
             return null;
         }
 
+        //just get a list of home addresses
         List<Address> homeAddresses = new ArrayList<>();
 
         for (Address fhirAddress: fhirPatient.getAddress()) {
@@ -106,22 +112,77 @@ public class AddressHelper
             }
         }
 
-        //return last non-ended one
-        for (int i=homeAddresses.size()-1; i>=0; i--) {
-            Address address = homeAddresses.get(i);
-            if (!address.hasPeriod()
-                    || PeriodHelper.isActive(address.getPeriod())) {
-                return address;
+        if (homeAddresses.isEmpty()) {
+            return null;
+        }
+
+        //sort, using a static fn to do the comparison, since there's a fair bit of logic
+        homeAddresses.sort((o1, o2) -> compareAddresses(o1, o2));
+
+        //post-sorting, simply return the last one in the list
+        return homeAddresses.get(homeAddresses.size()-1);
+    }
+
+    private static int compareAddresses(Address addr1, Address addr2) {
+
+        //ones without end dates are always later than ones with end dates
+        Date end1 = null;
+        if (addr1.hasPeriod() && addr1.getPeriod().hasEnd()) {
+           end1 = addr1.getPeriod().getEnd(); 
+        }
+
+        Date end2 = null;
+        if (addr2.hasPeriod() && addr2.getPeriod().hasEnd()) {
+            end2 = addr2.getPeriod().getEnd();
+        }
+        
+        if (end1 == null && end2 == null) {
+            //if neither has an end, then let the below sorting by start date apply
+            
+        } else if (end1 != null && end2 == null) {
+            //if 1 is ended but 2 is not, then 1 goes before 2 (null end counts as later)
+            return -1;
+            
+        } else if (end1 == null && end2 != null) {
+            //if 1 is not ended but 2 is, then 2 goes before 1
+            return 1;
+            
+        } else {
+            //if both are ended, then sort by end date
+            int comp = end1.compareTo(end2);
+            if (comp != 0) {
+                return comp;
+            } else {
+                //if the end dates are the same, then drop into the below sorting by start date
             }
         }
-
-        //if no non-ended one, then return the last one, as it was added most recently
-        if (!homeAddresses.isEmpty()) {
-            int size = homeAddresses.size();
-            return homeAddresses.get(size-1);
+        
+        Date start1 = null;
+        if (addr1.hasPeriod() && addr1.getPeriod().hasStart()) {
+            start1 = addr1.getPeriod().getStart();
         }
 
-        return null;
+        Date start2 = null;
+        if (addr2.hasPeriod() && addr2.getPeriod().hasStart()) {
+            start2 = addr2.getPeriod().getStart();
+        }
+
+        if (start1 == null && start2 == null) {
+            //if neither has a start date, then we can't sort any more
+            return 0;
+
+        } else if (start1 != null && start2 == null) {
+            //if 1 has a date and 2 doesn't, then place 2 first (null start counts as earlier)
+            return 1;
+
+        } else if (start1 == null && start2 != null) {
+            //if 1 doesn't have a start, but 2 does, then place 1 first
+            return -1;
+
+        } else {
+            //if both have starts, then it's a straight date comparison
+            return start1.compareTo(start2);
+        }
     }
 
     public static String findCity(Patient fhirPatient) {
