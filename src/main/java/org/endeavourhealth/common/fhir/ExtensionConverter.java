@@ -130,4 +130,23 @@ public class ExtensionConverter {
 
         return null;
     }
+
+    /**
+     * sometimes we need to artificially change a FHIR resource so that it can be sent through
+     * the queues again. The FHIR Resource Filer explicitly stops this happening if a resource
+     * hasn't actually changed. So this function uses a dummy extension to create an artificial
+     * change to bypass that.
+     */
+    public static void setResourceChanged(IBaseHasExtensions resource) {
+        Extension ext = findOrCreateExtension(resource, FhirExtensionUri.RESOURCE_CHANGED);
+
+        DecimalType val = new DecimalType(1);
+        if (ext.hasValue()) {
+            DecimalType currentVal = (DecimalType)ext.getValue();
+            int valInt = currentVal.getValueAsInteger();
+            val = new DecimalType(valInt + 1);
+        }
+
+        ext.setValue(val);
+    }
 }

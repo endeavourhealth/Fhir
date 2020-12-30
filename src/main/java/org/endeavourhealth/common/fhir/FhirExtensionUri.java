@@ -177,5 +177,6 @@ public class FhirExtensionUri {
     public final static String PARENT_RESOURCE = "http://endeavourhealth.org/fhir/StructureDefinition/parent-resource";
     public final static String IS_PRIMARY = "http://endeavourhealth.org/fhir/StructureDefinition/is-primary-extension";
     public final static String ADDITIONAL = "http://discoverydataservice.org/fhir/StructureDefinition/additional-extension";
+    public final static String RESOURCE_CHANGED = "http://discoverydataservice.org/fhir/StructureDefinition/resource_changed";
     //DON'T FORGET TO ADD YOUR NEW EXTENSION TO THE FHIR PROFILES (ask Drew if not sure)
 }
