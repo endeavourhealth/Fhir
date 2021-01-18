@@ -174,7 +174,8 @@ public enum OrganisationType {
     URGENT_AND_EMERGENCY_CARE_PRESCRIBING_COST_CENTRE("RO259", "Urgent & Emergency Care Prescribing Cost Centre", "RO259"),
     NHS_ENGLAND_REGION_LOCAL_OFFICE("RO210", "NHS England (region, Local Office)", "RO210"),
     OPTICAL_SITE("RO167", "Optical Site", "RO167"),
-    PRIVATE_DENTAL_PRACTICE("RO65", "Private Dental Practice", "RO65")
+    PRIVATE_DENTAL_PRACTICE("RO65", "Private Dental Practice", "RO65"),
+    COVID_VACCINATION_CENTRE("RO279", "COVID Vaccination Centre", "RO279")
     ;
 
     private String code = null;
