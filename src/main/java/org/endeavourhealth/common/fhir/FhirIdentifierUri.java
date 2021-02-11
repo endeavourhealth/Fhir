@@ -40,6 +40,7 @@ public class FhirIdentifierUri {
     public final static String IDENTIFIER_SYSTEM_BARTS_MRN_PATIENT_ID = "http://endeavourhealth.org/fhir/id/v2-local-patient-id/barts-mrn";
     public final static String IDENTIFIER_SYSTEM_NEWHAM_CNN_PATIENT_ID = "http://endeavourhealth.org/fhir/id/v2-local-patient-id/newham-cnn";
     public final static String IDENTIFIER_SYSTEM_NEWHAM_MRN_PATIENT_ID = "http://endeavourhealth.org/fhir/id/v2-local-patient-id/newham-mrn";
+    public final static String IDENTIFIER_SYSTEM_ROYAL_FREE_MRN_PATIENT_ID = "http://endeavourhealth.org/fhir/id/v2-local-patient-id/royal-free-mrn";
     public final static String IDENTIFIER_SYSTEM_HOMERTON_FIN_EPISODE_ID = "http://endeavourhealth.org/fhir/id/v2-local-episode-id/homerton-fin";
     public final static String IDENTIFIER_SYSTEM_HOMERTON_ATTENDANCE_NO_EPISODE_ID = "http://endeavourhealth.org/fhir/id/v2-local-episode-id/homerton-attendanceno";
     public final static String IDENTIFIER_SYSTEM_BARTS_FIN_EPISODE_ID = "http://endeavourhealth.org/fhir/id/v2-local-episode-id/barts-fin";
@@ -131,6 +132,7 @@ public class FhirIdentifierUri {
         ret.add(IDENTIFIER_SYSTEM_BARTS_MRN_PATIENT_ID);
         ret.add(IDENTIFIER_SYSTEM_HOMERTON_MRN_PATIENT_ID);
         ret.add(IDENTIFIER_SYSTEM_NEWHAM_MRN_PATIENT_ID);
+        ret.add(IDENTIFIER_SYSTEM_ROYAL_FREE_MRN_PATIENT_ID);
 
         //Emis
         ret.add(IDENTIFIER_SYSTEM_EMIS_PATIENT_NUMBER);
