@@ -3,10 +3,9 @@ package org.endeavourhealth.common.fhir;
 import com.google.common.base.Strings;
 import org.apache.commons.lang3.StringUtils;
 import org.endeavourhealth.common.fhir.schema.*;
-import org.hl7.fhir.instance.model.CodeableConcept;
-import org.hl7.fhir.instance.model.Coding;
-import org.hl7.fhir.instance.model.DiagnosticOrder;
+import org.hl7.fhir.instance.model.*;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -183,6 +182,248 @@ public class CodeableConceptHelper {
                 && coding.getSystem().equals(systemUri)) {
                 return coding;
             }
+        }
+
+        return null;
+    }
+
+    /**
+     * finds the "main" clinical CodeableConcept for a resource - handling all the different
+     * resource types used in DDS
+     */
+    public static CodeableConcept findMainCodeableConcept(Resource resource) throws IllegalArgumentException {
+        if (resource instanceof Observation) {
+            Observation o = (Observation)resource;
+            if (o.hasCode()) {
+                return o.getCode();
+            }
+
+        } else if (resource instanceof Condition) {
+            Condition o = (Condition)resource;
+            if (o.hasCode()) {
+                return o.getCode();
+            }
+
+        } else if (resource instanceof Procedure) {
+            Procedure o = (Procedure)resource;
+            if (o.hasCode()) {
+                return o.getCode();
+            }
+
+        } else if (resource instanceof AllergyIntolerance) {
+            AllergyIntolerance o = (AllergyIntolerance)resource;
+            if (o.hasSubstance()) {
+                return o.getSubstance();
+            }
+
+        } else if (resource instanceof FamilyMemberHistory) {
+            FamilyMemberHistory o = (FamilyMemberHistory)resource;
+            if (o.hasCondition()) {
+                FamilyMemberHistory.FamilyMemberHistoryConditionComponent condition = o.getCondition().get(0);
+                if (condition.hasCode()) {
+                    return condition.getCode();
+                }
+            }
+
+        } else if (resource instanceof Immunization) {
+            Immunization o = (Immunization)resource;
+            if (o.hasVaccineCode()) {
+                return o.getVaccineCode();
+            }
+
+        } else if (resource instanceof DiagnosticOrder) {
+            DiagnosticOrder o = (DiagnosticOrder)resource;
+            if (o.hasItem()) {
+                DiagnosticOrder.DiagnosticOrderItemComponent item = o.getItem().get(0);
+                if (item.hasCode()) {
+                    return item.getCode();
+                }
+            }
+
+        } else if (resource instanceof DiagnosticReport) {
+            DiagnosticReport o = (DiagnosticReport)resource;
+            if (o.hasCode()) {
+                return o.getCode();
+            }
+
+        } else if (resource instanceof Specimen) {
+            Specimen o = (Specimen)resource;
+            if (o.hasType()) {
+                return o.getType();
+            }
+
+        } else if (resource instanceof ReferralRequest) {
+            ReferralRequest o = (ReferralRequest)resource;
+            if (o.hasServiceRequested()) {
+                return o.getServiceRequested().get(0); //technically supports multiple, but we only ever use one
+            }
+
+        } else if (resource instanceof Flag) {
+            Flag o = (Flag)resource;
+            if (o.hasCode()) {
+                return o.getCode();
+            }
+
+        } else if (resource instanceof MedicationStatement) {
+            MedicationStatement o = (MedicationStatement)resource;
+            if (o.hasMedication()) {
+                Type t = o.getMedication();
+                if (t instanceof CodeableConcept) {
+                    return (CodeableConcept)t;
+                }
+            }
+
+        } else if (resource instanceof MedicationOrder) {
+            MedicationOrder o = (MedicationOrder)resource;
+            if (o.hasMedication()) {
+                Type t = o.getMedication();
+                if (t instanceof CodeableConcept) {
+                    return (CodeableConcept)t;
+                }
+            }
+
+        } else if (resource instanceof ProcedureRequest) {
+            ProcedureRequest o = (ProcedureRequest)resource;
+            if (o.hasCode()) {
+                return o.getCode();
+            }
+
+        } else {
+            throw new IllegalArgumentException("Unexpected resource type " + resource.getResourceType());
+        }
+
+        return null;
+    }
+
+
+    /**
+     * finds the "main" effective date for a resource - handling all the different
+     * resource types used in DDS
+     */
+    public static Date findMainEffectiveDate(Resource resource) throws IllegalArgumentException {
+        if (resource instanceof Observation) {
+            Observation o = (Observation)resource;
+            if (o.hasEffective()) {
+                Type t = o.getEffective();
+                if (t instanceof DateTimeType) {
+                    return ((DateTimeType)t).getValue();
+                } else if (t instanceof Period) {
+                    return ((Period)t).getStart();
+                }
+            }
+
+        } else if (resource instanceof Condition) {
+            Condition o = (Condition)resource;
+            if (o.hasOnset()) {
+                Type t = o.getOnset();
+                if (t instanceof DateTimeType) {
+                    return ((DateTimeType)t).getValue();
+                } else if (t instanceof Period) {
+                    return ((Period)t).getStart();
+                }
+            }
+
+        } else if (resource instanceof Procedure) {
+            Procedure o = (Procedure)resource;
+            if (o.hasPerformed()) {
+                Type t = o.getPerformed();
+                if (t instanceof DateTimeType) {
+                    return ((DateTimeType)t).getValue();
+                } else if (t instanceof Period) {
+                    return ((Period)t).getStart();
+                }
+            }
+
+        } else if (resource instanceof AllergyIntolerance) {
+            AllergyIntolerance o = (AllergyIntolerance)resource;
+            if (o.hasOnset()) {
+                return o.getOnset();
+            }
+
+        } else if (resource instanceof FamilyMemberHistory) {
+            FamilyMemberHistory o = (FamilyMemberHistory)resource;
+            if (o.hasDate()) {
+                return o.getDate();
+            }
+
+        } else if (resource instanceof Immunization) {
+            Immunization o = (Immunization)resource;
+            if (o.hasDate()) {
+                return o.getDate();
+            }
+
+        } else if (resource instanceof DiagnosticOrder) {
+            DiagnosticOrder o = (DiagnosticOrder)resource;
+            if (o.hasEvent()) {
+                DiagnosticOrder.DiagnosticOrderEventComponent e = o.getEvent().get(0);
+                if (e.hasDateTime()) {
+                    return e.getDateTime();
+                }
+            }
+
+        } else if (resource instanceof DiagnosticReport) {
+            DiagnosticReport o = (DiagnosticReport)resource;
+            if (o.hasEffective()) {
+                Type t = o.getEffective();
+                if (t instanceof DateTimeType) {
+                    return ((DateTimeType)t).getValue();
+                } else if (t instanceof Period) {
+                    return ((Period)t).getStart();
+                }
+            }
+
+        } else if (resource instanceof Specimen) {
+            Specimen o = (Specimen)resource;
+            if (o.hasCollection()) {
+                Specimen.SpecimenCollectionComponent c = o.getCollection();
+                if (c.hasCollected()) {
+                    Type t = c.getCollected();
+                    if (t instanceof DateTimeType) {
+                        return ((DateTimeType)t).getValue();
+                    } else if (t instanceof Period) {
+                        return ((Period)t).getStart();
+                    }
+                }
+            }
+
+        } else if (resource instanceof ReferralRequest) {
+            ReferralRequest o = (ReferralRequest)resource;
+            if (o.hasDate()) {
+                return o.getDate();
+            }
+
+        } else if (resource instanceof Flag) {
+            Flag o = (Flag)resource;
+            if (o.hasPeriod()) {
+                Period p = o.getPeriod();
+                return p.getStart();
+            }
+
+        } else if (resource instanceof MedicationStatement) {
+            MedicationStatement o = (MedicationStatement)resource;
+            if (o.hasDateAsserted()) {
+                return o.getDateAsserted();
+            }
+
+        } else if (resource instanceof MedicationOrder) {
+            MedicationOrder o = (MedicationOrder)resource;
+            if (o.hasDateWritten()) {
+                return o.getDateWritten();
+            }
+
+        } else if (resource instanceof ProcedureRequest) {
+            ProcedureRequest o = (ProcedureRequest)resource;
+            if (o.hasScheduled()) {
+                Type t = o.getScheduled();
+                if (t instanceof DateTimeType) {
+                    return ((DateTimeType)t).getValue();
+                } else if (t instanceof Period) {
+                    return ((Period)t).getStart();
+                }
+            }
+
+        } else {
+            throw new IllegalArgumentException("Unexpected resource type " + resource.getResourceType());
         }
 
         return null;
