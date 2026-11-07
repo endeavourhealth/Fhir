@@ -3,13 +3,16 @@ package org.endeavourhealth.common.fhir;
 import com.google.common.base.Strings;
 import org.apache.commons.lang3.StringUtils;
 import org.hl7.fhir.instance.model.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class AddressHelper
-{
+public class AddressHelper {
+    private static final Logger LOG = LoggerFactory.getLogger(AddressHelper.class);
+
     public static Address createAddress(Address.AddressUse addressUse, String houseNameFlatNumber, String street, String village, String town, String county, String postcode) {
         Address address = new Address();
 
@@ -106,7 +109,7 @@ public class AddressHelper
         List<Address> homeAddresses = new ArrayList<>();
 
         for (Address fhirAddress: fhirPatient.getAddress()) {
-            if (fhirAddress.getUse() == null
+            if (fhirAddress.getUse() == null //count ones without a specific use as being "home" addresses too
                     || fhirAddress.getUse() == Address.AddressUse.HOME) {
                 homeAddresses.add(fhirAddress);
             }
@@ -116,14 +119,55 @@ public class AddressHelper
             return null;
         }
 
-        //sort, using a static fn to do the comparison, since there's a fair bit of logic
         homeAddresses.sort((o1, o2) -> compareAddresses(o1, o2));
 
         //post-sorting, simply return the last one in the list
+        /*LOG.debug("After sorting " + homeAddresses.size() + " addresses");
+        for (Address a: homeAddresses) {
+            LOG.debug("    " + a.getText() + ", from " + PeriodHelper.toString(a.getPeriod()));
+        }*/
+
         return homeAddresses.get(homeAddresses.size()-1);
     }
 
-    private static int compareAddresses(Address addr1, Address addr2) {
+    /**
+     * SD-247 - count addresses with a NULL start date as later than ones with a start date because they're generally lower quality
+     * so changed the sorting to treat start date differently and to factor in postcode if all other things are equal
+     */
+    private static int compareAddresses(Address a1, Address a2) {
+
+        Period p1;
+        if (a1.hasPeriod()) {
+            p1 = a1.getPeriod();
+        } else {
+            p1 = new Period();
+        }
+
+        Period p2;
+        if (a2.hasPeriod()) {
+            p2 = a2.getPeriod();
+        } else {
+            p2 = new Period();
+        }
+
+        int comp = PeriodHelper.comparePeriods(p1, p2);
+        if (comp != 0) {
+            return comp;
+        }
+
+        //if the period sorting says they're the same, then prefer an address with a postcode over one without
+        if (a1.hasPostalCode() && !a2.hasPostalCode()) {
+            return 1;
+
+        } else if (!a1.hasPostalCode() && a2.hasPostalCode()) {
+            return -1;
+
+        } else {
+            return 0;
+        }
+    }
+
+    /*private static int compareAddresses(Address addr1, Address addr2) {
 
         //ones without end dates are always later than ones with end dates
         Date end1 = null;
@@ -173,17 +217,19 @@ public class AddressHelper
 
         } else if (start1 != null && start2 == null) {
             //if 1 has a date and 2 doesn't, then place 2 first (null start counts as earlier)
+            //SD-247 - count addresses with a NULL start date as later than ones with a start date because they're generally lower quality
             return 1;
 
         } else if (start1 == null && start2 != null) {
             //if 1 doesn't have a start, but 2 does, then place 1 first
+            //SD-247 - count addresses with a NULL start date as later than ones with a start date because they're generally lower quality
             return -1;
 
         } else {
             //if both have starts, then it's a straight date comparison
             return start1.compareTo(start2);
         }
-    }
+    }*/
 
     public static String findCity(Patient fhirPatient) {
         Address address = findHomeAddress(fhirPatient);

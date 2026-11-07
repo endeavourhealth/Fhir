@@ -2,6 +2,8 @@ package org.endeavourhealth.common.fhir;
 
 public class FhirCodeUri {
 
+    public static final String CODE_SYSTEM_FHIR_STILLBORN_INDICATOR="https://fhir.nhs.uk/STU3/CodeSystem/EMS-PDS-StillBornIndicator-1";
+    public static final String CODE_SYSTEM_FHIR_SUSPECTED_CONGENITAL_ABNORMALITY_INDICATOR="https://fhir.nhs.uk/STU3/CodeSystem/EMS-PDS-SuspectedCongenitalAbnormalityIndicator-1";
     public static final String CODE_SYSTEM_READ2 = "http://read.info/readv2"; //see https://github.com/HL7-UK/System-Identifiers
     public static final String CODE_SYSTEM_SNOMED_CT = "http://snomed.info/sct"; //see https://github.com/HL7-UK/System-Identifiers
     public static final String CODE_SYSTEM_CTV3 = "http://read.info/ctv3"; //see https://github.com/HL7-UK/System-Identifiers
@@ -19,11 +21,17 @@ public class FhirCodeUri {
     public static final String CODE_SYSTEM_BARTS_CERNER_CODE_ID = "http://www.endeavourhealth.org/fhir/cerner-code-id"; //note these three are for BARTS only - do not re use for any other Cerner sites
     public static final String CODE_SYSTEM_BARTS_CERNER_MULTUM_DRUG_ID = "http://www.endeavourhealth.org/fhir/cerner-multum-drug-id";
     public static final String CODE_SYSTEM_BARTS_CERNER_MULTUM_ALLERGY_CATEGORY_ID = "http://www.endeavourhealth.org/fhir/cerner-multum-allergy-category-id";
+    public static final String CODE_SYSTEM_IMPERIAL_CERNER_CODE_ID = "http://www.endeavourhealth.org/fhir/imperial-cerner-code-id";
+    public static final String CODE_SYSTEM_KINGS_PIMS_ID = "http://www.endeavourhealth.org/fhir/kings-pims-id";
     public static final String CODE_SYSTEM_NHS_DD = "http://www.endeavourhealth.org/fhir/nhs-data-dictionary-code";  //only use in FHIR extensions containing context, i.e. the data dictionary attribute subset
+    public static final String CODE_SYSTEM_CARE_CONNECT_LANGUAGE = "https://fhir.nhs.uk/ValueSet/CareConnect-HumanLanguage-1";
+    public static final String CODE_SYSTEM_CM_DISCOVERY_CODE = "http://endhealth.info/im#";
+    public static final String CODE_SYSTEM_LNWH_SILVER_LINK_ID = "http://www.endeavourhealth.org/fhir/lnwh-silverlink-code-id";
+    public static final String CODE_SYSTEM_LNWH_SYMPHONY_ID = "http://www.endeavourhealth.org/fhir/lnwh-symphony-code-id";
+    public static final String CODE_SYSTEM_THH_SILVER_LINK_ID = "http://www.endeavourhealth.org/fhir/thh-silverlink-code-id";
+    public static final String CODE_SYSTEM_THH_SYMPHONY_ID = "http://www.endeavourhealth.org/fhir/thh-symphony-code-id";
+    public static final String CODE_SYSTEM_CHELWEST_CERNER_CODE_ID = "http://www.endeavourhealth.org/fhir/chelwest-cerner-code-id";
     //NOTE: Only add CODE systems to this class (i.e. systems used in CodeableConcepts and Coding structures)
     //NOTE: Consider adding your new coding system to CodeableConceptHelper.findOriginalCode(..)
-
-
-
 
 }

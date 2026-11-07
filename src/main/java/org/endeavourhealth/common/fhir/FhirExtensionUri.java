@@ -10,11 +10,13 @@ public class FhirExtensionUri {
     public final static String PATIENT_RELIGION = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-religion-category-extension";
     public final static String PATIENT_CONTACT_DOB = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-contact-dob-category-extension";
     public final static String PATIENT_CONTACT_MAIN_LANGUAGE = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-contact-main-language-category-extension";
+    public final static String PATIENT_CONTACT_NEXT_OF_KIN = "http://endeavourhealth.org/fhir/StructureDefinition/patient-contact-is-next-of-kin";
+    public final static String PATIENT_CONTACT_CARER = "http://endeavourhealth.org/fhir/StructureDefinition/patient-contact-is-carer";
     public final static String PATIENT_BIRTH_DATE_TIME = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-contact-birth-date-time-category-extension"; //ignore the word "contact" in here, it's just the patient's datetime of birth
     //public final static String PATIENT_INTERPRETER_REQUIRED = "http://hl7.org/fhir/StructureDefinition/patient-interpreter-required-extension"; duplicate of Speaks English
     public final static String PATIENT_SPEAKS_ENGLISH = "http://hl7.org/fhir/StructureDefinition/patient-speaks-english-extension";
     public final static String PATIENT_IS_TEST_PATIENT = "http://endeavourhealth.org/fhir/StructureDefinition/patient-is-test-patient-extension";
-    //DON'T FORGET TO ADD YOUR NEW EXTENSION TO THE FHIR PROFILES (ask Drew if not sure)
+    //DON'T FORGET TO ADD YOUR NEW EXTENSION TO THE FHIR PROFILES repository
 
     //extensions specific to EpisodeOfCare resources
     public final static String EPISODE_OF_CARE_REGISTRATION_TYPE = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-patient-registration-type-extension";
@@ -22,7 +24,7 @@ public class FhirExtensionUri {
     public final static String EPISODE_OF_CARE_OUTCOME = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-episode-outcome";
     public final static String EPISODE_OF_CARE_PRIORITY = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-episode-priority";
     public final static String EPISODE_OF_CARE_PCCARRIVAL = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-episode-pccarrival";
-    //DON'T FORGET TO ADD YOUR NEW EXTENSION TO THE FHIR PROFILES (ask Drew if not sure)
+    //DON'T FORGET TO ADD YOUR NEW EXTENSION TO THE FHIR PROFILES repository
 
     //extensions specific to Observation resources
     public final static String OBSERVATION_PATIENT_DELAY_DAYS = "http://endeavourhealth.org/fhir/StructureDefinition/acute-patient-delay-days-extension";
@@ -36,15 +38,15 @@ public class FhirExtensionUri {
     public final static String APPOINTMENT_CANCELLATION_DATE = "http://endeavourhealth.org/fhir/StructureDefinition/appointment-cancellation-date-extension";
     public final static String APPOINTMENT_BOOKING_DATE = "http://endeavourhealth.org/fhir/StructureDefinition/appointment-booking-date-extension";
     public final static String APPOINTMENT_ORIGINAL_IDENTIFIER = "http://endeavourhealth.org/fhir/StructureDefinition/appointment-original-identifier";
-    //DON'T FORGET TO ADD YOUR NEW EXTENSION TO THE FHIR PROFILES (ask Drew if not sure)
+    //DON'T FORGET TO ADD YOUR NEW EXTENSION TO THE FHIR PROFILES repository
 
     //extensions specific to Location resource
     public final static String LOCATION_MAIN_CONTACT = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-location-main-contact-extension";
-    //DON'T FORGET TO ADD YOUR NEW EXTENSION TO THE FHIR PROFILES (ask Drew if not sure)
+    //DON'T FORGET TO ADD YOUR NEW EXTENSION TO THE FHIR PROFILES repository
 
     //extensions specific to Organisation resource
     public final static String ORGANISATION_MAIN_LOCATION = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-mainlocation-extension";
-    //DON'T FORGET TO ADD YOUR NEW EXTENSION TO THE FHIR PROFILES (ask Drew if not sure)
+    //DON'T FORGET TO ADD YOUR NEW EXTENSION TO THE FHIR PROFILES repository
 
     //extensions specific to Problem resource
     public final static String PROBLEM_EXPECTED_DURATION = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-problem-expectedduration-extension";
@@ -58,40 +60,41 @@ public class FhirExtensionUri {
     public final static String _PROBLEM_RELATED__TYPE = "type";
     public final static String PROBLEM_EPISODICITY = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-problem-episodicity";
     //public final static String PROBLEM_ADDITIONAL_NOTES = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-problem-additional-notes";
-    //DON'T FORGET TO ADD YOUR NEW EXTENSION TO THE FHIR PROFILES (ask Drew if not sure)
+    //DON'T FORGET TO ADD YOUR NEW EXTENSION TO THE FHIR PROFILES repository
 
     //extensions specific to Condition resources
     public final static String CONDITION_PART_OF_PROBLEM = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-condition-partofproblemepisode-extension";
     public final static String CONDITION_SEQUENCE_NUMBER = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-condition-sequence-number-extension";
-    //DON'T FORGET TO ADD YOUR NEW EXTENSION TO THE FHIR PROFILES (ask Drew if not sure)
+    //DON'T FORGET TO ADD YOUR NEW EXTENSION TO THE FHIR PROFILES repository
 
     //extensions specific to FamilyMemberHistory resources
     public final static String FAMILY_MEMBER_HISTORY_REPORTED_BY = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-family-member-history-reporter-extension";
-    //DON'T FORGET TO ADD YOUR NEW EXTENSION TO THE FHIR PROFILES (ask Drew if not sure)
+    //DON'T FORGET TO ADD YOUR NEW EXTENSION TO THE FHIR PROFILES repository
 
     //extensions specific to ReferralRequest resources
     public final static String REFERRAL_REQUEST_SEND_MODE = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-referral-request-send-mode-extension";
     public final static String REFERRAL_REQUEST_RECIPIENT_SERVICE_TYPE = "http://endeavourhealth.org/fhir/StructureDefinition/referral-request-recipient-service-type-extension";
     public final static String REFERRAL_REQUEST_RECIPIENT_FREE_TEXT = "http://endeavourhealth.org/fhir/StructureDefinition/referral-request-recipient-free-text-extension";
     public final static String REFERRAL_REQUEST_STATUS_HISTORY = "http://endeavourhealth.org/fhir/StructureDefinition/referral-request-status-history-extension";
-    //DON'T FORGET TO ADD YOUR NEW EXTENSION TO THE FHIR PROFILES (ask Drew if not sure)
+    public static final String REFERRAL_REQUEST_RECIPIENT_SERVICE_OFFERED = "http://endeavourhealth.org/fhir/StructureDefinition/referral-request-recipient-service-offered-extension";
+    //DON'T FORGET TO ADD YOUR NEW EXTENSION TO THE FHIR PROFILES repository
 
     //extensions specific to DiagnosticReport resources
     public final static String DIAGNOSTIC_REPORT_FILED_BY = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-diagnostic-report-filed-by-extension";
-    //DON'T FORGET TO ADD YOUR NEW EXTENSION TO THE FHIR PROFILES (ask Drew if not sure)
+    //DON'T FORGET TO ADD YOUR NEW EXTENSION TO THE FHIR PROFILES repository
 
     //extensions specific to Task resource
     public final static String TASK_TYPE = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-task-type-extension";
     public final static String TASK_STATUS = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-task-status-extension";
     public final static String TASK_PRIORITY = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-task-priority-extension";
-    //DON'T FORGET TO ADD YOUR NEW EXTENSION TO THE FHIR PROFILES (ask Drew if not sure)
+    //DON'T FORGET TO ADD YOUR NEW EXTENSION TO THE FHIR PROFILES repository
 
     //extensions specific to Schedule resource
     public final static String SCHEDULE_LOCATION = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-location-extension";
     public final static String SCHEDULE_ADDITIONAL_ACTOR = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-additional-actor-extension";
     public final static String SCHEDULE_LOCATION_TYPE = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-location-type-extension";
     public final static String SCHEDULE_NAME = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-schedule-name-extension";
-    //DON'T FORGET TO ADD YOUR NEW EXTENSION TO THE FHIR PROFILES (ask Drew if not sure)
+    //DON'T FORGET TO ADD YOUR NEW EXTENSION TO THE FHIR PROFILES repository
 
     //extensions specific to Encounter resource
     public final static String ENCOUNTER_SOURCE = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-encounter-source";
@@ -122,7 +125,7 @@ public class FhirExtensionUri {
     public final static String ENCOUNTER_APPOINTMENT_ATTENDED = "http://hl7.org/fhir/StructureDefinition/encounter-appointment-attended-extension";
     public final static String ENCOUNTER_APPOINTMENT_OUTCOME = "http://hl7.org/fhir/StructureDefinition/encounter-appointment-outcome-extension";
     public final static String ENCOUNTER_APPOINTMENT_REFERRAL_SOURCE = "http://hl7.org/fhir/StructureDefinition/encounter-appointment-referral-source-extension";
-    //DON'T FORGET TO ADD YOUR NEW EXTENSION TO THE FHIR PROFILES (ask Drew if not sure)
+    //DON'T FORGET TO ADD YOUR NEW EXTENSION TO THE FHIR PROFILES repository
 
     //extensions specific to MedicationStatement (profile is MedicationAuthorisation) resource
     public final static String MEDICATION_AUTHORISATION_PRIVATE = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-privateprescription-extension";
@@ -134,30 +137,30 @@ public class FhirExtensionUri {
     public final static String MEDICATION_AUTHORISATION_EXPECTED_SUPPLY_DURATION = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-medication-authorisation-expectedsupplyduration-extension";
     public final static String MEDICATION_AUTHORISATION_QUANTITY = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-medication-authorisation-quantity-extension";
     public final static String MEDICATION_AUTHORISATION_TYPE = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-medication-authorisation-type-extension";
-    //DON'T FORGET TO ADD YOUR NEW EXTENSION TO THE FHIR PROFILES (ask Drew if not sure)
+    //DON'T FORGET TO ADD YOUR NEW EXTENSION TO THE FHIR PROFILES repository
 
     //extensions specific to MedicationOrder resource
     public final static String MEDICATION_ORDER_ESTIMATED_COST = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-medication-order-estimatednhscost-extension";
     public final static String MEDICATION_ORDER_AUTHORISATION = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-medication-order-authorisation-extension";
     public final static String MEDICATION_ORDER_SUPPLY_TYPE = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-medication-supply-type-extension";
-    //DON'T FORGET TO ADD YOUR NEW EXTENSION TO THE FHIR PROFILES (ask Drew if not sure)
+    //DON'T FORGET TO ADD YOUR NEW EXTENSION TO THE FHIR PROFILES repository
 
     // extensions specific to the MessageHeader resource
     public static final String EXTENSION_HL7V2_DESTINATION_SOFTWARE = "http://endeavourhealth.org/fhir/StructureDefinition/message-header-destination-software-extension";
     public static final String EXTENSION_HL7V2_MESSAGE_CONTROL_ID = "http://endeavourhealth.org/fhir/StructureDefinition/message-header-message-control-id-extension";
     public static final String EXTENSION_HL7V2_SEQUENCE_NUMBER = "http://endeavourhealth.org/fhir/StructureDefinition/message-header-sequence-number-extension";
-    //DON'T FORGET TO ADD YOUR NEW EXTENSION TO THE FHIR PROFILES (ask Drew if not sure)
+    //DON'T FORGET TO ADD YOUR NEW EXTENSION TO THE FHIR PROFILES repository
 
     //extensions specific to Procedure resources
     //public final static String PROCEDURE_IS_PRIMARY = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-procedure-is-primary-extension";
     public final static String PROCEDURE_SEQUENCE_NUMBER = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-procedure-sequence-number-extension";
     public final static String PROCEDURE_SPECIALITY_GROUP = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-procedure-speciality-group-extension";
-    //DON'T FORGET TO ADD YOUR NEW EXTENSION TO THE FHIR PROFILES (ask Drew if not sure)
+    //DON'T FORGET TO ADD YOUR NEW EXTENSION TO THE FHIR PROFILES repository
 
     //extensions specific to ProcedureRequest resource
     public final static String PROCEDURE_REQUEST_LOCATION_DESCRIPTION = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-procedure-request-location-extension";
     public final static String PROCEDURE_REQUEST_SCHEDULE_TEXT = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-procedure-request-schedule-text-extension";
-    //DON'T FORGET TO ADD YOUR NEW EXTENSION TO THE FHIR PROFILES (ask Drew if not sure)
+    //DON'T FORGET TO ADD YOUR NEW EXTENSION TO THE FHIR PROFILES repository
 
     //extensions used by multiple resources
     public final static String RECORDED_BY = "http://endeavourhealth.org/fhir/StructureDefinition/primarycare-recorded-by-extension";
@@ -178,5 +181,6 @@ public class FhirExtensionUri {
     public final static String IS_PRIMARY = "http://endeavourhealth.org/fhir/StructureDefinition/is-primary-extension";
     public final static String ADDITIONAL = "http://discoverydataservice.org/fhir/StructureDefinition/additional-extension";
     public final static String RESOURCE_CHANGED = "http://discoverydataservice.org/fhir/StructureDefinition/resource_changed";
-    //DON'T FORGET TO ADD YOUR NEW EXTENSION TO THE FHIR PROFILES (ask Drew if not sure)
+    //DON'T FORGET TO ADD YOUR NEW EXTENSION TO THE FHIR PROFILES repository
+
 }

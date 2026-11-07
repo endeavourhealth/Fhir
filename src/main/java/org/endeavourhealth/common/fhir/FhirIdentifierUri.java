@@ -44,13 +44,18 @@ public class FhirIdentifierUri {
     public final static String IDENTIFIER_SYSTEM_HOMERTON_FIN_EPISODE_ID = "http://endeavourhealth.org/fhir/id/v2-local-episode-id/homerton-fin";
     public final static String IDENTIFIER_SYSTEM_HOMERTON_ATTENDANCE_NO_EPISODE_ID = "http://endeavourhealth.org/fhir/id/v2-local-episode-id/homerton-attendanceno";
     public final static String IDENTIFIER_SYSTEM_BARTS_FIN_EPISODE_ID = "http://endeavourhealth.org/fhir/id/v2-local-episode-id/barts-fin";
+    public final static String IDENTIFIER_SYSTEM_IMPERIAL_FIN_EPISODE_ID = "http://endeavourhealth.org/fhir/id/v2-local-episode-id/imperial-fin";
     public final static String IDENTIFIER_SYSTEM_BARTS_VISIT_NO_EPISODE_ID = "http://endeavourhealth.org/fhir/id/v2-local-episode-id/barts-visitno";
+    public final static String IDENTIFIER_SYSTEM_IMPERIAL_VISIT_NO_EPISODE_ID = "http://endeavourhealth.org/fhir/id/v2-local-episode-id/imperial-visitno";
     public final static String IDENTIFIER_SYSTEM_BARTS_ENCOUNTER_ID = "http://endeavourhealth.org/fhir/id/v2-local-encounter-id/barts-encounter-id";
+    public final static String IDENTIFIER_SYSTEM_IMPERIAL_ENCOUNTER_ID = "http://endeavourhealth.org/fhir/id/v2-local-encounter-id/imperial-encounter-id";
     public final static String IDENTIFIER_SYSTEM_HOMERTON_ENCOUNTER_ID = "http://endeavourhealth.org/fhir/id/v2-local-encounter-id/homerton-encounter-id";
     public final static String IDENTIFIER_SYSTEM_BARTS_LOCATION_ID = "http://endeavourhealth.org/fhir/id/v2-local-location-id/barts-location-id";
     public final static String IDENTIFIER_SYSTEM_HOMERTON_PRIMARY_PRACTITIONER_ID = "http://endeavourhealth.org/fhir/id/v2-local-practitioner-id/homerton-personnelprimaryid";
     public final static String IDENTIFIER_SYSTEM_BARTS_ORG_DR_NUMBER = "http://endeavourhealth.org/fhir/id/v2-local-practitioner-id/barts-org-dr-number";
     public final static String IDENTIFIER_SYSTEM_BARTS_PERSONNEL_ID = "http://endeavourhealth.org/fhir/id/v2-local-practitioner-id/barts-personnel-id";
+    public final static String IDENTIFIER_SYSTEM_IMPERIAL_MRN_PATIENT_ID = "http://endeavourhealth.org/fhir/id/v2-local-patient-id/imperial-mrn";
+    public final static String IDENTIFIER_SYSTEM_IMPERIAL_PERSONNEL_ID = "http://endeavourhealth.org/fhir/id/v2-local-practitioner-id/imperial-personnel-id";
     //NOTE - if an identifier should be searchable then make sure to add to the fn at the bottom of this class
 
     // New Cerner Aliases

@@ -1,13 +1,13 @@
 package org.endeavourhealth.common.ods;
 
 
-import com.google.common.base.Strings;
-import com.google.gson.*;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import org.apache.commons.lang3.Validate;
 import org.endeavourhealth.common.fhir.schema.OrganisationClass;
 import org.endeavourhealth.common.fhir.schema.OrganisationType;
 import org.endeavourhealth.common.utility.ExpiringCache;
-import org.hl7.fhir.instance.model.Organization;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,8 +17,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.Proxy;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 
 public class OdsWebService {
     private static final Logger LOG = LoggerFactory.getLogger(OdsWebService.class);
@@ -27,8 +25,10 @@ public class OdsWebService {
 
     //private static final String SPINE_SERVICES_FHIR_URL = "https://directory.spineservices.nhs.uk/STU3/Organization/";
     private static final String SPINE_SERVICES_ORD_URL = "https://directory.spineservices.nhs.uk/ORD/2-0-0/organisations/";
-
-    private static ExpiringCache<String, OdsOrganisation> ordCache = new ExpiringCache<>(60 * 60 * 1000); //cache for an hour
+    private static final String INFORMATION_MODEL_ORG_URL = "https://im.endhealth.co.uk/imapi/api/ods/public/organisation/";
+    private static final String INFORMATION_MODEL_API_URL = "https://im.endhealth.co.uk/imapi/api";
+    static boolean IM_INACTIVE = false;
+    private static ExpiringCache<String, OdsOrganisation> ordCache = new ExpiringCache<>(120 * 60 * 1000); //cache for two hours (SD-796)
 
     public static OdsOrganisation lookupOrganisationViaRest(String odsCode) throws Exception {
         return lookUpOrganisationViaRestNew(odsCode, null);
@@ -39,161 +39,17 @@ public class OdsWebService {
     }
 
 
-    /*private static OdsOrganisation lookupOrganisationViaRestOld(String odsCode) throws Exception {
-        return lookupOrganisationViaRestOld(odsCode, null);
-    }
-
-    private static OdsOrganisation lookupOrganisationViaRestOld(String odsCode, Proxy proxy) throws Exception {
-
-        Validate.notEmpty(odsCode);
-
-        //if no proxy, use the "no proxy" instance
-        if (proxy == null) {
-            proxy = Proxy.NO_PROXY;
-        }
-        odsCode = odsCode.replace(" ", "%20");
-        String urlStr = OPEN_ODS_URL + odsCode;
-        URL url = new URL(urlStr);
-        HttpURLConnection connection = (HttpURLConnection)url.openConnection(proxy);
-        //connection.setRequestProperty("Accept-Charset", charset);
-
-        int responseCode = connection.getResponseCode();
-        if (responseCode == HttpURLConnection.HTTP_NOT_FOUND) {
-            return null;
-        }
-
-        if (responseCode != HttpURLConnection.HTTP_OK) {
-            throw new IOException("HTTP response " + responseCode + " returned for GET to " + urlStr);
-        }
-
-        InputStream response = connection.getInputStream();
-        InputStreamReader inputStreamReader = new InputStreamReader(response);
-
-        JsonParser parser = new JsonParser();
-        JsonObject jsonRoot = (JsonObject)parser.parse(inputStreamReader);
-
-        OdsOrganisation ret = new OdsOrganisation();
-
-        String name = jsonRoot.get("name").getAsString();
-        ret.setOrganisationName(name);
-
-        String ods = jsonRoot.get("odsCode").getAsString();
-        ret.setOdsCode(ods);
-
-        String cls = jsonRoot.get("recordClass").getAsString();
-        ret.setOrganisationClass(OrganisationClass.fromOrganisationClassName(cls));
-
-        String activeState = jsonRoot.get("status").getAsString();
-        ret.setActive(activeState.equalsIgnoreCase("Active"));
-
-        JsonArray addresses = (JsonArray)jsonRoot.get("addresses");
-        if (addresses.size() > 0) {
-            JsonObject addressRoot = (JsonObject)addresses.get(0);
-
-            JsonArray addressLines = (JsonArray)addressRoot.get("addressLines");
-            if (addressLines != null
-                    && addressLines.size() > 0) {
-
-                String line1 = addressLines.get(0).getAsString();
-                ret.setAddressLine1(line1);
-
-                if (addressLines.size() > 1) {
-                    String line2 = addressLines.get(1).getAsString();
-                    ret.setAddressLine2(line2);
-                }
-            }
-
-            if (addressRoot.has("town")) {
-                String town = addressRoot.get("town").getAsString();
-                ret.setTown(town);
-            }
-
-            if (addressRoot.has("county")) {
-                String county = addressRoot.get("county").getAsString();
-                ret.setCounty(county);
-            }
-
-            if (addressRoot.has("postCode")) {
-                String postcode = addressRoot.get("postCode").getAsString();
-                ret.setPostcode(postcode);
-            }
-        }
-
-        JsonArray roles = (JsonArray)jsonRoot.get("roles");
-        if (roles.size() > 0) {
-
-            //for GP practices the primary role code is "PRESCRIBING COST CENTRE", so look at all the role
-            //codes and use the first one that maps to one of the options in our list of org types
-            List<String> roleCodes = new ArrayList<>();
-
-            for (int i=0; i<roles.size(); i++) {
-                JsonObject roleRoot = (JsonObject)roles.get(i);
-
-                String roleStatus = roleRoot.get("status").getAsString();
-                boolean isPrimaryRole = roleRoot.get("primaryRole").getAsBoolean();
-                String roleCode = roleRoot.get("code").getAsString();
-
-                //ignore any non-active roles
-                if (!roleStatus.equalsIgnoreCase("Active")) {
-                    continue;
-                }
-
-                //if primary code, insert at the start of the list
-                if (isPrimaryRole
-                        && !roleCodes.isEmpty()) {
-                    roleCodes.add(0, roleCode);
-
-                } else {
-                    roleCodes.add(roleCode);
-                }
-            }
-
-            for (String roleCode: roleCodes) {
-                OrganisationType type = getOrganisationType(roleCode);
-                if (type != null) {
-                    ret.setOrganisationType(type);
-                    break;
-                }
-            }
-        }
-
-        JsonArray parents = (JsonArray)jsonRoot.get("relationships");
-        if (parents.size() > 0) {
-            for (int i=0; i<parents.size(); i++) {
-                JsonObject parentRoot = (JsonObject)parents.get(i);
-
-                String parentStatus = parentRoot.get("status").getAsString();
-                String parentOdsCode = parentRoot.get("relatedOdsCode").getAsString();
-                String parentName = parentRoot.get("relatedOrganisationName").getAsString();
-
-                //ignore any non-active parents
-                if (!parentStatus.equalsIgnoreCase("Active")) {
-                    continue;
-                }
-
-                ret.getParents().put(parentOdsCode, parentName);
-            }
-        }
-
-        inputStreamReader.close();
-
-        if (Strings.isNullOrEmpty(ret.getOdsCode())) {
-            throw new IOException("Returned ODS code is empty");
-        }
-
-        if (Strings.isNullOrEmpty(ret.getOrganisationName())) {
-            throw new IOException("Returned organisation name is empty");
-        }
-
-        return ret;
-    }*/
-
     private static OdsOrganisation lookUpOrganisationViaRestNew(String odsCode) throws Exception {
         return lookUpOrganisationViaRestNew(odsCode, null);
     }
 
     private static OdsOrganisation lookUpOrganisationViaRestNew(String odsCode, Proxy proxy) throws Exception {
         Validate.notEmpty(odsCode);
+
+        //SD-928 - ignore repeatedly calling API for known invalid ODS codes
+        if (isInValidODSCode(odsCode)) {
+            return null;
+        }
 
         OdsOrganisation ret = ordCache.get(odsCode);
         if (ret == null) {
@@ -206,12 +62,57 @@ public class OdsWebService {
         return ret;
     }
 
-    /**
-     * the API fails with a 503 (Service Unavailable) or 504 (Gateway timeout) error every now and again. This function gives it
-     * five goes with a 10s delay between each attempt before failing.
+    //SD-928 - if the ODS code passed in is a know invalid code, return out as invalid
+    //Added in additional invalid ODS codes from the top 25 list provided by NHS England from the API 404 logs
+    //and the identified EMIS organisation file with the invalid ODS codes located within:
+    //delta_56644_Admin_Organisation_20231003000006_2D106103-404D-4054-89B8-18F95932B092
+    private static boolean isInValidODSCode(String odsCode) {
+
+        return odsCode.equals("V81999") || odsCode.equals("V81998") || odsCode.equals("V81997") ||   //19,836
+                odsCode.equals("HB") || odsCode.equals("HC") || odsCode.equals("HAA") ||
+                odsCode.equals("HD") || odsCode.equals("0") || odsCode.equals("HE") ||
+                odsCode.equals("HF") || odsCode.equals("HG") || odsCode.equals("HH") ||
+                odsCode.equals("HJ") || odsCode.equals("HAB") || odsCode.equals("HI") ||
+                odsCode.equals("HZzz") || odsCode.equals("HK") || odsCode.equals("HN") ||
+                odsCode.equals("HAC") || odsCode.equals("HL") || odsCode.equals("HM") ||
+                odsCode.equals("HQ") || odsCode.equals("HO") || odsCode.equals("HAG") ||
+                odsCode.equals("HAD") || odsCode.equals("HP") || odsCode.equals("HAF") ||   //top 25 count to here
+                odsCode.equals("HU") || odsCode.equals("HAE") || odsCode.equals("HS") ||
+                odsCode.equals("HR") || odsCode.equals("HX") || odsCode.equals("HT") ||
+                odsCode.equals("HAI") || odsCode.equals("HAH") || odsCode.equals("HW") ||
+                odsCode.equals("HZ") || odsCode.equals("HAJ") || odsCode.equals("HAK") ||
+                odsCode.equals("HAL") || odsCode.equals("HV") || odsCode.equals("HAN") ||
+                odsCode.equals("HY") || odsCode.equals("HAO") || odsCode.equals("HAM") ||
+                odsCode.equals("HAP") || odsCode.equals("HAR") || odsCode.equals("HAQ") ||
+                odsCode.equals("HBA") || odsCode.equals("HAT") || odsCode.equals("HAW") ||
+                odsCode.equals("HAU") || odsCode.equals("HAV") || odsCode.equals("HAS") ||
+                odsCode.equals("HAZ") || odsCode.equals("HBD") || odsCode.equals("HA") ||
+                odsCode.equals("HAX") || odsCode.equals("HAY") || odsCode.equals("HBB") ||
+                odsCode.equals("HBC") || odsCode.equals("HBT") || odsCode.equals("HBH") ||
+                odsCode.equals("HBG") || odsCode.equals("HBE") || odsCode.equals("HBL") ||   //50
+                odsCode.equals("HBU") || odsCode.equals("HBK") || odsCode.equals("HBQ") ||
+                odsCode.equals("HBM") || odsCode.equals("HBF") || odsCode.equals("HBZ") ||
+                odsCode.equals("HBO") || odsCode.equals("HBI") || odsCode.equals("HCB") ||
+                odsCode.equals("HCA") || odsCode.equals("HBN") || odsCode.equals("HCC") ||
+                odsCode.equals("HBP") || odsCode.equals("HBW") || odsCode.equals("HBJ") ||
+                odsCode.equals("HBS") || odsCode.equals("HBR") || odsCode.equals("HBX") ||
+                odsCode.equals("556748283102") || odsCode.equals("308613276564") ||
+                odsCode.equals("HCG") || odsCode.equals("HBV") || odsCode.equals("HCE") ||
+                odsCode.equals("HCJ") || odsCode.equals("HCU") || odsCode.equals("HCN") ||
+                odsCode.equals("HHZzz") || odsCode.equals("HCH") || odsCode.equals("HCF") ||
+                odsCode.equals("HCI") || odsCode.equals("HFA") || odsCode.equals("HCW") || odsCode.equals("HCP") ||
+                odsCode.startsWith("?");  //SD-1019
+    }
+
+    /*
+     * the API fails with a 503 (Service Unavailable) or 504 (Gateway timeout) error every now and again
+     * or a "javax.net.ssl.SSLException: Couldn't kickstart handshaking" if the server cannot handle >50 connections (SD-718)
+     * or a "javax.net.ssl.SSLException: Connection reset" or "java.net.SocketException: Broken pipe (Write failed)" (SD-796)
+     * or a "502 -> Bad Gateway" (SD-920)
+     * This function gives it 60 goes with a 10s delay between each attempt before failing.
      */
     private static OdsOrganisation tryLookUpOrganisationViaRestNew(String odsCode, Proxy proxy) throws Exception {
-        int lives = 30; //the API was down for several minutes, so give it up to 5 min (with 10s retry delay) before failing
+        int lives = 60; //the API was down for several minutes, so give it up to 10 min (with 10s retry delay) before failing
 
         while (true) {
             lives--;
@@ -221,10 +122,16 @@ public class OdsWebService {
 
             } catch (Exception ex) {
                 String msg = ex.getMessage();
-                boolean is503 = msg != null
-                        && (msg.contains("503") || msg.contains("504"));
+                boolean isConnectionErrorForRetry = msg != null
+                        && (msg.contains("502")
+                        || msg.contains("503")
+                        || msg.contains("504")
+                        || msg.contains("Couldn't kickstart handshaking")
+                        || msg.contains("Connection reset")
+                        || msg.contains("readHandshakeRecord")
+                        || msg.contains("Broken pipe (Write failed)"));
 
-                if (!is503 || lives <= 0) {
+                if (!isConnectionErrorForRetry || lives <= 0) {
                     throw ex;
                 }
 
@@ -240,12 +147,23 @@ public class OdsWebService {
         if (proxy == null) {
             proxy = Proxy.NO_PROXY;
         }
-
+        String urlStr;
+//        HttpURLConnection connection = (HttpURLConnection) new URL(INFORMATION_MODEL_API_URL).openConnection(proxy);
+//        if (connection.getResponseCode() == HttpURLConnection.HTTP_NOT_FOUND){
+//            LOG.debug(INFORMATION_MODEL_API_URL + " down, swapping to " + SPINE_SERVICES_ORD_URL);
+//            IM_INACTIVE = true;
+//        }
+//        connection.disconnect();
         odsCode = odsCode.replace(" ", "%20");
-        String urlStr = SPINE_SERVICES_ORD_URL + odsCode;
-        URL url = new URL(urlStr);
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection(proxy);
-        //connection.setRequestProperty("Accept-Charset", charset);
+        //if (IM_INACTIVE) {
+        urlStr = SPINE_SERVICES_ORD_URL + odsCode;
+        //} else {
+          //  urlStr = INFORMATION_MODEL_ORG_URL + odsCode;
+        //}
+        //URL url = new URL(urlStr);
+        //HttpURLConnection connection = (HttpURLConnection) new URL(INFORMATION_MODEL_API_URL).openConnection(proxy);
+        HttpURLConnection connection = (HttpURLConnection) new URL(urlStr).openConnection(proxy);
+        //connection = (HttpURLConnection) url.openConnection(proxy);
 
         int responseCode = connection.getResponseCode();
         if (responseCode == HttpURLConnection.HTTP_NOT_FOUND) {
@@ -271,7 +189,7 @@ public class OdsWebService {
         if (!jsonRoot.has("OrgId")) {
             throw new Exception("No OrgId element found in JSON from " + urlStr);
         }
-        JsonObject orgRoot = (JsonObject)jsonRoot.get("OrgId");
+        JsonObject orgRoot = (JsonObject) jsonRoot.get("OrgId");
         if (!orgRoot.has("extension")) {
             throw new Exception("No extension element found for OrgId in JSON from " + urlStr);
         }
@@ -285,9 +203,9 @@ public class OdsWebService {
         ret.setOrganisationName(name);
 
         if (jsonRoot.has("GeoLoc")) {
-            JsonObject geoLocRoot = (JsonObject)jsonRoot.get("GeoLoc");
+            JsonObject geoLocRoot = (JsonObject) jsonRoot.get("GeoLoc");
             if (geoLocRoot.has("Location")) {
-                JsonObject locRoot = (JsonObject)geoLocRoot.get("Location");
+                JsonObject locRoot = (JsonObject) geoLocRoot.get("Location");
 
                 if (locRoot.has("AddrLn1")) {
                     String str = locRoot.get("AddrLn1").getAsString();
@@ -334,11 +252,11 @@ public class OdsWebService {
         }
 
         if (jsonRoot.has("Rels")) {
-            JsonObject relsRoot = (JsonObject)jsonRoot.get("Rels");
+            JsonObject relsRoot = (JsonObject) jsonRoot.get("Rels");
             if (relsRoot.has("Rel")) {
-                JsonArray relArray = (JsonArray)relsRoot.get("Rel");
-                for (int i=0; i<relArray.size(); i++) {
-                    JsonObject relRoot = (JsonObject)relArray.get(i);
+                JsonArray relArray = (JsonArray) relsRoot.get("Rel");
+                for (int i = 0; i < relArray.size(); i++) {
+                    JsonObject relRoot = (JsonObject) relArray.get(i);
 
                     if (!relRoot.has("Status")) {
                         throw new Exception("Rel object has no Status element in " + urlStr);
@@ -351,11 +269,11 @@ public class OdsWebService {
                     if (!relRoot.has("Target")) {
                         throw new Exception("Rel object has no Target element in " + urlStr);
                     }
-                    JsonObject targetRoot = (JsonObject)relRoot.get("Target");
+                    JsonObject targetRoot = (JsonObject) relRoot.get("Target");
                     if (!targetRoot.has("OrgId")) {
                         throw new Exception("Rel.Target object has no OrgId element in " + urlStr);
                     }
-                    JsonObject orgIdRoot = (JsonObject)targetRoot.get("OrgId");
+                    JsonObject orgIdRoot = (JsonObject) targetRoot.get("OrgId");
                     if (!orgIdRoot.has("extension")) {
                         throw new Exception("Rel.Target.OrgId object has no extension element in " + urlStr);
                     }
@@ -368,7 +286,7 @@ public class OdsWebService {
         }
 
         if (jsonRoot.has("Roles")) {
-            JsonObject rolesRoot = (JsonObject)jsonRoot.get("Roles");
+            JsonObject rolesRoot = (JsonObject) jsonRoot.get("Roles");
             if (rolesRoot.has("Role")) {
                 JsonArray roleArray = (JsonArray) rolesRoot.get("Role");
 
@@ -387,7 +305,7 @@ public class OdsWebService {
                         throw new Exception("Role object has no id element in " + urlStr);
                     }
                     String roleId = roleRoot.get("id").getAsString();
-                    OrganisationType orgType = OrganisationType.fromRoleCode(roleId);
+                    OrganisationType orgType = OrganisationType.fromCode(roleId);
                     ret.getOrganisationTypes().add(orgType);
                 }
             }
@@ -398,155 +316,11 @@ public class OdsWebService {
     }
 
 
-    /*public static OdsOrganisation lookupOrganisationViaRest_2(String odsCode, Proxy proxy) throws Exception {
-
-        Validate.notEmpty(odsCode);
-
-        //if no proxy, use the "no proxy" instance
-        if (proxy == null) {
-            proxy = Proxy.NO_PROXY;
-        }
-        odsCode = odsCode.replace(" ", "%20");
-        String urlStr = SPINE_SERVICES_FHIR_URL + odsCode;
-        URL url = new URL(urlStr);
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection(proxy);
-        //connection.setRequestProperty("Accept-Charset", charset);
-
-        int responseCode = connection.getResponseCode();
-        if (responseCode == HttpURLConnection.HTTP_NOT_FOUND) {
-            return null;
-        }
-
-        if (responseCode != HttpURLConnection.HTTP_OK) {
-            throw new IOException("HTTP response " + responseCode + " returned for GET to " + urlStr);
-        }
-
-        InputStream response = connection.getInputStream();
-        InputStreamReader inputStreamReader = new InputStreamReader(response);
-        JsonParser parser = new JsonParser();
-        JsonObject jsonRoot = (JsonObject) parser.parse(inputStreamReader);
-
-        OdsOrganisation ret = new OdsOrganisation();
-
-        if (!jsonRoot.has("id")) {
-            throw new Exception("Missing id element in " + urlStr);
-        }
-        String id = jsonRoot.get("id").getAsString();
-        ret.setOdsCode(id);
-
-        if (!jsonRoot.has("name")) {
-            throw new Exception("Missing name element in " + urlStr);
-        }
-        String name = jsonRoot.get("name").getAsString();
-        ret.setOrganisationName(name);
-
-        if (jsonRoot.has("active")) {
-            String activeState = jsonRoot.get("active").getAsString();
-            ret.setActive(activeState.equalsIgnoreCase("true"));
-        }
-
-        if (jsonRoot.has("type")) {
-            JsonObject typeRoot = (JsonObject)jsonRoot.get("type");
-            if (typeRoot.has("coding")) {
-                JsonObject codingRoot = (JsonObject)jsonRoot.get("coding");
-                if (codingRoot.has("display")) {
-                    String classStr = codingRoot.get("display").getAsString();
-                    OrganisationClass classObj = OrganisationClass.fromOrganisationClassName(classStr);
-                    ret.setOrganisationClass(classObj);
-                }
-            }
-        }
-
-        if (jsonRoot.has("address")) {
-            JsonObject address = (JsonObject)jsonRoot.get("address");
-
-            if (address.has("line")) {
-                JsonArray lines = (JsonArray) address.getAsJsonArray("line");
-                for (int i=0; i<lines.size(); i++) {
-                    String line = lines.get(i).getAsString();
-                    if (i == 0) {
-                        ret.setAddressLine1(line);
-                    } else if (i == 1) {
-                        ret.setAddressLine2(line);
-                    } else {
-                        //ignore
-                    }
-                }
-            }
-
-            if (address.has("city")) {
-                String town = address.get("city").getAsString();
-                ret.setTown(town);
-            }
-
-            if (address.has("district")) {
-                String county = address.get("district").getAsString();
-                ret.setCounty(county);
-            }
-
-            if (address.has("postalCode")) {
-                String postcode = address.get("postalCode").getAsString();
-                ret.setPostcode(postcode);
-            }
-        }
-
-
-
-
-        String cls = jsonRoot.get("type").getAsJsonObject().getAsJsonObject("coding").get("display").getAsString();
-        ret.setOrganisationClass(OrganisationClass.fromOrganisationClassName(cls));
-
-        String cls2 = jsonRoot.get("type").getAsJsonObject().getAsJsonObject("coding").get("display").getAsString();
-
-        JsonArray extensions = jsonRoot.getAsJsonArray("extension");
-        for (int i = 0; i < extensions.size(); i++) {
-            JsonElement child = extensions.get(i);
-            JsonObject obj = child.getAsJsonObject();
-            JsonElement childCode = obj.get("url");
-            if (childCode.getAsString().equals("https://fhir.nhs.uk/STU3/StructureDefinition/Extension-ODSAPI-OrganizationRole-1")) {
-                JsonArray array = obj.get("extension").getAsJsonArray();
-                for (int j = 0; j < array.size(); j++) {
-                    JsonElement child2 = extensions.get(i);
-                    JsonObject obj2 = child2.getAsJsonObject();
-                    JsonElement childCode2 = obj.get("url");
-                }
-            }
-
-        }
-
-        JsonArray roles = (JsonArray) jsonRoot.get("roles");
-
-        JsonArray parents = (JsonArray) jsonRoot.get("relationships");
-        if (parents != null && parents.size() > 0) {
-            for (int i = 0; i < parents.size(); i++) {
-                JsonObject parentRoot = (JsonObject) parents.get(i);
-
-                String parentStatus = parentRoot.get("status").getAsString();
-                String parentOdsCode = parentRoot.get("relatedOdsCode").getAsString();
-                String parentName = parentRoot.get("relatedOrganisationName").getAsString();
-
-                //ignore any non-active parents
-                if (!parentStatus.equalsIgnoreCase("Active")) {
-                    continue;
-                }
-
-                ret.getParents().put(parentOdsCode, parentName);
-            }
-        }
-
-        inputStreamReader.close();
-
-        return ret;
-    }*/
-
-
     private static OrganisationType getOrganisationType(String roleCode) {
         try {
-            return OrganisationType.fromRoleCode(roleCode);
+            return OrganisationType.fromCode(roleCode);
         } catch (Exception e) {
             return null;
         }
     }
 }
-
-

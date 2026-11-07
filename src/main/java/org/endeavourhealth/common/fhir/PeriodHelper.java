@@ -3,6 +3,8 @@ package org.endeavourhealth.common.fhir;
 import org.hl7.fhir.instance.model.Period;
 
 import javax.xml.datatype.XMLGregorianCalendar;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class PeriodHelper {
@@ -105,6 +107,8 @@ public class PeriodHelper {
 
     /**
      * tests if a given date falls within a period
+     * - if the period doesn't have a start date, then it's considered to have always existed
+     * - if the period doesn't have an end date, then it's considered to go on indefinitely
      */
     public static boolean isWithin(Period period, Date dTest) {
         if (period.hasStart()) {
@@ -121,5 +125,85 @@ public class PeriodHelper {
         }
 
         return true;
+    }
+
+    /**
+     * tests if two periods overlap
+     * - if a period doesn't have a start date, then it's considered to have always existed
+     * - if a period doesn't have an end date, then it's considered to go on indefinitely
+     * - if a period ends at the same time as one starts, then this is NOT considered an overlap
+     */
+    public static boolean overlaps(Period p1, Period p2) {
+
+        Date start1 = p1.getStart();
+        Date end1 = p1.getEnd();
+        Date start2 = p2.getStart();
+        Date end2 = p2.getEnd();
+
+        //if one of the periods has no start and end, then we definitely have an overlap
+        if ((start1 == null && end1 == null)
+                || (start2 == null && end2 == null)) {
+            return true;
+        }
+        
+        //much easier if we don't have to deal with nulls
+        if (start1 == null) {
+            start1 = new Date(0);
+        }
+        if (end1 == null) {
+            end1 = new Date(Long.MAX_VALUE);
+        }
+        if (start2 == null) {
+            start2 = new Date(0);
+        }
+        if (end2 == null) {
+            end2 = new Date(Long.MAX_VALUE);
+        }
+
+        //if first period started during second period, then it overlaps
+        if (!start1.before(start2) //equals or after
+                && start1.before(end2)) { //before, because matching the end date doesn't count as an overlap
+            return true;
+        }
+
+        //if second period started during first period, then it overlaps
+        if (!start2.before(start1) //equals or after
+            && start2.before(end1)) { //before, because matching the end date doesn't count as an overlap
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * helper fn for logging out Period objects where we may have nulls at any point
+     */
+    public static String toString(Period p) {
+
+        if (p == null) {
+            return "[NULL PERIOD]";
+        }
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("[");
+
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        if (p.hasStart()) {
+            sb.append(dateFormat.format(p.getStart()));
+        } else {
+            sb.append("NULL");
+        }
+
+        sb.append(" to ");
+
+        if (p.hasEnd()) {
+            sb.append(dateFormat.format(p.getEnd()));
+        } else {
+            sb.append("NULL");
+        }
+
+        sb.append("]");
+        return sb.toString();
     }
 }

@@ -4,7 +4,7 @@
 
   <groupId>org.endeavourhealth.common</groupId>
   <artifactId>fhir</artifactId>
-  <version>1.156-SNAPSHOT</version>
+  <version>1.179-SNAPSHOT</version>
   <packaging>jar</packaging>
 
   <properties>
@@ -52,7 +52,12 @@
       <groupId>com.google.code.gson</groupId>
       <artifactId>gson</artifactId>
     </dependency>
-<!--      <dependency>-->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>compile</scope>
+    </dependency>
+    <!--      <dependency>-->
 <!--          <groupId>org.junit.jupiter</groupId>-->
 <!--          <artifactId>junit-jupiter</artifactId>-->
 <!--          <version>RELEASE</version>-->
@@ -65,7 +70,7 @@
       <snapshots />
       <id>snapshots</id>
       <name>libs-snapshot</name>
-      <url>http://maven.endeavourhealth.net:8081/artifactory/libs-snapshot</url>
+      <url>https://maven.endeavourhealth.net/artifactory/libs-snapshot</url>
     </repository>
   </repositories>
 
@@ -73,7 +78,7 @@
     <snapshotRepository>
       <id>snapshots</id>
       <name>maven.endeavourhealth.org-snapshots</name>
-      <url>http://maven.endeavourhealth.net:8081/artifactory/libs-snapshot-local</url>
+      <url>https://maven.endeavourhealth.net/artifactory/libs-snapshot-local</url>
     </snapshotRepository>
   </distributionManagement>
 

@@ -1,242 +1,415 @@
 package org.endeavourhealth.common.fhir.schema;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import org.apache.commons.lang3.StringUtils;
 import org.endeavourhealth.common.fhir.FhirValueSetUri;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-public enum OrganisationType {
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.Proxy;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class OrganisationType {
+    private static final Logger LOG = LoggerFactory.getLogger(OrganisationType.class);
+
 
     //roles can be looked up on the ODS API using
     // https://directory.spineservices.nhs.uk/ORD/2-0-0/roles/<rolecode>
     // e.g.
     // https://directory.spineservices.nhs.uk/ORD/2-0-0/roles/RO261
+    private static final String SPINE_SERVICES_ORD_URL = "https://directory.spineservices.nhs.uk/ORD/2-0-0/roles";
+    private static final String INFORMATION_MODEL_ORG_ROLE_URL = "https://im.endhealth.co.uk/imapi/api/ods/public/roles";
 
-    APPLICATION_SERVICE_PROVIDER("AR", "Application Service Provider", "RO92"),
-    BOOKING_MANAGEMENT_SYSTEM("BM", "Booking Management System (BMS) Call Centre Establishment", null),
-    CANCER_NETWORK("CN", "Cancer Network", "RO103"),
-    CANCER_REGISTRY("CR", "Cancer Registry", "RO105"),
-    CARE_HOME_HQ("CQ", "Care Home Headquarters", "RO104"),
-    CARE_TRUST("CT", "Care Trust", "RO107"),
-    CCG("CC", "Clinical Commissioning Group (CCG)", "RO98"),
-    CLINCIAL_NETWORK("CL", "Clinical Network", "RO102"),
-    CSU("CA", "Commissioning Support Unit (CSU)", "RO213"),
-    COURT("JG", "Court", "RO235"),
-    DENTAL_PRACTICE("DD", "Dental Practice", "RO110"),
-    EDUCATION_ESTABLISHMENT("ED", "Education Establishment", "RO117"),
-    EXECUTIVE_AGENCY("EA", "Executive Agency", "RO116"),
-    EXECUTIVE_AGENCY_PROGRAMME("AP", "Executive Agency Programme", "RO91"),
-    GOVERNMENT_DEPARTMENT("GD", "Government Department", "RO126"),
-    GOVERNMENT_OFFICE_REGION("GO", "Government Office Region (GOR)", "RO128"),
-    ABEYANCE_AND_DISPERSALE_GP_PRACTICE("AA", "Abeyance and Dispersal GP Practice", null),
-    GP_PRACTICE("PR", "GP Practices in England and Wales", "RO76"),
-    HIGH_LEVEL_HEALTH_GEOGRAPHY("HA", "High Level Health Geography", null),
-    IMMIGRATION_REMOVAL_CENTRE_LEGACY("JD", "Immigration Removal Centre", "RO69"),
-    ISHP("PH", "Independent Sector Healthcare Provider (ISHP)", "RO172"),
-    ISHPS("PS", "Independent Sector Healthcare Provider Site (ISHPS)", "RO176"),
-    LOCAL_AUTHORITY("EL", "Local Authority", "RO141"),
-    // LOCAL_HEALTH_BOARD_WALES("LB", "Local Health Board (Wales)", "RO144"), duplicate
-    LSP("LO", "Local Service Provider (LSP)", "RO146"),
-    MILITARY_HOSPITAL("MH", "Military Hospital", "RO150"),
-    NATIONAL_APPLICATION_SERVICE_PROVIDER("NP", "National Application Service Provider", "RO159"),
-    NATIONAL_GROUPINGS("RO", "National Groupings", null),
-    NHS_SUPPORT_AGENCY("NS", "NHS Support Agency", "RO161"),
-    NHS_TRUST("TR", "NHS Trust", "RO197"),
-    NHS_TRUST_SITE("SI", "NHS Trust Site", "RO198"),
-    NHS_TRUST_SERVICE("TS", "NHS Trust Service", null),
-    NON_NHS_ORGANISATION("NN", "Non-NHS Organisation", "RO157"),
-    NI_HEALTH_AND_SOCIAL_CARE_BOARD("NA", "Northern Ireland Health & Social Care Board", null),
-    NI_HEALTH_AND_SOCIAL_CARE_TRUST("NB", "Northern Ireland Health & Social Care Trust", null),
-    NI_LOCAL_COMMISSIONING_GROUP("NC", "Northern Ireland Local Commissioning Group", null),
-    OPTICAL_HQ("OH", "Optical Headquarters", "RO166"),
-    OSX("OA", "Other Statutory Authority (OSA)", "RO162"),
-    PHARMACY("PY", "Pharmacy", "RO182"),
-    PHARMACY_HQ("PX", "Pharmacy Headquarters", "RO181"),
-    POLICE_CONSTABULARY("JE", "Police Constabulary", "RO233"),
-    POLICE_CUSTODY_SUITE("JF", "Police Custody Suite", "RO234"),
-    PCT("PT", "Primary Care Trust", "RO179"),
-    PRIMARY_HEALTHCARE_DIRECTORATE("ID", "Primary Healthcare Directorate (Isle of Man)", "RO137"),
-    PRISON_HEALTH_SERVICE("PN", "Prison Health Service", "RO175"),
-    SCHOOL("EE", "School", "RO117"),
-    SECURE_CHILDRENS_HOME("JC", "Secure Children's Home", "RO231"),
-    SECTURE_TRAINING_CENTRE("JB", "Secure Training Centre (STC)", "RO230"),
-    SEXUAL_ASSUALT_REFERRAL_CENTRE("JH", "Sexual Assault Referral Centre (SARC)", "RO236"),
-    SPECIAL_HEALTH_AUTHORITY("SA", "Special Health Authority (SpHA)", "RO189"),
-    WELSH_ASSEMBLY("WA", "Welsh Assembly", "RO200"),
-    WELSH_HEALTH_COMMISSION("WH", "Welsh Health Commission", null),
-    WELSH_LOCAL_HEALTH_BOARD("LH", "Welsh Local Health Board", "RO144"),
-    YOUNG_OFFENDERS_INSTITUTE("JA", "Young Offenders Institute", "RO228"),
-    COMMUNITY("CO", "Community", null),
-    COMMUNITY_MENTAL_HEALTH_TEAM("CM", "Community Mental Health Team", null),
-    HOSPICE("HP", "Hospice", "RO7"),
-    HOSPITAL("HO", "Hospital", null),
-    HOSPITAL_DEPARTMENT("HD", "Hospital Department", null),
-    CLINIC("CI", "Clinic", null),
-    PRIVATE_CLINIC("PV", "Private Clinic", null),
-    STRATEGIC_HEALTH_AUTHORITY("SH", "Strategic Health Authority", null),
-    HEALTH_AUTHORITY("HU", "Health Authority (HA)", "RO132"),
-    PRIMARY_CARE_ORGANISATION("PC", "Primary Care Organisation", null),
-    GP_BRANCH_SURGERY("BR", "Branch Surgery", null),
-    OUT_OF_HOURS("OO", "Out of Hours", null),
-    NURSING_HOME("NH", "Nursing Home", null),
-    ACCIDENT_AND_EMERGENCY("AE", "Accident & Emergency", null),
-    PRIMARY_CARE_NETWORK("PCN", "Primary Care Network", "RO272"),
-    NHS_ENGLAND("RO209", "NHS England", "RO209"),
-    SUSTAINABILITY_TRANSFORMATION_PARTNERSHIP("RO262", "Sustainability Transformation Partnership", "RO262"),
-    STRATEGIC_PARTNERSHIP("RO261", "Strategic Partnership", "RO261"),
-    PRESCRIBING_COST_CENTRE("RO177", "Prescribing Cost Centre", "RO177"),
-    FOUNDATION_TRUST("RO57", "Foundation Trust", "RO57"),
-    COMMISSIONING_HUB("RO218", "Commissioning Hub", "RO218"),
-    OTHER_PRESCRIBING_COST_CENTRE("RO72", "Other Prescribing Cost Centre", "RO72"),
+    //explicit codes that are needed
+    public static final String CODE_PRESCRIBING_COST_CENTRE = "RO177";
+    public static final String CODE_STRATEGIC_PARTNERSHIP = "RO261";
+    public static final String CODE_FOUNDATION_TRUST = "RO57";
+    public static final String CODE_HOSPICE = "HP";
+    public static final String CODE_REGISTERED_UNDER_PART_2_CARE_STDS_ACT_2000 = "RO15";
+    public static final String CODE_LEVEL_04_PCT = "RO22";
+    public static final String CODE_EXTENDED_ACCESS_HUB = "RO267";
+    public static final String CODE_EXTENDED_ACCESS_PROVIDER = "RO266";
+    public static final String CODE_NHS_TRUST_DERIVED = "RO24";
+    public static final String CODE_MEDICINE_SUPPLIER = "RO268";
+    public static final String CODE_SPECIALISED_COMMISSIONING_HUB = "RO211";
+    public static final String CODE_TREATMENT_CENTRE = "RO29";
+    public static final String CODE_PCT_DERIVED = "RO25";
+    public static final String CODE_OUT_OF_HOURS_COST_CENTRE = "RO80";
+    public static final String CODE_COMMISSIONING_HUB = "RO218";
+    public static final String CODE_NHS_TRUST_SITE = "SI";
+    public static final String CODE_SOCIAL_CARE_SITE = "RO101";
+    public static final String CODE_COVID_VACCINATION_CENTRE = "RO279";
+    public static final String CODE_LOCAL_AUTHORITY = "EL";
+    public static final String CODE_GP_PRACTICE = "PR";
+    public static final String CODE_CCG = "CC";
+    public static final String CODE_PCT = "PT";
+    public static final String CODE_NHS_TRUST = "TR";
+    public static final String CODE_PRIMARY_CARE_NETWORK = "PCN";
+    public static final String CODE_SUSTAINABILITY_TRANSFORMATION_PARTNERSHIP = "RO262";
+    public static final String CODE_GOVERNMENT_OFFICE_REGION = "GO";
+    public static final String CODE_HEALTH_AUTHORITY = "HU";
+    public static final String CODE_NHS_TRUST_SERVICE = "TS";
+    static boolean attemptFailed = false;
+    //static cache of all types, hard-coded plus ones from ODS web service
+    private static List<OrganisationType> cachedTypeList;
+    private static Map<String, OrganisationType> cachedTypeMap;
 
-    PRIMARY_CARE_TRUST_SITE("RO180", "Primary Care Trust Site", "RO180"),
-    DMU_SITE("RO114", "DMU Site", "RO114"),
-    SPECIAL_HEALTH_AUTHORITY_SITE("RO191", "Special Health Authority Site", "RO191"),
-    LOCAL_AUTHORITY_SITE_LEGACY("RO122", "Local Authority Site - Legacy", "RO122"),
-    PPA_EPACT_SYSTEM("RO31", "PPA Epact System", "RO31"),
-    TREATMENT_CENTRE("RO29", "Treatment Centre", "RO29"),
-    LEVEL_04_PCT("RO22", "Level 04 Pct", "RO22"),
-    NHS_TRUST_DERIVED("RO24", "Nhs Trust Derived", "RO24"),
-    LOCAL_AUTHORITY_DEPARTMENT("RO123", "Local Authority Department", "RO123"),
-    ISLE_OF_MAN_GOVERNMENT_DEPARTMENT("RO138", "Isle Of Man Government Department", "RO138"),
-    COMMON_SERVICE_AGENCY("RO106", "Common Service Agency (CSA)", "RO106"),
-    ISLE_OF_MAN_GOVERNMENT_DIRECTORATE_SITE("RO140", "Isle Of Man Government Directorate Site", "RO140"),
-    PCT_DERIVED("RO25", "PCT Derived", "RO25"),
-    EXECUTIVE_AGENCY_SITE("RO90", "Executive Agency Site", "RO90"),
-    APPLICATION_SERVICE_PROVIDER_LEGACY("RO93", "Application Service Provider - Legacy", "RO93"),
-    WELSH_LOCAL_HEALTH_BOARD_SITE("RO149", "Welsh Local Health Board Site", "RO149"),
-    LEVEL_03_PCT("RO21", "Level 03 PCT", "RO21"),
-    SPECIALISED_COMMISSIONING_GROUP("RO67", "Specialised Commissioning Group", "RO67"),
-    RESEARCH_AND_DEVELOPMENT("RO30", "Research and Development", "RO30"),
-    PRIVATELY_OWNED_ENTITY("RO71", "Privately Owned Entity", "RO71"),
-    METROPOLITAN_DISTRICT_COUNCIL("RO39", "Metropolitan District Council", "RO39"),
-    HEALTH_OBSERVATORY("RO134", "Health Observatory", "RO134"),
-    NON_STATUTORY_NHS_ORGANISATION("RO158", "Non Statutory NHS Organisation", "RO158"),
-    COUNCIL("RO38", "Council", "RO38"),
-    EXECUTIVE_AGENCY_PROGRAMME_DEPARTMENT("RO89", "Executive Agency Programme - Department", "RO89"),
-    OTHER_STATUTORY_AUTHORITY_SITE("RO168", "Other Statutory Authority Site", "RO168"),
-    HOSTS_DATA_MANAGMENT_INTEGRATION_CENTRE("RO215", "Hosts Data Managment Integration Centre (DMIC)", "RO215"),
-    NHS_ENGLAND_REGION_LOCAL_OFFICE_SITE("RO212", "Nhs England (region, Local Office) Site", "RO212"),
-    SECURE_TRAINING_CENTRE("RO220", "Secure Training Centre", "RO220"),
-    COMMISSIONING_SUPPORT_UNIT_SITE("RO214", "Commissioning Support Unit Site", "RO214"),
-    DATA_SERVICES_FOR_COMMISSIONERS_REGIONAL_OFFICE("RO216", "Data Services For Commissioners Regional Office (DSCRO)", "RO216"),
-    STRATEGIC_HEALTH_AUTHORITY_SITE("RO136", "Strategic Health Authority Site", "RO136"),
-    DSCRO_SITE("RO217", "Dscro Site", "RO217"),
-    YOUNG_OFFENDER_INSTITUTION_PRESCRIBING_COST_CENTRE("RO260", "Young Offender Institution Prescribing Cost Centre", "RO260"),
-    IMMIGRATION_REMOVAL_CENTRE_PRESCRIBING_COST_CENTRE("RO251", "Immigration Removal Centre Prescribing Cost Centre", "RO251"),
-    SECURE_CHILDRENS_HOME_PRESCRIBING_COST_CENTRE("RO256", "Secure Children's Home Prescribing Cost Centre", "RO256"),
-    SECURE_TRAINING_CENTRE_PRESCRIBING_COST_CENTRE("RO257", "Secure Training Centre Prescribing Cost Centre", "RO257"),
-    COMBINED_AUTHORITY("RO273", "Combined Authority", "RO273"),
-    RESIDENTIAL_INSTITUTION("RO83", "Residential Institution", "RO83"),
-    SPECIALISED_COMMISSIONING_HUB("RO211", "Specialised Commissioning Hub", "RO211"),
-    APPLIANCE_CONTRACTOR("RO94", "Appliance Contractor", "RO94"),
-    IMMIGRATION_REMOVAL_CENTRE("RO232", "Immigration Removal Centre", "RO232"),
-    LSP_SITE("RO147", "LSP Site", "RO147"),
-    LOCAL_HEALTH_AND_CARE_RECORD_EXEMPLAR("RO274", "Local Health and Care Record Exemplar", "RO274"),
-    HOSPICE_PRESCRIBING_COST_CENTRE("RO249", "Hospice Prescribing Cost Centre", "RO249"),
-    LOCAL_HEALTH_BOARD_SITE("RO148", "Local Health Board Site", "RO148"),
-    CITY_COUNCIL("RO35", "City Council", "RO35"),
-    NON_RESIDENTIAL_INSTITUTION("RO229", "Non Residential Institution", "RO229"),
-    REGISTERED_UNDER_PART_2_CARE_STDS_ACT_2000("RO15", "Registered Under Part 2 Care Standards Act 2000", "RO15"),
-    WALK_IN_CENTRE("RO87", "Walk In Centre", "RO87"),
-    BOROUGH_COUNCIL("RO34", "Borough Council", "RO34"),
-    DISTRICT_COUNCIL("RO36", "District Council", "RO36"),
-    LA_INNER_LONDON("RO12", "LA - Inner London", "RO12"),
-    OUT_OF_HOURS_COST_CENTRE("RO80", "Out of Hours Cost Centre", "RO80"),
-    PUBLIC_HEALTH_SERVICE_PRESCRIBING_COST_CENTRE("RO255", "Public Health Service Prescribing Cost Centre", "RO255"),
-    PRISON_PRESCRIBING_COST_CENTRE("RO82", "Prison Prescribing Cost Centre", "RO82"),
-    MEDICINE_SUPPLIER("RO268", "Medicine Supplier", "RO268"),
-    EXTENDED_ACCESS_PROVIDER("RO266", "Extended Access Provider", "RO266"),
-    CARE_HOME_NURSING_HOME_PRESCRIBING_COST_CENTRE("RO246", "Care Home/Nursing Home Prescribing Cost Centre", "RO246"),
-    LOCAL_AUTHORITY_SITE("RO222", "Local Authority Site", "RO222"),
-    CARE_TRUST_SITE("RO108", "Care Trust Site", "RO108"),
-    REGIONAL_OFFICE("RO185", "Regional Office (RO)", "RO185"),
-    EXTENDED_ACCESS_HUB("RO267", "Extended Access Hub", "RO267"),
-    LOCAL_AUTHORITY_LEGACY("RO119", "Local Authority - Legacy", "RO119"),
-    LA_METROPOLITAN_DISTRICT("RO11", "LA - Metropolitan District", "RO11"),
-    METROPOLITAN_DISTRICT("RO37", "Metropolitan District", "RO37"),
-    UNITARY_AUTHORITY("RO40", "Unitary Authority", "RO40"),
-    LONDON_BOROUGH("RO223", "London Borough", "RO223"),
-    COUNTY_COUNCIL("RO33", "County Council", "RO33"),
-    GOVERNMENT_DEPARTMENT_SITE("RO131", "Government Department Site", "RO131"),
-    SEXUAL_ASSAULT_REFERRAL_CENTRE_PRESCRIBING_COST_CENTRE("RO258", "Sexual Assault Referral Centre Prescribing Cost Centre", "RO258"),
-    COMMUNITY_HEALTH_SERVICE_PRESCRIBING_COST_CENTRE("RO247", "Community Health Service Prescribing Cost Centre", "RO247"),
-    OPTOMETRY_SERVICE_PRESCRIBING_COST_CENTRE("RO252", "Optometry Service Prescribing Cost Centre", "RO252"),
-    DOMICILIARY_CARE("RO270", "Domiciliary Care", "RO270"),
-    CLINICAL_COMMISSIONING_GROUP_SITE("RO99", "Clinical Commissioning Group Site", "RO99"),
-    LOCAL_HEALTH_BOARD("RO142", "Local Health Board", "RO142"),
-    DISTRICT_HEALTH_AUTHORITY("RO109", "District Health Authority (DHA)", "RO109"),
-    DIRECTLY_MANAGED_UNIT("RO111", "Directly Managed Unit (DMU)", "RO111"),
-    PRIMARY_CARE_GROUP("RO171", "Primary Care Group", "RO171"),
-    HOSPITAL_SERVICE_PRESCRIBING_COST_CENTRE("RO250", "Hospital Service Prescribing Cost Centre", "RO250"),
-    PATHOLOGY_LAB("RO173", "Pathology Lab", "RO173"),
-    BRANCH_SURGERY("RO96", "Branch Surgery", "RO96"),
-    SOCIAL_CARE_SITE("RO101", "Social Care Site", "RO101"),
-    CARE_HOME("RO269", "Care Home", "RO269"),
-    URGENT_AND_EMERGENCY_CARE_PRESCRIBING_COST_CENTRE("RO259", "Urgent & Emergency Care Prescribing Cost Centre", "RO259"),
-    NHS_ENGLAND_REGION_LOCAL_OFFICE("RO210", "NHS England (region, Local Office)", "RO210"),
-    OPTICAL_SITE("RO167", "Optical Site", "RO167"),
-    PRIVATE_DENTAL_PRACTICE("RO65", "Private Dental Practice", "RO65"),
-    COVID_VACCINATION_CENTRE("RO279", "COVID Vaccination Centre", "RO279")
-    ;
-
-    private String code = null;
+    //members
+    private String odsRoleCode = null;
+    private String ddsLegacyCode = null;
     private String description = null;
-    private String roleCode = null;
 
-    public String getCode() {
-        return code;
+
+
+    private OrganisationType(String odsRoleCode, String ddsLegacyCode, String description) {
+        this.odsRoleCode = odsRoleCode;
+        this.ddsLegacyCode = ddsLegacyCode;
+        this.description = description;
+    }
+
+
+    public String getOdsRoleCode() {
+        return odsRoleCode;
+    }
+
+    public String getDdsLegacyCode() {
+        return ddsLegacyCode;
+    }
+
+    private void setDdsLegacyCode(String ddsLegacyCode) {
+        this.ddsLegacyCode = ddsLegacyCode;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public String getRoleCode() {
-        return roleCode;
-    }
-
     public String getSystem() {
         return FhirValueSetUri.VALUE_SET_ORGANISATION_TYPE;
     }
 
-    OrganisationType(String code, String description, String roleCode) {
-        this.code = code;
-        this.description = description;
-        this.roleCode = roleCode;
+    /**
+     * because some org types have both legacy DDS and ODS role type codes, we use this fn
+     * to get a single code. For backwards compatability reasons, it prefers a DDS code over ODS
+     */
+    public String getCode() {
+
+        if (ddsLegacyCode != null) {
+            return ddsLegacyCode;
+        }
+
+        if (odsRoleCode != null) {
+            return odsRoleCode;
+        }
+
+        throw new RuntimeException("No suitable code for OrganisationType " + description);
     }
 
-    public static OrganisationType fromCode(String v) {
-        if (StringUtils.isBlank(v))
-            return null;
+    @Override
+    public String toString() {
+        return this.description;
+    }
 
-        for (OrganisationType c : OrganisationType.values()) {
-            if (c.code.equalsIgnoreCase(v)) {
-                return c;
+    /**
+     * looks up a type based on matching either the ODS role code or the legacy type code
+     */
+    public static OrganisationType fromCode(String code) {
+        if (StringUtils.isBlank(code)) {
+            return null;
+        }
+
+        Map<String, OrganisationType> types = getTypesMap();
+
+        OrganisationType t = types.get(code);
+        if (t != null) {
+            return t;
+        }
+
+        throw new IllegalArgumentException("Unknown organisation type for code [" + code + "]");
+    }
+
+
+    public static OrganisationType fromDescription(String description) {
+        if (StringUtils.isBlank(description)) {
+            return null;
+        }
+
+        List<OrganisationType> types = getTypesList();
+        for (OrganisationType t : types) {
+            if (t.getDescription().equalsIgnoreCase(description)) {
+                return t;
             }
         }
 
-        throw new IllegalArgumentException("Unknown organisation type code [" + v + "]");
+        throw new IllegalArgumentException("Unknown organisation type with description [" + description + "]");
     }
 
-    public static OrganisationType fromRoleCode(String roleCode) {
-        if (StringUtils.isBlank(roleCode))
+    private static Map<String, OrganisationType> getTypesMap() {
+        if (cachedTypeMap == null) {
+            cacheTypes();
+        }
+        return cachedTypeMap;
+    }
+
+    public static List<OrganisationType> getTypesList() {
+        if (cachedTypeList == null) {
+            cacheTypes();
+        }
+        return cachedTypeList;
+    }
+
+    private static synchronized void cacheTypes() {
+
+        //if multiple threads attempt to call this then the syncronized statement will cause them to queue
+        //so check the static cache variables again
+        if (cachedTypeMap != null
+                || cachedTypeList != null) {
+            return;
+        }
+
+        LOG.trace("Caching org types");
+
+        //hit the ODS web service and get all the official types
+        List<OrganisationType> odsTypes = lookUpOrganisationTypesViaRestImpl(null);
+
+        //for the ODS types that were duplicated in legacy codes, set that legacy code on them
+        //need to reverse the map first
+        Map<String, String> legacyMap = getDdsLegacyToOdsMap();
+        Map<String, String> odsMap = new HashMap<>();
+        for (String legacyCode: legacyMap.keySet()) {
+            String odsRoleCode = legacyMap.get(legacyCode);
+            odsMap.put(odsRoleCode, legacyCode);
+        }
+
+        //set legacy code on any that needs it
+        for (OrganisationType t: odsTypes) {
+            String legacyCode = odsMap.get(t.getOdsRoleCode());
+            if (legacyCode != null) {
+                t.setDdsLegacyCode(legacyCode);
+            }
+        }
+
+        //get the list of DDS hard-coded types. Some of these are also official ones, and others are non-standard
+        List<OrganisationType> hardCodedTypes = createHardcodedTypes();
+
+        List<OrganisationType> allTypes = new ArrayList<>();
+        allTypes.addAll(odsTypes);
+        allTypes.addAll(hardCodedTypes);
+
+        Map<String, OrganisationType> allTypeMap = new HashMap<>();
+        for (OrganisationType t: allTypes) {
+            String legacyCode = t.getDdsLegacyCode();
+            String odsRoleCode = t.getOdsRoleCode();
+
+            if (legacyCode != null) {
+                allTypeMap.put(legacyCode, t);
+            }
+            if (odsRoleCode != null) {
+                allTypeMap.put(odsRoleCode, t);
+            }
+        }
+
+        cachedTypeList = allTypes;
+        cachedTypeMap = allTypeMap;
+        LOG.trace("Cached " + allTypes.size() + " org types");
+    }
+
+
+
+    /**
+     * there are some organisation types that are not official
+     */
+    private static List<OrganisationType> createHardcodedTypes() {
+
+        List<OrganisationType> ret = new ArrayList<>();
+
+        ret.add(new OrganisationType(null, "BM", "Booking Management System (BMS) Call Centre Establishment"));
+        ret.add(new OrganisationType(null, "AA", "Abeyance and Dispersal GP Practice"));
+        ret.add(new OrganisationType(null, "HA", "High Level Health Geography"));
+        ret.add(new OrganisationType(null, "RO", "National Groupings"));
+        ret.add(new OrganisationType(null, "TS", "NHS Trust Service"));
+        ret.add(new OrganisationType(null, "NA", "Northern Ireland Health & Social Care Board"));
+        ret.add(new OrganisationType(null, "NB", "Northern Ireland Health & Social Care Trust"));
+        ret.add(new OrganisationType(null, "NC", "Northern Ireland Local Commissioning Group"));
+        ret.add(new OrganisationType(null, "WH", "Welsh Health Commission"));
+        ret.add(new OrganisationType(null, "CO", "Community"));
+        ret.add(new OrganisationType(null, "CM", "Community Mental Health Team"));
+        ret.add(new OrganisationType(null, "HO", "Hospital"));
+        ret.add(new OrganisationType(null, "HD", "Hospital Department"));
+        ret.add(new OrganisationType(null, "CI", "Clinic"));
+        ret.add(new OrganisationType(null, "PV", "Private Clinic"));
+        ret.add(new OrganisationType(null, "SH", "Strategic Health Authority"));
+        ret.add(new OrganisationType(null, "PC", "Primary Care Organisation"));
+        ret.add(new OrganisationType(null, "BR", "Branch Surgery"));
+        ret.add(new OrganisationType(null, "OO", "Out of Hours"));
+        ret.add(new OrganisationType(null, "NH", "Nursing Home"));
+        ret.add(new OrganisationType(null, "AE", "Accident & Emergency"));
+
+        return ret;
+    }
+
+    /**
+     * there are a number of older DDS org types that have been superseded now the ODS types are
+     * available, and this map converts one to the other
+     */
+    private static Map<String, String> getDdsLegacyToOdsMap() {
+
+        Map<String, String> ret = new HashMap<>();
+
+        ret.put("AR", "RO92"); //Application Service Provider
+        ret.put("CN", "RO103"); //Cancer Network
+        ret.put("CR", "RO105"); //Cancer Registry
+        ret.put("CT", "RO107"); //Care Trust
+        ret.put("CC", "RO98"); //Clinical Commissioning Group (CCG)
+        ret.put("CL", "RO102"); //Clinical Network
+        ret.put("CA", "RO213"); //Commissioning Support Unit (CSU)
+        ret.put("JG", "RO235"); //Court
+        ret.put("DD", "RO110"); //Dental Practice
+        ret.put("ED", "RO117"); //Education Establishment
+        ret.put("EA", "RO116"); //Executive Agency
+        ret.put("AP", "RO91"); //Executive Agency Programme
+        ret.put("GD", "RO126"); //Government Department
+        ret.put("GO", "RO128"); //Government Office Region (GOR)
+        ret.put("PR", "RO76"); //GP Practices in England and Wales
+        ret.put("JD", "RO69"); //Immigration Removal Centre
+        ret.put("PH", "RO172"); //Independent Sector Healthcare Provider (ISHP)
+        ret.put("PS", "RO176"); //Independent Sector Healthcare Provider Site (ISHPS)
+        ret.put("EL", "RO141"); //Local Authority
+        ret.put("LO", "RO146"); //Local Service Provider (LSP)
+        ret.put("MH", "RO150"); //Military Hospital
+        ret.put("NP", "RO159"); //National Application Service Provider
+        ret.put("NS", "RO161"); //NHS Support Agency
+        ret.put("TR", "RO197"); //NHS Trust
+        ret.put("SI", "RO198"); //NHS Trust Site
+        ret.put("NN", "RO157"); //Non-NHS Organisation
+        ret.put("OH", "RO166"); //Optical Headquarters
+        ret.put("OA", "RO162"); //Other Statutory Authority (OSA)
+        ret.put("PY", "RO182"); //Pharmacy
+        ret.put("PX", "RO181"); //Pharmacy Headquarters
+        ret.put("JE", "RO233"); //Police Constabulary
+        ret.put("JF", "RO234"); //Police Custody Suite
+        ret.put("PT", "RO179"); //Primary Care Trust
+        ret.put("ID", "RO137"); //Primary Healthcare Directorate (Isle of Man)
+        ret.put("PN", "RO175"); //Prison Health Service
+        ret.put("EE", "RO117"); //School
+        ret.put("JC", "RO231"); //Secure Children's Home
+        ret.put("JB", "RO230"); //Secure Training Centre (STC)
+        ret.put("JH", "RO236"); //Sexual Assault Referral Centre (SARC)
+        ret.put("SA", "RO189"); //Special Health Authority (SpHA)
+        ret.put("WA", "RO200"); //Welsh Assembly
+        ret.put("LH", "RO144"); //Welsh Local Health Board
+        ret.put("JA", "RO228"); //Young Offenders Institute
+        ret.put("HP", "RO7"); //Hospice
+        ret.put("HU", "RO132"); //Health Authority (HA)
+        ret.put("PCN", "RO272"); //Primary Care Network
+
+        return ret;
+    }
+
+
+    /**
+     * the API fails with a 503 (Service Unavailable) or 504 (Gateway timeout) error every now and again. This function gives it
+     * five goes with a 10s delay between each attempt before failing.
+     */
+    private static List<OrganisationType> lookUpOrganisationTypesViaRestImpl(Proxy proxy) {
+
+        LOG.trace("Getting ODS org role types");
+        int lives = 30; //the API was down for several minutes, so give it up to 5 min (with 10s retry delay) before failing
+
+        while (true) {
+            lives--;
+
+            try {
+                return tryLookUpOrganisationTypesViaRestImpl(proxy);
+
+            } catch (Exception ex) {
+                String msg = ex.getMessage();
+                boolean is503 = msg != null
+                        && (msg.contains("503") || msg.contains("504"));
+
+                if (!is503 || lives <= 0) {
+                    throw new RuntimeException("Failed to look up ODS organisation role types", ex);
+                }
+
+                LOG.warn("Exception " + ex.getMessage() + " calling into ODS web service will try " + lives + " more times");
+                try {
+                    Thread.sleep(10 * 1000);
+                } catch (InterruptedException ie) {
+                    throw new RuntimeException("Sleep interrupted", ie);
+                }
+            }
+        }
+    }
+
+    public static List<OrganisationType> tryLookUpOrganisationTypesViaRestImpl(Proxy proxy) throws Exception {
+
+        //if no proxy, use the "no proxy" instance
+        if (proxy == null) {
+            proxy = Proxy.NO_PROXY;
+        }
+        URL url;
+//        if (!attemptFailed) {
+//             url = new URL(INFORMATION_MODEL_ORG_ROLE_URL);
+//        } else {
+        url = new URL(SPINE_SERVICES_ORD_URL);
+        //}
+
+        HttpURLConnection connection = (HttpURLConnection)url.openConnection(proxy);
+
+        int responseCode = connection.getResponseCode();
+        if (responseCode == HttpURLConnection.HTTP_NOT_FOUND) {  // && attemptFailed) {
             return null;
+        }
+//        } else if (responseCode == HttpURLConnection.HTTP_NOT_FOUND){
+//            attemptFailed = true;
+//           tryLookUpOrganisationTypesViaRestImpl(proxy);
+//        }
 
-        for (OrganisationType organisationType : OrganisationType.values())
-            if (organisationType.roleCode != null)
-                if (organisationType.roleCode.equalsIgnoreCase(roleCode))
-                    return organisationType;
+        if (responseCode != HttpURLConnection.HTTP_OK) {
+            throw new IOException("HTTP response " + responseCode + " returned for GET to " + url);
+        }
 
-        throw new IllegalArgumentException("Unknown organisation role code [" + roleCode + "]");
+        InputStream response = connection.getInputStream();
+        InputStreamReader inputStreamReader = new InputStreamReader(response);
+        JsonParser parser = new JsonParser();
+        JsonObject jsonRoot = (JsonObject) parser.parse(inputStreamReader);
+
+        if (!jsonRoot.has("Roles")) {
+            throw new Exception("No Roles element found in JSON from " + url);
+        }
+
+        List<OrganisationType> ret = new ArrayList<>();
+
+        JsonArray rolesRoot = jsonRoot.getAsJsonArray("Roles");
+
+        for (int i=0; i<rolesRoot.size(); i++) {
+            JsonObject roleRoot = (JsonObject)rolesRoot.get(i);
+
+            if (!roleRoot.has("id")) {
+                throw new Exception("Role " + i + " is missing id element found in JSON from " + url);
+            }
+            if (!roleRoot.has("displayName")) {
+                throw new Exception("Role " + i + " is missing displayName element found in JSON from " + url);
+            }
+            String id = roleRoot.get("id").getAsString();
+            String desc = roleRoot.get("displayName").getAsString();
+
+            OrganisationType t = new OrganisationType(id, null, desc);
+            ret.add(t);
+        }
+
+        return ret;
     }
 
-    public static OrganisationType fromDescription(String v) {
-        if (StringUtils.isBlank(v))
-            return null;
 
-        for (OrganisationType c : OrganisationType.values())
-            if (c.description.equalsIgnoreCase(v))
-                return c;
-
-        throw new IllegalArgumentException(v);
-    }
 }
